@@ -1,0 +1,16 @@
+.publish{
+    background-color: #FFC038;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Times New Roman', Times, serif;
+    height: 27px;
+    padding: 0 10px;
+    position: fixed;
+    bottom: 27px;
+    right: 27px;
+}
+.storyarea{
+    height: max-content;
+    width: 90%;
+    margin: auto;
+}

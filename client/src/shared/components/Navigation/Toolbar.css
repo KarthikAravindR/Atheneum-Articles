@@ -1,0 +1,109 @@
+.trigger-menu-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 70px;
+    height: 80px;
+    z-index: 2;
+    transition: transform 0.4s;
+    color: rgb(226, 225, 225);
+    background-color: rgb(22, 23, 24);
+}
+.page-header .trigger-menu {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.page-header .trigger-menu svg {
+    fill: var(--white);
+    margin-right: 5px;
+    transition: transform 0.3s;
+}
+
+.page-header .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    text-align: center;
+    padding: 15vh 0 5vh;
+    overflow: auto;
+    z-index: 1;
+    background-color: rgb(22, 23, 24);
+}
+.page-header .menu a {
+    font-size: 3rem;
+}
+
+.page-header .sub-menu a {
+    font-size: 1.5rem;
+}
+.page-main section {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.page-main section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+.page-header .trigger-menu svg {
+    transition: transform 0.3s;
+}
+
+.menu-open {
+    overflow: hidden;
+}
+
+.menu-open .page-header .menu {
+    display: block;
+}
+
+.menu-open .page-header svg {
+    transform: rotate(45deg);
+}
+.trigger-menu-wrapper {
+    transition: transform 0.4s;
+}
+
+.scroll-down .trigger-menu-wrapper {
+    transform: translate3d(0, -100%, 0);
+}
+
+.scroll-up .trigger-menu-wrapper {
+    transform: none;
+}
+
+.scroll-up:not(.menu-open) .trigger-menu-wrapper {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+}
+.ToolbarLogo{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.ToolbarLogo p{
+    font-weight: 900;
+    font-family: 'Mulish', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+}
+.DesktopSearch{
+    width: 20%;
+}

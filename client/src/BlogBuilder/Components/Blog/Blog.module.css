@@ -1,0 +1,27 @@
+.writearea{
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    font-size: inherit;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 20px;
+    height: max-content;
+    min-height: 30px;
+    display:inline-block;
+    font-size: 24px;
+    text-align: left;
+}
+.title{
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    font-size: inherit;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 48px;
+    height: max-content;
+    min-height: 70px;
+    display:inline-block;
+    text-align: left;
+}

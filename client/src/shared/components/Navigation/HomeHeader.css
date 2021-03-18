@@ -1,0 +1,29 @@
+.homeheaderwrapper {
+    width: 100%;
+    margin: auto;
+    padding: 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 10px 0; */
+    height: 80px;
+    /* border-bottom: 1px solid #ccc; */
+    color: rgb(226, 225, 225);
+    background-color: rgb(22, 23, 24);
+}
+
+.homeheaderLogo{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.homeheaderLogo p{
+    font-weight: 900;
+    font-family: 'Mulish', sans-serif;
+    font-size: 2rem;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.DesktopSearch{
+    width: 20%;
+}
