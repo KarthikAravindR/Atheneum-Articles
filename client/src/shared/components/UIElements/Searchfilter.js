@@ -1,14 +1,14 @@
-export default function searchfilter(searchText, tasks) {
-    return tasks
-        .filter(task => {
-            if (task.title.toLowerCase().includes(searchText.toLowerCase())) {
+export default function searchfilter(searchText, blogs) {
+    return blogs
+        .filter(blog => {
+            if (blog.blog[0].content.toLowerCase().includes(searchText.toLowerCase())) {
+                console.log(blog.blog[0].content,searchText)
                 return true;
             }
-            if (task.description.includes(searchText)) {
-                return true;
-            }
+            // if (blog.description.includes(searchText)) {
+            //     return true;
+            // }
             return false;
-        })
-        .slice(0, 7);
+        });
         
 }

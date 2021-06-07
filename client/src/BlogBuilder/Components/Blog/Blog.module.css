@@ -6,11 +6,16 @@
     font-size: inherit;
     font-family: 'Times New Roman', Times, serif;
     margin-bottom: 20px;
-    height: max-content;
+    height: auto;
     min-height: 30px;
     display:inline-block;
     font-size: 24px;
     text-align: left;
+    overflow-y: hidden;
+    background-color: rgb(33, 33, 34);
+    background-color: rgb(33, 34, 34);
+    color: white;
+    padding: 5px;
 }
 .title{
     border: none;
@@ -20,8 +25,13 @@
     font-size: inherit;
     font-family: 'Times New Roman', Times, serif;
     font-size: 48px;
-    height: max-content;
-    min-height: 70px;
+    height: 100px;
+    max-height: max-content;
     display:inline-block;
     text-align: left;
+    overflow-y: hidden;
+    background-color: rgb(33, 33, 34);
+    background-color: rgb(33, 34, 34);
+    color: white;
+    padding: 5px;
 }

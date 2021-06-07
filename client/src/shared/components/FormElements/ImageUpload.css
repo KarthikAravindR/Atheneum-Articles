@@ -27,7 +27,9 @@
     font-weight: 200;
     font-size: 0.7rem;
     height: 30px;
-    border-radius: 100px;
+    background-color: #FFC038;
+    background-color: #FFC038;
+    color: black;
     border: none;
     outline: none;
     transition: ease .5s;
@@ -41,4 +43,11 @@
 }
 .form-control{
     border: none !important;
+    background-color: rgb(22, 23, 24);
+}
+.profileEditPicture{
+    background-color: rgba(24, 24, 24, 0);
+    border: 1px solid rgba(24, 24, 24, 0);
+    color: rgb(211, 211, 211);
+    margin: 15px 0 0 110px; 
 }

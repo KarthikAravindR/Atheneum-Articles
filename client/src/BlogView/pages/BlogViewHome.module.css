@@ -1,0 +1,100 @@
+.Container{
+    padding: 80px;
+    height: max-content;
+    text-align: left;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+}
+.blog{
+    width: 60%;
+    margin: 0 auto;
+}
+.details{
+    width: 100%;
+    height: 30%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    text-align: left;
+}
+.details p{
+    margin: 0;
+    color: rgb(155, 153, 153);
+    font-weight: 600;
+}
+.authordetails{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.authordetails p{
+    color: white;
+}
+.authordp {
+    width: 25px;
+    height: 25px;
+    /* margin: 0 5px; */
+    border-radius: 100px;
+    margin-right: 10px;
+}
+.authordp img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    
+}
+.heading{
+    font-size: 3rem;
+    font-family: 'Playfair Display', serif;
+}
+.content p{
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+}
+.content img{
+    margin: 20px 0;
+}
+.fixedAuthorDetails{
+    position: fixed;
+    text-align: left;
+    /* width: 100px;
+    height: 100px; */
+    top: 30%;
+    left: -24px;
+    transform: translate(30%, 20px);
+}
+.fixedAuthorDetails p{
+    margin: 0;
+}
+.bookmarkfalseicon,.likefalseicon{
+    margin: 0 5px;
+    font-size: 1rem;
+}
+.fixedbuttonicons .bookmarkfalseicon{
+    font-size: 1.5rem;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.fixedbuttonicons .likefalseicon{
+    font-size: 1.5rem;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.bookmarktrueicon,.liketrueicon{
+    margin: 0 5px;
+    font-size: 1rem;
+    color: #FFC038;
+}
+.fixedbuttonicons .bookmarktrueicon{
+    font-size: 1.5rem;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #FFC038;
+}
+.fixedbuttonicons .liketrueicon{
+    font-size: 1.5rem;
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #FFC038;
+}

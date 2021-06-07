@@ -1,10 +1,13 @@
 import React, { } from 'react'
 import { connect } from 'react-redux'
-// import { Link, NavLink } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 
 import './Toolbar.css'
 import Logo from '../UIElements/Logo'
 import Search from '../UIElements/Search'
+import Avatar from '../UIElements/Avatar'
 
 const Toolbar = props => {
     // const logoutclickedHandler = () => {
@@ -36,17 +39,31 @@ const Toolbar = props => {
         }
         lastScroll = currentScroll;
     });
+    const redirectToHomeHandler = () => {
+        props.history.push('/home')
+    }
+    const articleLikeHandler = () => {
+        props.history.push('/user/like/' + props.userid)
+    }
+    const articleBookmarkHandler = () => {
+        props.history.push('/user/bookmark/' + props.userid)
+    }
     return (
         <header className={`page-header`}>
             <nav>
                 <div className="trigger-menu-wrapper">
-                    <div className='ToolbarLogo'>
+                    <div className='ToolbarLogo' onClick={redirectToHomeHandler}>
                         <Logo />
                         <p>Ogle</p>
                     </div>
                     <div className="DesktopSearch">
-                        <Search /> 
+                        <Search />
                     </div>
+                    <div className="Toolbar_User_Profile">
+                <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faThumbsUp}  onClick={() => articleLikeHandler(props.userid)} /></div>
+                <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faBookmark}  onClick={() => articleBookmarkHandler(props.userid)} /></div>
+                <Avatar />
+            </div>
                 </div>
             </nav>
         </header>
@@ -54,8 +71,8 @@ const Toolbar = props => {
 }
 const mapStateToProps = state => {
     return {
-        // isAuthenticated: state.auth.token !== null,
-        // userid: state.auth.userid,
+        isAuthenticated: state.auth.token !== null,
+        userid: state.auth.userid,
         // email: state.auth.email,
         // token: state.auth.token,
         // image: state.auth.image
@@ -69,4 +86,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Toolbar))

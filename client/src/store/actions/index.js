@@ -4,11 +4,23 @@ export {
     authCheckState,
     googleauth,
     facebookauth,
+    updateuserprofession,
+    updateuserbio,
+    fetchAllUserInfo,
+    fetchUserBookmark,
+    fetchUserLike,
+    updateuserimage
 } from './Auth'
 
 export {
     publishBlog,
     fetchAllBlogs,
     fetchParticularBlog,
+    fetchQueriedBlog,
+    addBookmark,
+    addLike,
+    removeBookmark,
+    removeLike
 } from './Blog'
+
 

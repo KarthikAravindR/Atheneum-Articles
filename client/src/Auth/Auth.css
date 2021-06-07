@@ -43,7 +43,7 @@
     /* padding: 10px 0px 50px 70px; */
 }
 .centered {
-    height: 45px;
+    height: 80px;
     display: flex;
     align-items: center;
     position: absolute;
@@ -55,6 +55,7 @@
     font-weight: 900;
     font-family: 'Mulish', sans-serif;
     font-size: 2rem;
+    margin-top: 12px;
 }
 .quote{
     width: 100%;

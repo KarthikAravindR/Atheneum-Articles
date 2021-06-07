@@ -6,13 +6,18 @@ import './App.css';
 import * as actions from './store/actions/index'
 
 import HomeFeed from './Home/pages/Home'
-import BlogBuilder from './BlogBuilder/pages/NewBlog/NewBlog'
-import BlogViewHome from './BlogView/pages/BlogViewHome/BlogViewHome'
+import Profile from './Profile/pages/Profile'
+import SearchBlogs from './SearchBlogs/pages/SearchBlogs';
+import Bookmark from './SearchBlogs/components/Bookmark/Bookmark';
+import Like from './SearchBlogs/components/Like/Like';
+import BlogBuilder from './BlogBuilder/pages/NewBlog'
+import BlogViewHome from './BlogView/pages/BlogViewHome'
 import Auth from './Auth/Auth'
 import Logout from './Auth/Logout/Logout'
 import HomeHeader from './shared/components/Navigation/HomeHeader'
 import Toolbar from './shared/components/Navigation/Toolbar'
 import Spinner from './shared/components/UIElements/LoadingSpinner'
+
 
 const App = (props) => {
 
@@ -41,6 +46,22 @@ const App = (props) => {
             <Route path="/blogview/:id" exact >
               <Toolbar />
               <BlogViewHome />
+            </Route>
+            <Route path="/profile/:id" exact >
+              <HomeHeader />
+              <Profile />
+            </Route>
+            <Route path="/search/:query" exact >
+              <HomeHeader />
+              <SearchBlogs />
+            </Route>
+            <Route path="/user/like/:userid" exact >
+              <HomeHeader />
+              <Like />
+            </Route>
+            <Route path="/user/bookmark/:userid" exact >
+              <HomeHeader />
+              <Bookmark />
             </Route>
             <Route path="/logout" exact >
               <Logout />

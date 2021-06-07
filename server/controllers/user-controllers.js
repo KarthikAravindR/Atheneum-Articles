@@ -9,6 +9,7 @@ const HttpError = require('../models/http-error')
 const User = require('../models/user');
 const Blog = require('../models/blog');
 const { response } = require('express');
+const mongoose = require('mongoose');
 
 const client = new OAuth2Client('162003935215-rp7i00q4jsf94gdg6afqdtmkbr1ohbmk.apps.googleusercontent.com')
 
@@ -41,7 +42,8 @@ const userSignup = async (req, res, next) => {
         email,
         image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
         password: hashedPassword,
-        blogs: []
+        blogs: [],
+        views: 0
     })
     try {
         await createdUser.save()
@@ -51,12 +53,12 @@ const userSignup = async (req, res, next) => {
     }
     let token
     try {
-        token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", { expiresIn: '7d' })
+        token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", {})
     } catch (err) {
         const error = new HttpError('Signing Up failed, please try again', 500)
         return next(error)
     }
-    res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs })
+    res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, profession: createdUser.profession, bio: createdUser.bio })
 }
 
 const userLogin = async (req, res, next) => {
@@ -83,55 +85,66 @@ const userLogin = async (req, res, next) => {
     let token
 
     try {
-        token = jwt.sign({ userId: existingUser.id, email: existingUser.email }, "super_secret_dont_share", { expiresIn: '7d' })
+        token = jwt.sign({ userId: existingUser.id, email: existingUser.email }, "super_secret_dont_share", {})
     } catch (err) {
         const error = new HttpError('Log In failed, please try again', 500)
         return next(error)
     }
-    res.json({ userId: existingUser.id, email: existingUser.email, username: existingUser.username, image: existingUser.image, token: token, blogs: existingUser.blogs })
+    res.json({ 
+        userId: existingUser.id, 
+        email: existingUser.email, 
+        username: existingUser.username, 
+        image: existingUser.image, 
+        token: token, 
+        blogs: existingUser.blogs, 
+        views: existingUser.views, 
+        profession: existingUser.profession, 
+        bio: existingUser.bio,
+        // liked: existingUser.liked,
+        // bookmarks: existingUser.liked 
+    })
 }
 
 const googleLogin = (req, res, next) => {
     const { tokenId } = req.body
     client.verifyIdToken({ idToken: tokenId, audience: '162003935215-rp7i00q4jsf94gdg6afqdtmkbr1ohbmk.apps.googleusercontent.com' })
-    .then(response => {
-        const { email_verified, name, email, picture } = response.payload;
-        console.log(response.payload)
-        if (email_verified) {
-            User.findOne({ email }).exec((err, user) => {
-                if (err) {
-                    const error = new HttpError('Could not sign-in the user, please try again', 500)
-                    return next(error)
-                } else {
-                    if (user) {
-                        let token
-                        try {
-                            token = jwt.sign({ userId: user.id, email: user.email }, "super_secret_dont_share", { expiresIn: '7d' })
-                        } catch (err) {
-                            const error = new HttpError('Log In failed, please try again', 500)
-                            return next(error)
-                        }
-                        res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs })
+        .then(response => {
+            const { email_verified, name, email, picture } = response.payload;
+            if (email_verified) {
+                User.findOne({ email }).exec((err, user) => {
+                    if (err) {
+                        const error = new HttpError('Could not sign-in the user, please try again', 500)
+                        return next(error)
                     } else {
+                        if (user) {
+                            let token
+                            try {
+                                token = jwt.sign({ userId: user.id, email: user.email }, "super_secret_dont_share", {})
+                            } catch (err) {
+                                const error = new HttpError('Log In failed, please try again', 500)
+                                return next(error)
+                            }
+                            res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs, views: user.views, profession: user.profession, bio: user.bio })
+                        } else {
                             let password = 'socialmediapwd'
                             // let hashedPassword
                             // try {
-                                //     hashedPassword = await bcrypt.hash(password, 12)
-                                // } catch (err) {
-                                    //     const error = new HttpError('Could not sign-in the user, please try again', 500)
-                                    //     return next(error)
-                                    // }
-                                    // consol
-                                    // let hashedPassword
-                                    //     hashedPassword = bcrypt.hash(password, 12)
-                                    const createdUser = new User({
-                                        username: name,
-                                        email: email,
-                                        image: picture,
-                                        password: password,
-                                        blogs: []
-                                    })
-                            console.log(createdUser)
+                            //     hashedPassword = await bcrypt.hash(password, 12)
+                            // } catch (err) {
+                            //     const error = new HttpError('Could not sign-in the user, please try again', 500)
+                            //     return next(error)
+                            // }
+                            // consol
+                            // let hashedPassword
+                            //     hashedPassword = bcrypt.hash(password, 12)
+                            const createdUser = new User({
+                                username: name,
+                                email: email,
+                                image: picture,
+                                password: password,
+                                blogs: [],
+                                views: 0
+                            })
                             try {
                                 createdUser.save()
                             } catch (err) {
@@ -140,12 +153,12 @@ const googleLogin = (req, res, next) => {
                             }
                             let token
                             try {
-                                token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", { expiresIn: '1h' })
+                                token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", {})
                             } catch (err) {
                                 const error = new HttpError('Signing Up failed, please try again', 500)
                                 return next(error)
                             }
-                            res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs })
+                            res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, views: createdUser.views, profession: createdUser.profession, bio: createdUser.bio })
                         }
                     }
                 })
@@ -159,43 +172,43 @@ const facebookLogin = (req, res, next) => {
     fetch(urlGraphFacebook, {
         method: 'GET',
     })
-    .then(response=> response.json())
-    .then(response => {
-        const {email,name} = response
-        User.findOne({ email }).exec((err, user) => {
-            if (err) {
-                const error = new HttpError('Could not sign-in the user, please try again', 500)
-                return next(error)
-            } else {
-                if (user) {
-                    let token
-                    try {
-                        token = jwt.sign({ userId: user.id, email: user.email }, "super_secret_dont_share", { expiresIn: '7d' })
-                    } catch (err) {
-                        const error = new HttpError('Log In failed, please try again', 500)
-                        return next(error)
-                    }
-                    res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs })
+        .then(response => response.json())
+        .then(response => {
+            const { email, name } = response
+            User.findOne({ email }).exec((err, user) => {
+                if (err) {
+                    const error = new HttpError('Could not sign-in the user, please try again', 500)
+                    return next(error)
                 } else {
+                    if (user) {
+                        let token
+                        try {
+                            token = jwt.sign({ userId: user.id, email: user.email }, "super_secret_dont_share", {})
+                        } catch (err) {
+                            const error = new HttpError('Log In failed, please try again', 500)
+                            return next(error)
+                        }
+                        res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs, views: user.views, profession: user.profession, bio: user.bio })
+                    } else {
                         let password = 'socialmediapwd'
                         // let hashedPassword
                         // try {
-                            //     hashedPassword = await bcrypt.hash(password, 12)
-                            // } catch (err) {
-                                //     const error = new HttpError('Could not sign-in the user, please try again', 500)
-                                //     return next(error)
-                                // }
-                                // consol
-                                // let hashedPassword
-                                //     hashedPassword = bcrypt.hash(password, 12)
-                                const createdUser = new User({
-                                    username: name,
-                                    email: email,
-                                    image: picture,
-                                    password: password,
-                                    blogs: []
-                                })
-                        console.log(createdUser)
+                        //     hashedPassword = await bcrypt.hash(password, 12)
+                        // } catch (err) {
+                        //     const error = new HttpError('Could not sign-in the user, please try again', 500)
+                        //     return next(error)
+                        // }
+                        // consol
+                        // let hashedPassword
+                        //     hashedPassword = bcrypt.hash(password, 12)
+                        const createdUser = new User({
+                            username: name,
+                            email: email,
+                            image: picture,
+                            password: password,
+                            blogs: [],
+                            views: 0
+                        })
                         try {
                             createdUser.save()
                         } catch (err) {
@@ -204,19 +217,292 @@ const facebookLogin = (req, res, next) => {
                         }
                         let token
                         try {
-                            token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", { expiresIn: '1h' })
+                            token = jwt.sign({ userId: createdUser.id, email: createdUser.email }, "super_secret_dont_share", {})
                         } catch (err) {
                             const error = new HttpError('Signing Up failed, please try again', 500)
                             return next(error)
                         }
-                        res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs })
+                        res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, views: createdUser.views, profession: createdUser.profession, bio: createdUser.bio })
                     }
                 }
+            })
         })
-    })
 }
-    
+
+const updateProfession = async (req, res, next) => {
+    const { profession, userid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Something went Wrong', 500)
+        return next(error)
+    }
+    if (!user) {
+        return next(new HttpError('Cound not find the user', 404))
+    }
+    user.profession = profession
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ user: user.toObject({ getters: true }) })
+
+}
+
+const updateBio = async (req, res, next) => {
+    const { bio, userid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Something went Wrong', 500)
+        return next(error)
+    }
+    if (!user) {
+        return next(new HttpError('Cound not find the user', 404))
+    }
+    user.bio = bio
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ user: user.toObject({ getters: true }) })
+}
+
+const updateImage = async (req, res, next) => {
+    const { image, userid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Something went Wrong', 500)
+        return next(error)
+    }
+    if (!user) {
+        return next(new HttpError('Cound not find the user', 404))
+    }
+    user.image = image
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ user: user.toObject({ getters: true }) })
+}
+
+const fetchUserAllInfo = async (req, res, next) => {
+    const { id } = req.params.id
+    let user
+    try {
+        user = await User.findById(req.params.id)
+    } catch (err) {
+        const error = new HttpError('process failed, please try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found', 500)
+        return next(error)
+    }
+    let userBlogs = []
+    for(let i=0;i<user.blogs.length;i++){
+        let blog
+        try {
+            blog = await Blog.findById(user.blogs[i])
+        } catch (err) {
+            const error = new HttpError('Something Went wrong,please try again', 500)
+            return next(error)
+        }
+        if (!blog || blog.length === 0) {
+            continue
+        }
+        userBlogs.push(blog)
+    }
+    res.status(201).json(
+        {
+            bio: user.bio,
+            email: user.email, 
+            image: user.image, 
+            profession:user.profession,
+            username: user.username, 
+            views: user.views,
+            blogs: userBlogs,
+            // liked: user.liked,
+            // bookmarks: user.bookmarks,
+        });
+}
+
+const addUserBookmark = async (req, res, next) => {
+    const { userid, blogid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Failed, Please Try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found!')
+        return next(error)
+    }
+    user.bookmarks.push(blogid)
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ message: "success" })
+}
+
+const addUserLike = async (req, res, next) => {
+    const { userid, blogid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Failed, Please Try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found!')
+        return next(error)
+    }
+    user.liked.push(blogid)
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ message: "success" })
+}
+
+const removeUserBookmark = async (req, res, next) => {
+    const { userid, blogid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Failed, Please Try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found!')
+        return next(error)
+    }
+    let blog = user.bookmarks.indexOf(blogid)
+    user.bookmarks.splice(blog,1)
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ message: "success" })
+}
+
+const removeUserLike = async (req, res, next) => {
+    const { userid, blogid } = req.body
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('Failed, Please Try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found!')
+        return next(error)
+    }
+    let blog = user.liked.indexOf(blogid)
+    user.liked.splice(blog,1)
+    try {
+        await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    res.status(200).json({ message: "success" })
+}
+
+const fetchUserBookmark = async (req, res, next) => {
+    const userid = req.params.userid
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('process failed, please try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found', 500)
+        return next(error)
+    }
+    let userBookmarks = []
+    for(let i=0;i<user.bookmarks.length;i++){
+        let blog
+        try {
+            blog = await Blog.findById(user.bookmarks[i])
+        } catch (err) {
+            const error = new HttpError('Something Went wrong,please try again', 500)
+            return next(error)
+        }
+        if (!blog || blog.length === 0) {
+            continue
+        }
+        userBookmarks.push(blog)
+    }
+    res.status(201).json({ userBookmarks: userBookmarks.map(b => b.toObject({ getters: true })) });
+}
+
+const fetchUserLike = async (req, res, next) => {
+    const userid = req.params.userid
+    let user
+    try {
+        user = await User.findById(userid)
+    } catch (err) {
+        const error = new HttpError('process failed, please try again', 500)
+        return next(error)
+    }
+    if (!user) {
+        const error = new HttpError('User not Found', 500)
+        return next(error)
+    }
+    let userLikes = []
+    for(let i=0;i<user.liked.length;i++){
+        let blog
+        try {
+            blog = await Blog.findById(user.liked[i])
+        } catch (err) {
+            const error = new HttpError('Something Went wrong,please try again', 500)
+            return next(error)
+        }
+        if (!blog || blog.length === 0) {
+            continue
+        }
+        userLikes.push(blog)
+    }
+    res.status(201).json({ userLikes: userLikes.map(b => b.toObject({ getters: true })) });
+}
+
+
 exports.userSignup = userSignup
 exports.userLogin = userLogin
 exports.googleLogin = googleLogin
 exports.facebookLogin = facebookLogin
+exports.updateProfession = updateProfession
+exports.updateBio = updateBio
+exports.updateImage = updateImage
+exports.fetchUserAllInfo = fetchUserAllInfo
+exports.addUserBookmark = addUserBookmark
+exports.addUserLike = addUserLike
+exports.removeUserBookmark = removeUserBookmark
+exports.removeUserLike = removeUserLike
+exports.fetchUserBookmark = fetchUserBookmark
+exports.fetchUserLike = fetchUserLike

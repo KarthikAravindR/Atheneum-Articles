@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import './Home.css'
 // import HomeHeader from '../../shared/components/Navigation/HomeHeader'
 import * as actions from '../../store/actions/index'
-import Ogle from '../components/Ogle/Ogle'
-import Trending from '../components/Trending/Trending'
+import Atheneum from '../components/Atheneum/Atheneum'
+import MostViewed from '../components/MostViewed/MostViewed'
 import Articles from '../components/Articles/Articles'
 // import BannerCard from '../../shared/components/UIElements/BannerCard'
 // import Card from '../../shared/components/UIElements/Card'
@@ -17,14 +17,27 @@ const Home = (props) => {
         onFetchAllBlogs()
     }, [onFetchAllBlogs])
 
-    console.log(props.blogs)
+    const allblogs = [...props.blogs]
+    let mostViewedblogs = [...props.blogs]
+    let bannerblog = allblogs.pop()
+    let lastfourcards = allblogs.splice(-4)
+    let articlecards = allblogs.splice(-5)
+    mostViewedblogs.sort((a, b) => {
+        return b.views - a.views;
+    });
+    mostViewedblogs = mostViewedblogs.slice(0,6)
+    console.log(mostViewedblogs)
     return(
         <div>
             {/* <HomeHeader /> */}
             {props.blogs[0] && <div className="HomeContainer">
-                <Ogle blogs={props.blogs}/>
-                <Trending />
-                <Articles /> 
+                <Atheneum 
+                    bannerblog={bannerblog}
+                    lastfourcards={lastfourcards} />
+                <MostViewed 
+                    mostViewedblogs={mostViewedblogs} />
+                <Articles 
+                    articlecards={articlecards} /> 
             </div>}
         </div>
     )

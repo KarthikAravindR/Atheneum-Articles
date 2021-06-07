@@ -1,11 +1,13 @@
 .banner_card_container {
     width: 100%;
-    height: 100%;
     color: rgb(226, 225, 225);
+    min-height: 100px;
+    height: auto;
+    cursor: pointer;
 }
 .banner_card_image {
     width: 100%;
-    height: 70%;
+    height: 300px;
 }
 .banner_card_image img {
     width: 100%;
@@ -13,14 +15,15 @@
 }
 .banner_card_details {
     width: 100%;
-    height: 30%;
-    padding: 10px 0;
+    flex-grow: 1;
+    padding-top: 10px;
     box-sizing: border-box;
     text-align: left;
     /* display: flex; */
 }
-.banner_card_details h2 {
-    margin: 10px 0;
+.banner_card_details h3 {
+    margin: 17px 0;
+    line-height: 2rem;
 }
 .banner_card_details p{
     margin: 0;
@@ -49,5 +52,9 @@
     width: 100%;
     height: 100%;
     border-radius: 100px;
-    
+}
+.banner_card_bookmark{
+    margin-left: 10px;
+    font-size: 1rem;
+    color: #FFC038;
 }

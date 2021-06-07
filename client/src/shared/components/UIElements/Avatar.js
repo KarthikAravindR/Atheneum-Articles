@@ -14,22 +14,28 @@ const Avatar = (props) => {
       </div>
       <div className="dropdown-menu">
         <div className="usernamewelcome">
-          <p ><strong>Welcome {props.username && props.username.split(" ")[0]}</strong></p>
-          <button >
+          <p ><strong>{props.username && 'Welcome ' + props.username.split(" ")[0]}</strong></p>
+          {/* <button >
             {!props.isAuthenticated ?
-              <Link style={{ backgroundColor: "#ff2058" }} className="dropdown-item" to="/">Log In</Link>
+              <Link to="/">Log In</Link>
               :
-              <Link style={{ backgroundColor: "#ff2058" }} className="dropdown-item" to="/logout">Log Out</Link>}
-          </button>
+              <Link to="/logout">Log Out</Link>}
+          </button> */}
         </div>
         <div className="dropdown-divider"></div>
+        <Link className="dropdown-item" to={`/profile/${props.userid}`}>My Profile</Link>
+        <div className="dropdown-divider"></div>
         <Link className="dropdown-item" to="/newblog">Write your Story</Link>
-        <Link className="dropdown-item" to="/checkout/bag">My Bag</Link>
-        <Link className="dropdown-item" to="/checkout/wishlist">My Wishlist</Link>
+        <Link className="dropdown-item" to="/checkout/bag">My Book</Link>
         <div className="dropdown-divider"></div>
         <Link className="dropdown-item" to="/">Gift cards</Link>
         <Link className="dropdown-item" to="/">Coupons</Link>
         <Link className="dropdown-item" to="/" >Contact Us</Link>
+        <div className="dropdown-divider"></div>
+        {!props.isAuthenticated ?
+          <Link className="dropdown-item" to="/" >Log In</Link>
+          :
+          <Link className="dropdown-item" to="/logout" >Log Out</Link>}
         <div className="dropdown-divider"></div>
       </div>
     </div>

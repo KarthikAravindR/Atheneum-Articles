@@ -9,6 +9,8 @@ const blogSchema = new schema({
     minread: {type: String, required: true},
     authorname: {type: String, required: true},
     authordp: {type: String, required: true},
+    views: {type: Number, required: true},
+    likes: {type: Number, required: true},
     blog: [{}]
 })
 

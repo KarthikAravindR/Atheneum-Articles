@@ -1,0 +1,20 @@
+.Blog{
+    margin-top: 110px;
+}
+.publish{
+    background-color: #FFC038;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 5px 15px;
+    position: fixed;
+    bottom: 27px;
+    right: 70px;
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+.storyarea{
+    height: max-content;
+    width: 90%;
+    margin: auto;
+    background-color: rgb(22, 23, 24);
+}

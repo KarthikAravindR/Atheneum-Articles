@@ -6,6 +6,7 @@ const blogControllers = require('../controllers/blog')
 
 router.post('/blog/new', blogControllers.publishBlog)
 router.get('/get/blogs', blogControllers.fetchAllBlogs)
-router.get('/blogview/:id', blogControllers.fetchParticularBlog)
+router.post('/blogview/:id', blogControllers.fetchParticularBlog)
+router.get('/blogsearch/:query', blogControllers.fetchQueriedBlog)
 
 module.exports = router

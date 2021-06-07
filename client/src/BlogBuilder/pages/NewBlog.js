@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import classes from './NewBlog.module.css'
-import Blog from '../../Components/Blog/Blog'
-import ActionBar from '../../Components/ActionBar/ActionBar';
-import * as actions from '../../../store/actions/index'
+import Blog from '../Components/Blog/Blog'
+import ActionBar from '../Components/ActionBar/ActionBar';
+import * as actions from '../../store/actions/index'
 // import HomeHeader from '../../../shared/components/Navigation/HomeHeader'
 
 const NewBlog = (props) => {
@@ -55,7 +56,7 @@ const NewBlog = (props) => {
             const newState = [...state]
             newState[blogIndex].content = newContent
             newState.map(e => {
-                if (e.type === null) {
+                if (e.type === null && e.content !== '') {
                     e.placeholder = ''
                 }
                 return e
@@ -119,6 +120,7 @@ const NewBlog = (props) => {
             return element
         })
         props.onPublishBlog(props.userid, props.username, props.image, dateposted, minread, secondfilterarray)
+        props.history.map.push('/home')
     }
     return (
         <div className={classes.Blog}>
@@ -157,7 +159,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewBlog)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewBlog))
 
 
 // let filterarray = state.filter(element => {

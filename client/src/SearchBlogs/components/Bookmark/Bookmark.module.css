@@ -1,0 +1,34 @@
+
+.userBookmarksContainer{ 
+    margin-top: 110px;
+    padding: 0 120px;
+}
+.userBookmarksAuthorContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.userBookmarksHeading{
+    color: white;
+    margin: 20px 0;
+    font-size: 2rem;
+    border-bottom: 1px solid #FFc038;
+}
+.userBookmarksimageContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    /* padding-right: 30px; */
+    box-sizing: border-box;
+}
+.userBookmarksCardContainer{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(33, 33, 34);
+    background-color: rgb(33, 34, 34);
+    padding: 20px 20px 0 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    /* flex-direction: column; */
+}

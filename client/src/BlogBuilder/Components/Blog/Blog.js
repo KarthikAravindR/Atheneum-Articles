@@ -22,10 +22,10 @@ const Blog = (props) => {
         )
     } else if (props.type === 'title') {
         view = (
-            <textarea
+            <textarea 
                 className={classes.title}
                 value={props.content}
-                placeholder={props.placeholder}
+                placeholder='Title'
                 onKeyPress={e => props.handleKeyPress(e, props.id)}
                 onChange={e => props.updateBlog(e.target.value)} />
         )

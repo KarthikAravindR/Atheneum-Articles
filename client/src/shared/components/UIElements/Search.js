@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -11,37 +11,8 @@ const Search = (props) => {
     const [searchText, setSearchText] = useState('')
     const searchTaskHandler1 = event => {
         event.preventDefault()
-        switch(searchText){
-            case 'shoes':
-                props.history.push('/shoes')
-                break
-            case 'puma':
-                props.onpumashoes()
-                props.history.push('/shoes')
-                break
-            case 'nike':
-                props.onnikeshoes()
-                props.history.push('/shoes')
-                break
-            case 'adidas':
-                props.onadidasshoes()
-                props.history.push('/shoes')
-                break
-            case 'red':
-                props.onredshoes()
-                props.history.push('/shoes')
-                break
-            case 'blue':
-                props.onblueshoes()
-                props.history.push('/shoes')
-                break
-            case 'black':
-                props.onblackshoes()
-                props.history.push('/shoes')
-                break
-            default :
-                break
-        }
+        // props.onFetchQueriedBlog(searchText)
+        props.history.push('/search/' + searchText)
     }
     return (
         <form className="form1" onSubmit={searchTaskHandler1}>
@@ -68,4 +39,4 @@ const mapDispatchToState = dispatch => {
         onblackshoes: () => { dispatch({ type: "BLACK_SHOES_ONLY" }) },
     }
 }
-export default connect(null, mapDispatchToState)(Search)
+export default withRouter(connect(null, mapDispatchToState)(Search))

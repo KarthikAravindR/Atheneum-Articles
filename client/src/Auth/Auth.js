@@ -219,7 +219,7 @@ const Auth = (props) => {
             </form>
     }
 
-    let signupbutton = <p>New To Ogle? <u style={{ color: "black", cursor: "pointer" }} onClick={switchAuthModeHandler}>Create New Account</u></p>
+    let signupbutton = <p>New To Atheneum? <u style={{ color: "black", cursor: "pointer" }} onClick={switchAuthModeHandler}>Create New Account</u></p>
     let loginbutton = <p>Already have an account? <u style={{ color: "black", cursor: "pointer" }} onClick={switchAuthModeHandler}>Log-In here</u></p>
     return (
         <div className="Authentication">
@@ -230,12 +230,12 @@ const Auth = (props) => {
                         <div className="peopleimg"></div>
                         <div className='centered'>
                             <Logo />
-                            <p>Ogle</p>
+                            <p>Atheneum</p>
                         </div>
                         <div class="quote">"Reading brings us unknown friends"</div>
                     </div>
                     <div className="Authenticationform">
-                        <p className="welcomemedia">Welcome To Ogle</p>
+                        <p className="welcomemedia">Welcome To Atheneum</p>
                         <div className="Auth">
                             {props.error && <div className="errormessage">
                                 {props.error}

@@ -27,16 +27,16 @@ const ImageUpload = props => {
   const pickedHandler = event => {
     console.log("pickedHandler called")
     let pickedFile;
-    let fileIsValid = isValid;
+    // let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
       // console.log(previewUrl)
       setFile(pickedFile);
       setIsValid(true);
-      fileIsValid = true;
+      // fileIsValid = true;
     } else {
       setIsValid(false);
-      fileIsValid = false;
+      // fileIsValid = false;
     }
     
   };

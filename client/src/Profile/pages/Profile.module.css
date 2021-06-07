@@ -1,0 +1,199 @@
+.profileContainer {
+    width: 100%;
+    padding: 20px 120px;
+    height: max-content;
+    margin-top: 110px;
+}
+
+.profilePerson {
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+}
+
+.profilePicture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.profilePicture::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: -7px;
+    left: -7px;
+    width: calc(100% + 14px);
+    height: calc(100% + 14px);
+    border-radius: 50%;
+    padding: 10px;
+    border: 3px solid #21fce2;
+}
+
+.profilePicture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.profileEditPicture {
+    background-color: rgba(24, 24, 24, 0);
+    border: 1px solid rgba(24, 24, 24, 0);
+    color: rgb(211, 211, 211);
+    margin: 5px 0 0 110px;
+}
+
+.profileUsername {
+    margin: 10px 0 0 0;
+    font-size: 3rem;
+    text-align: center;
+    color: white;
+}
+
+.profileuserProfession {
+    display: flex;
+    justify-content: center;
+}
+
+.profileuserProfession button {
+    background-color: rgba(24, 24, 24, 0);
+    border: 1px solid rgba(24, 24, 24, 0);
+    color: rgb(211, 211, 211);
+    margin-left: 10px;
+}
+
+.profileuserBio {
+    width: 100%;
+}
+
+.profileuserBio button {
+    margin-left: auto;
+    background-color: rgba(24, 24, 24, 0);
+    border: 1px solid rgba(24, 24, 24, 0);
+    color: rgb(211, 211, 211);
+}
+
+.profileEditProfession {
+    display: flex;
+    justify-content: center;
+}
+
+.profileEditProfession input {
+    border: none;
+    outline: none;
+    resize: none;
+    width: 300px;
+    font-size: inherit;
+    display: inline-block;
+    text-align: left;
+    overflow-y: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border-bottom: 1px solid white;
+    padding: 5px 10px;
+    margin-right: 20px;
+}
+
+.profileEditProfession button {
+    background-color: #FFC038;
+    border: 1px solid #FFC038;
+    padding: 5px 30px;
+    color: rgb(22, 22, 22);
+    margin-top: 10px;
+    border-radius: 12px;
+}
+
+.profileProfession {
+    margin: 0;
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(160, 160, 160);
+    border-bottom: 1px solid #FFC038;
+    text-transform: capitalize;
+}
+
+.profileBio {
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(64, 65, 65, 0.329);
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 40px;
+    border-radius: 12px;
+    color: white;
+    text-transform: capitalize;
+}
+
+.profileEditBio {
+    text-align: left;
+    margin-top: 40px;
+    color: rgb(160, 160, 160);
+}
+
+.profileEditBio p {
+    font-size: 2rem;
+}
+
+.profileEditBio input {
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    font-size: inherit;
+    margin-bottom: 20px;
+    display: inline-block;
+    text-align: left;
+    overflow-y: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border-bottom: 1px solid white;
+    padding: 5px 10px;
+
+}
+
+.profileEditBio button {
+    background-color: #FFC038;
+    border: 1px solid #FFC038;
+    padding: 5px 30px;
+    color: rgb(22, 22, 22);
+    margin-top: 10px;
+    border-radius: 12px;
+}
+
+.profileuserProfession button .tooltiptextone {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+
+.profileuserProfession button:hover .tooltiptextone {
+    visibility: visible;
+}
+
+.profileuserBio button .tooltiptexttwo {
+    visibility: hidden;
+    font-size: 0.8rem;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+
+.profileuserBio button:hover .tooltiptexttwo {
+    visibility: visible;
+}
