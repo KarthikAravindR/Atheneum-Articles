@@ -1,6 +1,6 @@
 :root {
     --two-card-padding: 24px;
-    --two-card-height: 500px;
+    --two-card-height: 140px;
     --two-card-skeleton: linear-gradient(#0B0F10 var(--two-card-height), transparent 0);
 
     --two-avatar-size: 40px;
@@ -12,14 +12,14 @@
     --two-title-position: var(--two-card-padding) 0px;
     --two-title-skeleton: linear-gradient(#141718 var(--two-title-height), transparent 0);
 
-    --two-desc-line-height1: 16px;
+    --two-desc-line-height1: 30px;
     --two-desc-line-skeleton1: linear-gradient(#141718 var(--two-desc-line-height1), transparent 0);
     --two-desc-line-1-width: 400px;
-    --two-desc-line-1-position: var(--two-card-padding) 52px;
-    --two-desc-line-height2: 8px;
+    --two-desc-line-1-position: var(--two-card-padding) 56px;
+    --two-desc-line-height2: 15px;
     --two-desc-line-skeleton2: linear-gradient(#141718 var(--two-desc-line-height2), transparent 0);
     --two-desc-line-2-width: 300px;
-    --two-desc-line-2-position: var(--two-card-padding) 75px;
+    --two-desc-line-2-position: var(--two-card-padding) 90px;
 
     --two-footer-height: 40px;
     --two-footer-position: 0 calc(var(--two-card-height) - var(--two-footer-height));
@@ -31,7 +31,7 @@
 
 .skeleton2 {
     width: 100%;
-    height: 120px;
+    height: 140px;
     // background-color: red;
     &:empty::after {
         content: "";

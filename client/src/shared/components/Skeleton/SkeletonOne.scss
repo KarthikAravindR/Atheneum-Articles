@@ -1,13 +1,13 @@
 :root {  
   --card-padding: 24px;
-  --card-height: 500px;
+  --card-height: 600px;
   --card-skeleton: linear-gradient(#0B0F10 var(--card-height), transparent 0);
   
   --avatar-size: 40px;
   --avatar-position: var(--card-padding) 340px;
   --avatar-skeleton: radial-gradient(circle 20px at center, #141718 99%, transparent 0);
   
-  --title-height: 330px;
+  --title-height: 400px;
   --title-width: 100%;
   --title-position: var(--card-padding) 0px;
   --title-skeleton: linear-gradient(#141718 var(--title-height), transparent 0);
@@ -15,11 +15,11 @@
   --desc-line-height1: 32px;
   --desc-line-skeleton1: linear-gradient(#141718 var(--desc-line-height1), transparent 0);
   --desc-line-1-width:400px;
-  --desc-line-1-position: var(--card-padding) 402px;
+  --desc-line-1-position: var(--card-padding) 452px;
   --desc-line-height2: 16px;
   --desc-line-skeleton2: linear-gradient(#141718 var(--desc-line-height2), transparent 0);
   --desc-line-2-width:300px;
-  --desc-line-2-position: var(--card-padding) 455px;
+  --desc-line-2-position: var(--card-padding) 505px;
   
   --footer-height: 40px;
   --footer-position: 0 calc(var(--card-height) - var(--footer-height));

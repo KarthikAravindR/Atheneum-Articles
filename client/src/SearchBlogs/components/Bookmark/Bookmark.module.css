@@ -37,7 +37,7 @@
     width: 100%;
     box-sizing: border-box;
     background-color: #141718;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 5px 20px;
     border-radius: 12px;
     margin-bottom: 20px;
     /* flex-direction: column; */

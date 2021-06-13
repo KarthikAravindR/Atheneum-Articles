@@ -160,9 +160,11 @@ const Auth = (props) => {
     }
 
     const responseSuccessGoogle = (response) => {
+        console.log(response)
         props.ongoogleauth(response)
     }
     const responseFailureGoogle = (response) => {
+        console.log(response)
     }
 
     const responseFacebook = (response) => {
