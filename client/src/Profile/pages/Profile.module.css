@@ -197,3 +197,19 @@
 .profileuserBio button:hover .tooltiptexttwo {
     visibility: visible;
 }
+
+.skeltonLoading{
+    margin: 150px auto 0 auto;
+    width: 700px;
+    color: white;
+}
+@media (max-width: 800px) {
+    .profileContainer {
+        padding: 20px;
+    }
+}
+@media (max-width: 600px) {
+    .profileContainer {
+        padding: 10px;
+    }
+}

@@ -90,15 +90,15 @@ const userLogin = async (req, res, next) => {
         const error = new HttpError('Log In failed, please try again', 500)
         return next(error)
     }
-    res.json({ 
-        userId: existingUser.id, 
-        email: existingUser.email, 
-        username: existingUser.username, 
-        image: existingUser.image, 
-        token: token, 
-        blogs: existingUser.blogs, 
-        views: existingUser.views, 
-        profession: existingUser.profession, 
+    res.json({
+        userId: existingUser.id,
+        email: existingUser.email,
+        username: existingUser.username,
+        image: existingUser.image,
+        token: token,
+        blogs: existingUser.blogs,
+        views: existingUser.views,
+        profession: existingUser.profession,
         bio: existingUser.bio,
         // liked: existingUser.liked,
         // bookmarks: existingUser.liked 
@@ -229,6 +229,106 @@ const facebookLogin = (req, res, next) => {
         })
 }
 
+const publishBlog = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(
+            new HttpError('Invalid inputs passed, please check your data.', 422)
+        );
+    }
+
+    const { authorId, username, image, dateposted, minread, blog } = req.body
+
+    const createdBlog = new Blog({
+        dateposted,
+        minread,
+        blog,
+        authorname: username,
+        authordp: image,
+        authorId,
+        views: 0,
+        likes: 0,
+    });
+    let user;
+    try {
+        user = await User.findById(authorId);
+    } catch (err) {
+        const error = new HttpError(
+            'Publishing the Blog failed, please try again.',
+            500
+        );
+        return next(error);
+    }
+
+    if (!user) {
+        const error = new HttpError('Could not find user for provided id.', 404);
+        return next(error);
+    }
+
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await createdBlog.save({ session: sess });
+        user.blogs.push(createdBlog);
+        await user.save({ session: sess });
+        await sess.commitTransaction();
+    } catch (err) {
+        const error = new HttpError(
+            'Publishing the Blog failed, please try again.',
+            500
+        );
+        return next(error);
+    }
+    res.status(201).json({ blog: createdBlog });
+}
+
+const deleteUserBlog = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(
+            new HttpError('Invalid inputs passed, please check your data.', 422)
+        );
+    }
+    const { blogid, userid } = req.body
+    let blog;
+    try {
+        blog = await Blog.findById(blogid).populate('authorId');
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not delete blog.',
+            500
+        );
+        return next(error);
+    }
+    if (!blog) {
+        const error = new HttpError('Could not find place for this id.', 404);
+        return next(error);
+    }
+
+    if (blog.authorId.id !== userid) {
+        const error = new HttpError(
+            'You are not allowed to delete this place.',
+            401
+        );
+        return next(error);
+    }
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await blog.remove({ session: sess });
+        blog.authorId.blogs.pull(blogid);
+        await blog.authorId.save({ session: sess });
+        await sess.commitTransaction();
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not delete blog2.',
+            500
+        );
+        return next(error);
+    }
+    res.status(200).json({ message: 'Deleted blog.' });
+}
+
 const updateProfession = async (req, res, next) => {
     const { profession, userid } = req.body
     let user
@@ -310,7 +410,7 @@ const fetchUserAllInfo = async (req, res, next) => {
         return next(error)
     }
     let userBlogs = []
-    for(let i=0;i<user.blogs.length;i++){
+    for (let i = 0; i < user.blogs.length; i++) {
         let blog
         try {
             blog = await Blog.findById(user.blogs[i])
@@ -326,10 +426,10 @@ const fetchUserAllInfo = async (req, res, next) => {
     res.status(201).json(
         {
             bio: user.bio,
-            email: user.email, 
-            image: user.image, 
-            profession:user.profession,
-            username: user.username, 
+            email: user.email,
+            image: user.image,
+            profession: user.profession,
+            username: user.username,
             views: user.views,
             blogs: userBlogs,
             // liked: user.liked,
@@ -380,6 +480,23 @@ const addUserLike = async (req, res, next) => {
         const error = new HttpError('Something went Wrong,cannot save', 500)
         return next(error)
     }
+    let blog
+    try{
+        blog = await Blog.findById(blogid)
+    } catch (err) {
+        const error = new HttpError('Something Went wrong,please try again', 500)
+        return next(error)
+    }
+    if (!blog || blog.length === 0) {
+        return next(new HttpError('Cound not find the blog'))
+    }
+    blog.likes += 1
+    try {
+        await blog.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
     res.status(200).json({ message: "success" })
 }
 
@@ -397,7 +514,7 @@ const removeUserBookmark = async (req, res, next) => {
         return next(error)
     }
     let blog = user.bookmarks.indexOf(blogid)
-    user.bookmarks.splice(blog,1)
+    user.bookmarks.splice(blog, 1)
     try {
         await user.save()
     } catch (err) {
@@ -421,9 +538,26 @@ const removeUserLike = async (req, res, next) => {
         return next(error)
     }
     let blog = user.liked.indexOf(blogid)
-    user.liked.splice(blog,1)
+    user.liked.splice(blog, 1)
     try {
         await user.save()
+    } catch (err) {
+        const error = new HttpError('Something went Wrong,cannot save', 500)
+        return next(error)
+    }
+    let selectedblog
+    try{
+        selectedblog = await Blog.findById(blogid)
+    } catch (err) {
+        const error = new HttpError('Something Went wrong,please try again', 500)
+        return next(error)
+    }
+    if (!selectedblog || selectedblog.length === 0) {
+        return next(new HttpError('Cound not find the blog'))
+    }
+    selectedblog.likes -= 1
+    try {
+        await selectedblog.save()
     } catch (err) {
         const error = new HttpError('Something went Wrong,cannot save', 500)
         return next(error)
@@ -445,7 +579,7 @@ const fetchUserBookmark = async (req, res, next) => {
         return next(error)
     }
     let userBookmarks = []
-    for(let i=0;i<user.bookmarks.length;i++){
+    for (let i = 0; i < user.bookmarks.length; i++) {
         let blog
         try {
             blog = await Blog.findById(user.bookmarks[i])
@@ -475,7 +609,7 @@ const fetchUserLike = async (req, res, next) => {
         return next(error)
     }
     let userLikes = []
-    for(let i=0;i<user.liked.length;i++){
+    for (let i = 0; i < user.liked.length; i++) {
         let blog
         try {
             blog = await Blog.findById(user.liked[i])
@@ -496,6 +630,8 @@ exports.userSignup = userSignup
 exports.userLogin = userLogin
 exports.googleLogin = googleLogin
 exports.facebookLogin = facebookLogin
+exports.publishBlog = publishBlog
+exports.deleteUserBlog = deleteUserBlog
 exports.updateProfession = updateProfession
 exports.updateBio = updateBio
 exports.updateImage = updateImage

@@ -8,16 +8,15 @@ import classes from './Profile.module.css'
 import * as actions from '../../store/actions/index'
 import ProfilePictureUpload from '../../shared/components/FormElements/ProfilePicture'
 import UserBlogs from '../components/UserBlogs/UserBlogs'
+import ProfileSkeleton from '../../shared/components/Skeleton/ProfileSkeleton'
 
 const Profile = props => {
     const { match, onFetchAllUserInfo } = props
     React.useEffect(() => {
         if (match.params.id) {
-            // if (!loadedblog || (loadedblog && loadedblog.id !== +match.params.id)) {
-                onFetchAllUserInfo(match.params.id)
-            // }
+            onFetchAllUserInfo(match.params.id)
         }
-    }, [match])
+    }, [match, onFetchAllUserInfo])
 
     const [profession, setProfession] = useState('')
     const [bio, setBio] = useState('')
@@ -29,10 +28,10 @@ const Profile = props => {
         setBio(e.target.value)
     }
     const updateprofessionclickHandler = () => {
-        props.onupdateuserprofessionHandler(profession, props.userid)
+        props.onupdateuserprofessionHandler(props.token, profession, props.userid)
     }
     const updatebioclickHandler = () => {
-        props.onupdateuserbioHandler(bio, props.userid)
+        props.onupdateuserbioHandler(props.token, bio, props.userid)
     }
     const changeProfessionHandler = () => {
         setProfession(props.userProfession)
@@ -43,37 +42,43 @@ const Profile = props => {
         props.onremoveBio()
     }
     const newimageHandler = (image) => {
-        props.onupdateuserImageHandler(image.src, props.userid)
+        props.onupdateuserImageHandler(props.token, image.src, props.userid)
     }
-    console.log(props.userBlogs)
     return (
-        <div className={classes.profileContainer}>
-            <div className={classes.profilePerson}>
-                <div className={classes.profilePicture}><img src={props.image} alt="dp" /></div>
-                {(match.params.id === props.userid) && <ProfilePictureUpload uploadimage={newimageHandler}/>}
-            </div>
-            <p className={classes.profileUsername}>{props.username}</p>
-            {props.userProfession
-                ? <div className={classes.profileuserProfession}>
-                    <p className={classes.profileProfession}>{props.userProfession}</p>
-                    {(match.params.id === props.userid) && 
-                        <button onClick={changeProfessionHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptextone}>Edit Profession</span></button>}
+        <div className={classes.searchContainer}>
+            {props.Profileloading ?
+                <div className={classes.skeltonLoading}>
+                    <ProfileSkeleton />
+                </div> :
+                <div className={classes.profileContainer}>
+                    <div className={classes.profilePerson}>
+                        <div className={classes.profilePicture}><img src={props.image} alt="dp" /></div>
+                        {(match.params.id === props.userid) && <ProfilePictureUpload uploadimage={newimageHandler} />}
+                    </div>
+                    <p className={classes.profileUsername}>{props.username}</p>
+                    {props.userProfession
+                        ? <div className={classes.profileuserProfession}>
+                            <p className={classes.profileProfession}>{props.userProfession}</p>
+                            {(match.params.id === props.userid) &&
+                                <button onClick={changeProfessionHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptextone}>Edit Profession</span></button>}
+                        </div>
+                        : <div className={classes.profileEditProfession}>
+                            <input placeholder="Add your Profession" onChange={updateprofessionstate} value={profession} />
+                            <button onClick={updateprofessionclickHandler}>save</button>
+                        </div>}
+                    {props.userBio
+                        ? <div className={classes.profileuserBio}>
+                            <p className={classes.profileBio}>{props.userBio}
+                                {(match.params.id === props.userid) && <button onClick={changeBioHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptexttwo}>Edit Bio</span></button>}</p>
+                        </div>
+                        : <div className={classes.profileEditBio}>
+                            <p>Bio</p>
+                            <input placeholder="Add your Bio" onChange={updatebiostate} value={bio} />
+                            <button onClick={updatebioclickHandler}>save</button>
+                        </div>}
+                    <UserBlogs />
                 </div>
-                : <div className={classes.profileEditProfession}>
-                    <input placeholder="Add your Profession" onChange={updateprofessionstate} value={profession}/>
-                    <button onClick={updateprofessionclickHandler}>save</button>
-                </div>}
-            {props.userBio
-                ? <div className={classes.profileuserBio}>
-                    <p className={classes.profileBio}>{props.userBio} 
-                    {(match.params.id === props.userid) && <button onClick={changeBioHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptexttwo}>Edit Bio</span></button>}</p>        
-                </div>
-                : <div className={classes.profileEditBio}>
-                    <p>Bio</p>
-                    <input placeholder="Add your Bio" onChange={updatebiostate} value={bio}/>
-                    <button onClick={updatebioclickHandler}>save</button>
-                </div>}
-                <UserBlogs /> 
+            }
         </div>
     )
 }
@@ -81,7 +86,9 @@ const Profile = props => {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
+        token: state.auth.token,
         userid: state.auth.userid,
+        Profileloading: state.auth.Profileloading,
         username: state.auth.Profileusername,
         image: state.auth.Profileimage,
         userProfession: state.auth.profession,
@@ -91,12 +98,12 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchAllUserInfo: (id) => dispatch(actions.fetchAllUserInfo(id)), 
-        onupdateuserprofessionHandler: (profession, userid) => dispatch(actions.updateuserprofession(profession, userid)), 
-        onupdateuserbioHandler: (bio, userid) => dispatch(actions.updateuserbio(bio, userid)),
-        onupdateuserImageHandler: (image, userid) => dispatch(actions.updateuserimage(image, userid)),
-        onremoveProfession: () => dispatch({type: 'REMOVE_USER_PROFESSION'}),
-        onremoveBio: () => dispatch({type: 'REMOVE_USER_BIO'}),
+        onFetchAllUserInfo: (id) => dispatch(actions.fetchAllUserInfo(id)),
+        onupdateuserprofessionHandler: (token, profession, userid) => dispatch(actions.updateuserprofession(token, profession, userid)),
+        onupdateuserbioHandler: (token, bio, userid) => dispatch(actions.updateuserbio(token, bio, userid)),
+        onupdateuserImageHandler: (token, image, userid) => dispatch(actions.updateuserimage(token, image, userid)),
+        onremoveProfession: () => dispatch({ type: 'REMOVE_USER_PROFESSION' }),
+        onremoveBio: () => dispatch({ type: 'REMOVE_USER_BIO' }),
     }
 }
 

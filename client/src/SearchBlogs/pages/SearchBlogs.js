@@ -5,24 +5,22 @@ import { connect } from 'react-redux'
 import classes from './SearchBlogs.module.css'
 import * as actions from '../../store/actions/index'
 import Card from '../../shared/components/UIElements/Card'
+import SkeletonTwo from '../../shared/components/Skeleton/SkeletonTwo'
+import empty from '../../assets/images/empty.png'
 
 const SearchBlogs = props => {
     const { match, queriedBlogs, onFetchQueriedBlog } = props
     React.useEffect(() => {
         if (match.params.query) {
-            if (!queriedBlogs || (queriedBlogs && queriedBlogs.query !== +match.params.query)) {
-                onFetchQueriedBlog(match.params.query)
-            }
+            onFetchQueriedBlog(match.params.query)
         }
-    }, [match])
-    console.log(queriedBlogs)
+    }, [match, onFetchQueriedBlog])
     const articleClickedHandler = id => {
-        console.log(id)
         props.history.push(`/blogview/${id}`)
     }
     const articleBookmarkHandler = (event, id) => {
         event.stopPropagation()
-        props.onAddBookmark(props.userid,id)
+        props.onAddBookmark(props.userid, id)
     }
     const authorClickedHandler = (event, id) => {
         event.stopPropagation()
@@ -30,35 +28,47 @@ const SearchBlogs = props => {
     }
     return (
         <div className={classes.searchContainer}>
-            <div className={classes.searchSearchAuthorContainer}>
-                <div className={classes.searchSearchContainer}>
-                    {queriedBlogs && queriedBlogs.map(blog => {
-                        let bannerimage = null
-                        for (let element of blog.blog) {
-                            if (element.type === 'img') {
-                                bannerimage = element.content.src
-                                break;
+            <div className={classes.searchHeading}>Search Result</div>
+            {props.searchloading ?
+                <div className={classes.skeltonLoading}>
+                    <SkeletonTwo />
+                </div> :
+                <div className={classes.searchSearchAuthorContainer}>
+                    <div className={classes.searchSearchContainer}>
+                            {props.queriedBlogs[0] ?
+                                <div>
+                                    {queriedBlogs && queriedBlogs.map(blog => {
+                                    let bannerimage = null
+                                    for (let element of blog.blog) {
+                                        if (element.type === 'img') {
+                                            bannerimage = element.content.src
+                                            break;
+                                        }
+                                    }
+                                    return (
+                                        <div className={classes.searchCardContainer} key={blog.id}>
+                                            <Card
+                                                id={blog.id}
+                                                title={blog.blog[0].content}
+                                                authorname={blog.authorname}
+                                                authordp={blog.authordp}
+                                                bannerimage={bannerimage}
+                                                minread={blog.minread}
+                                                dateposted={blog.dateposted}
+                                                articleBookmarkHandler={articleBookmarkHandler}
+                                                authorClicked={authorClickedHandler}
+                                                articleClicked={articleClickedHandler} />
+                                        </div>
+                                    )
+                                })}
+                                </div> :
+                                <div className={classes.searchcontentempty}>
+                                    <img src={empty} alt="empty" />
+                                </div>
                             }
-                        }
-                        return (
-                            <div className={classes.searchCardContainer}>
-                                <Card
-                                    key={blog.id}
-                                    id={blog.id}
-                                    title={blog.blog[0].content}
-                                    authorname={blog.authorname}
-                                    authordp={blog.authordp}
-                                    bannerimage={bannerimage}
-                                    minread={blog.minread}
-                                    dateposted={blog.dateposted}
-                                    articleBookmarkHandler={articleBookmarkHandler}
-                                    authorClicked={authorClickedHandler}
-                                    articleClicked={articleClickedHandler} />
-                            </div>
-                        )
-                    })}
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     )
 }
@@ -66,6 +76,7 @@ const SearchBlogs = props => {
 const mapStateToProps = state => {
     return {
         queriedBlogs: state.blog.queriedBlogs,
+        searchloading: state.blog.searchloading,
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
     }

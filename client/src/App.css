@@ -2,13 +2,18 @@
   text-align: center;
   font-family: 'Mulish', sans-serif;
 }
+.centerLoading{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 
 body::-webkit-scrollbar {
   width: 7px;               /* width of the entire scrollbar */
 }
 
 body::-webkit-scrollbar-track {
-  background: #000000;        /* color of the tracking area */
+  background: #0B0F10 ;        /* color of the tracking area */
 }
 
 body::-webkit-scrollbar-thumb {

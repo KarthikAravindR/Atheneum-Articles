@@ -1,11 +1,12 @@
 .welcomemedia {
-    font-family: 'Roboto', sans-serif;
     font-size: 2rem;
     color:#FFC038;
-    font-family: 'Mulish', sans-serif;
+}
+p{
+    margin: 0;
 }
 .Authentication {
-    background-color: #000;
+    background-color: #0D272D;
     width: 100%;
     height: 100vh;
     padding: 10px;
@@ -33,77 +34,56 @@
         0 6px 20px 0 rgba(0, 0, 0, 0.227);
     display: flex;
     padding-right: 12px;
+    background-color: #0B0F10;
 }
 .people {
-    width: 30%;
+    width: 70%;
     height: 100%;
     position: relative;
     text-align: center;
     color: white;
-    /* padding: 10px 0px 50px 70px; */
+    background-color: #0B0F10;
 }
-.centered {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.centered p{
-    font-weight: 900;
-    font-family: 'Mulish', sans-serif;
-    font-size: 2rem;
-    margin-top: 12px;
-}
-.quote{
+.authtitle{
     width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
+    height: 14%;
+    display: flex;
+    align-items: center; 
+    padding: 0 77px;
+}
+.authtitle p{
+    color: #7895A2;
+    font-size: 2rem;
+    margin-top: px;
+    font-family: 'Playfair Display', serif;
 }
 
 .peopleimg {
     width: 100%;
+    height: 80%;
+}
+.peopleimg img{
+    width: 100%;
     height: 100%;
-    background-image: url('../assets/images/three.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    /* filter: blur(3px);
-    -webkit-filter: blur(3px); */
 }
 .Authenticationform {
-    /* padding-top: 50px; */
-    width: 70%;
+    width: 30%;
     text-align: center;
     margin: auto;
+    background-color: #0B0F10;
+    font-family: cursive;
 }
 
 .Auth {
-    background-color: rgba(255, 255, 255, 0);
-    color: black;
     height: max-content;
-    width: 50%;
+    width: 70%;
     margin: auto;
     line-height: 12px;
     box-sizing: border-box;
     padding: 12px 0;
-    /* transition: all 0.3s ease-out; */
     border-radius: 7px;
     overflow: hidden;
-    font-family: 'Roboto', sans-serif;
 }
-/* .Auth button {
-    margin-left: 40%;
-    margin-top: 17px;
-    border: #ff2058;    
-    background-color: #ff2058;
-} */
 .signupbutton {
     display: flex;
     width: 50%;
@@ -117,11 +97,17 @@
     margin: 0 5px;
     padding: 0;
     margin: auto;
-    color: white;
+    color: black;
     font-size: 12px;
-    background-color: rgb(43, 42, 42);
+    background-color: #ffc038;
+    border: 1px solid #ffc038;
     min-height: 30px;
     border-radius: 100px;
+}
+.signupbutton button:hover {
+    color: black;
+    background-color: #ffc038;
+    border: 1px solid #ffc038;
 }
 .or {
     display: flex;
@@ -131,27 +117,27 @@
 }
 .ordash {
     width: 45%;
-    border: 1px solid #ccc;
+    border: 1px solid #B35639;
+    margin-top: 5px;
 }
 .orword {
     width: 10%;
-    font-size: 13px;
-    color: rgb(110, 109, 109);
+    font-size: 17px;
+    margin: 0 5px;
+    color: #B35639;
 }
 .errormessage {
-    width: 100%;
-    margin-top: 8px;
+    width: 97%;
+    margin-bottom: 10px;
     color: white;
     text-align: center;
-    margin: auto;
     font-size: 13px;
     min-height: 40px;
-    box-shadow: 0 1px 2px 0 rgba(197, 197, 197, 0.227),
-        0 6px 20px 0 rgba(199, 198, 198, 0.227);
     display: flex;
+    border-radius: 12px;
     justify-content: center;
     align-items: center;
-    background-color: #e23131;
+    background-color: #ff0000;
 }
 .signupbutton1 {
     display: flex;
@@ -175,17 +161,31 @@
     justify-content: center;
     align-items: center;
 }
+.Auth_GFB{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .googlebutton {
     width: 40px !important;
     height: 40px !important;
     border-radius: 100px !important;
     margin: 0 20px !important;
 }
+.googlebutton:hover,
+.googlebutton:active,
+.googlebutton:focus,
+.kep-login-facebook.metro:hover,
+.kep-login-facebook.metro:active,
+.kep-login-facebook.metro:focus {
+    outline: none
+}
 .googlebutton div{
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
-    padding: 1px 1px 0px 1px !important;
+    /* padding: 1px 1px 0px 1px !important; */
     border-radius: 100px !important;
     display: flex !important;
     justify-content: center !important;
@@ -198,8 +198,8 @@
     padding:0 !important
 }
 .kep-login-facebook.metro{
-    width: 37px !important;
-    height: 37px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 100px !important;
     padding: 0 !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02), 0 2px 2px rgba(0, 0, 0, 0.02),
@@ -213,136 +213,50 @@
     margin-top: 20px;
     text-align: center;
     font-size: 12px;
-    color: rgb(110, 109, 109);
+    color: #7895A2;
+    margin-bottom: 20px;
+}
+.developer {
+    text-align: center;
+    font-size: 0.5rem;
+    color: #7895A2;
+}
+.developer span{
+    color: #ffc038;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .Auth .Input {
     display: block;
-    margin: 50px auto;
+    /* margin: 50px auto; */
 }
 .signupbutton {
     text-align: center;
 }
 @media (max-width: 950px) {
-    .peopleimg {
+    .people {
         display: none;
     }
     .Authenticationarea {
         display: block;
+        padding: 0 10px;
     }
-    .people {
-        height: 20%;
-    }
-}
-/* @media (max-width: 1250px) {
-    .Toolbar{
-        margin: 120px 0 0 120px;
-        height: fit-content;
-    }
-    .Auth {
-        width: 500px;
-    }
-    #egg {
-        width: 836px;
-        height: 430px;
-        top: 130px;
-        right: -350px;
-    }
-    .qoute{
-        width: 450px;
-        font-size: 1rem;
-        top: 350px;
-        right: 0;
+    .Authenticationform{
+        width: 70%;
+        margin-top: 80px;
     }
 }
-@media (max-width: 1150px) {
-    .Toolbar{
-        margin: 120px 0 0 120px;
-        height: fit-content;
+@media (max-width: 600px) {
+    .Authenticationform{
+        width: 100%;
+        margin-top: 110px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .Auth {
-        width: 450px;
-    }
-    #egg {
-        width: 836px;
-        height: 430px;
-        top: 130px;
-        right: -350px;
-    }
-    .qoute{
-        width: 450px;
-        font-size: 1rem;
-        top: 350px;
-        right: 0;
+        width: 100%;
     }
 }
-@media (max-width: 1050px) {
-    .Auth {
-        width: 400px;
-    }
-    #egg {
-        width: 836px;
-        height: 430px;
-        top: 130px;
-        right: -350px;
-    }
-    .qoute{
-        width: 450px;
-        font-size: 1rem;
-        top: 350px;
-        right: 0;
-    }
-}
-@media (max-width: 950px) {
-    .Auth {
-        width: 400px;
-    }
-    #egg {
-        width: 736px;
-        height: 370px;
-        top: 180px;
-        right: -350px;
-    }
-    .qoute{
-        width: 350px;
-        font-size: 1rem;
-        top: 350px;
-        right: 0;
-    }
-}
-
-@media (max-width: 850px) {
-    .Auth {
-        width: 80%;
-    }
-    #egg {
-        display: none;
-    }
-    .qoute{
-        display: none;
-    }
-}
-@media (max-width: 750px) {
-    .Toolbar{
-        margin: 50px auto 0 auto;
-        height: fit-content;
-    }
-    .Auth {
-        width: 80%;
-    }
-    #egg {
-        display: none;
-    }
-    .qoute{
-        display: none;
-    }
-    .toolbarTitle1{
-        margin-left: 16px;
-    }
-}
-@media (max-width: 650px) {
-    .Auth {
-        width: 97%;
-        margin: auto;
-    }
-} */

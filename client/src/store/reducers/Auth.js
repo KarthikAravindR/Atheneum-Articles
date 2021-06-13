@@ -8,6 +8,8 @@ const inditialState = {
     email: null,
     error: null,
     loading: false,
+    bookmarkloading: false,
+    likeloading: false,
     professionloading: false,
     profession: '',
     bioloading: false,
@@ -21,7 +23,10 @@ const inditialState = {
     Profileemail: null,
     Profileloading: false,
     ProfileuserBlogs: [],
-    Profileviews: null
+    Profileviews: null,
+    modalShow: false,
+    modalblogid: '',
+    modalblogtitle: '',
 }
 
 const reducer = (state = inditialState, action) => {
@@ -66,7 +71,6 @@ const reducer = (state = inditialState, action) => {
                 professionloading: true
             }
         case actionTypes.UPDATE_USER_PROFESSION_SUCCESS:
-            console.log(action.data)
             return {
                 ...state,
                 professionloading: false,
@@ -102,7 +106,8 @@ const reducer = (state = inditialState, action) => {
         case actionTypes.UPDATE_USER_IMAGE_SUCCESS:
             return {
                 ...state,
-                image: action.data
+                image: action.data,
+                Profileimage: action.data
             }
         case actionTypes.UPDATE_USER_IMAGE_FAILED:
             return {
@@ -135,36 +140,36 @@ const reducer = (state = inditialState, action) => {
         case actionTypes.FETCH_USER_BOOKMARK_START:
             return {
                 ...state,
-                loading: true
+                bookmarkloading: true
             }
         case actionTypes.FETCH_USER_BOOKMARK_SUCCESS:
             return {
                 ...state,
                 userBookmarks: action.userBookmarks,
-                loading: false
+                bookmarkloading: false
             }
         case actionTypes.FETCH_USER_BOOKMARK_FAILED:
             return {
                 ...state,
                 error: action.error,
-                Profileloading: false
+                bookmarkloading: false
             }
         case actionTypes.FETCH_USER_LIKED_START:
             return {
                 ...state,
-                loading: true
+                likeloading: true
             }
         case actionTypes.FETCH_USER_LIKED_SUCCESS:
             return {
                 ...state,
                 userLikes: action.userLikes,
-                loading: false
+                likeloading: false
             }
         case actionTypes.FETCH_USER_LIKED_FAILED:
             return {
                 ...state,
                 error: action.error,
-                loading: false
+                likeloading: false
             }
         case 'REMOVE_USER_PROFESSION':
             return {
@@ -181,7 +186,45 @@ const reducer = (state = inditialState, action) => {
                 ...state,
                 error: null
             }
-
+        case actionTypes.DELETE_USER_BLOG_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.DELETE_USER_BLOG_SUCCESS:
+            let newuserBlogs = [...state.userBlogs]
+            let newProfileuserBlogs = [...state.ProfileuserBlogs]
+            newuserBlogs = newuserBlogs.filter(blog => blog._id !== action.blogid)
+            newProfileuserBlogs= newProfileuserBlogs.filter(blog => blog._id !== action.blogid)
+            return {
+                ...state,
+                loading: false,
+                userBlogs: newuserBlogs,
+                ProfileuserBlogs: newProfileuserBlogs,
+                modalShow: false,
+                modalblogid: '',
+                modalblogtitle: '',
+            }
+        case actionTypes.DELETE_USER_BLOG_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+            }
+        case "MODAL_SHOW":
+            return {
+                ...state,
+                modalShow: true,
+                modalblogid: action.id,
+                modalblogtitle: action.title,
+            }
+        case "MODAL_CLOSE":
+            return {
+                ...state,
+                modalShow: false,
+                modalblogid: '',
+                modalblogtitle: '',
+            }
         default:
             return state
     }

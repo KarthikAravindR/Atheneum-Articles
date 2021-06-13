@@ -13,6 +13,8 @@ import Input from '../shared/components/FormElements/Input'
 import './Auth.css'
 // import Spinner from '../shared/components/UIElements/LoadingSpinner'
 import Logo from '../shared/components/UIElements/Logo'
+import Spinner from '../shared/components/UIElements/LoadingSpinner'
+import authectication from '../assets/images/authentication2.jpg'
 
 const Auth = (props) => {
 
@@ -90,7 +92,7 @@ const Auth = (props) => {
     const { history } = props
     useEffect(() => {
         if (userid) {
-            history.push('/home')
+            history.push('/')
         }
     }, [userid, history])
 
@@ -158,16 +160,18 @@ const Auth = (props) => {
     }
 
     const responseSuccessGoogle = (response) => {
-        console.log(response)
         props.ongoogleauth(response)
     }
     const responseFailureGoogle = (response) => {
-        console.log(response)
     }
 
     const responseFacebook = (response) => {
-        console.log(response);
         props.onFacebookAuth(response)
+    }
+
+    const redirectToGithub = () => {
+        var win = window.open('https://github.com/KarthikAravindR', '_blank');
+        win.focus();
     }
 
     let formelementarray1 = [];
@@ -194,6 +198,7 @@ const Auth = (props) => {
             <form>
                 {formelementarray1.map(formelement => (
                     <Input key={formelement.id}
+                        error={true}
                         shouldvalidate={formelement.config.validation}
                         validity={formelement.config.valid}
                         changd={(event) => inputchangeHandler(event, formelement.id)}
@@ -208,6 +213,7 @@ const Auth = (props) => {
             <form>
                 {formelementarray2.map(formelement => (
                     <Input key={formelement.id}
+                        error={false}
                         shouldvalidate={formelement.config.validation}
                         validity={formelement.config.valid}
                         changd={(event) => inputchangeHandler(event, formelement.id)}
@@ -219,20 +225,17 @@ const Auth = (props) => {
             </form>
     }
 
-    let signupbutton = <p>New To Atheneum? <u style={{ color: "black", cursor: "pointer" }} onClick={switchAuthModeHandler}>Create New Account</u></p>
-    let loginbutton = <p>Already have an account? <u style={{ color: "black", cursor: "pointer" }} onClick={switchAuthModeHandler}>Log-In here</u></p>
+    let signupbutton = <p>New To Atheneum? <span style={{ color: "#FFc038", cursor: "pointer" }} onClick={switchAuthModeHandler}>Create an Account</span></p>
+    let loginbutton = <p>Already have an account? <span style={{ color: "#FFc038", cursor: "pointer" }} onClick={switchAuthModeHandler}>Log-In here</span></p>
     return (
         <div className="Authentication">
             <div id="egg">
                 <div className="Authenticationarea">
                     <div className="people">
-                        {/* <div className="titleauth"><FontAwesomeIcon className="titleiconauth" icon={faFire} /><p>Social Media</p>{props.loading && <Spinner />}</div> */}
-                        <div className="peopleimg"></div>
-                        <div className='centered'>
-                            <Logo />
-                            <p>Atheneum</p>
+                        <div className="authtitle"><Logo /><p>Atheneum</p>{props.loading && <Spinner />}</div>
+                        <div className="peopleimg">
+                            <img src={authectication} alt="" />
                         </div>
-                        <div class="quote">"Reading brings us unknown friends"</div>
                     </div>
                     <div className="Authenticationform">
                         <p className="welcomemedia">Welcome To Atheneum</p>
@@ -240,39 +243,33 @@ const Auth = (props) => {
                             {props.error && <div className="errormessage">
                                 {props.error}
                             </div>}
-                            {/* <p className="errormessage">
-                                {errorMessage}
-                            </p> */}
                             {isSignup ? form1 : form2}
                             <div className="signupbutton">
                                 <button onClick={authenticationHandler} type="button" className="btn btn-light">{isSignup ? 'Sign Up' : 'Log-IN'}</button>
-                                {/* <button onClick={switchAuthModeHandler} type="button" className="btn btn-light">{isSignup ? 'Already have an Account. Sign-In Over here' : 'New To DoToDO ? Create New Account'}</button> */}
                             </div>
                             <div className="or">
                                 <div className="ordash"></div>
                                 <div className="orword">or</div>
                                 <div className="ordash"></div>
                             </div>
-                            {/* <div className="signupbutton1">
-                                <button onClick={authenticationHandler} type="button" className="btn btn-light"><FontAwesomeIcon style={{ fontSize: "1.5rem", paddingRight: "7px" }} icon={faGoogle} />Sign in with Google</button>
-                            </div> */}
-                            <GoogleLogin
-                                clientId="162003935215-rp7i00q4jsf94gdg6afqdtmkbr1ohbmk.apps.googleusercontent.com"
-                                className="googlebutton"
-                                buttonText=""
-                                onSuccess={responseSuccessGoogle}
-                                onFailure={responseFailureGoogle}
-                                cookiePolicy={'single_host_origin'}
-                            />
-                            <FacebookLogin
-                                appId="447049766349813"
-                                // autoLoad={true}
-                                fields="name,email,picture"
-                                // cssClass="facebookbutton"
-                                icon="fa-facebook"
-                                textButton= ""
-                                callback={responseFacebook} />
+                            <div className="Auth_GFB">
+                                <GoogleLogin
+                                    clientId="162003935215-rp7i00q4jsf94gdg6afqdtmkbr1ohbmk.apps.googleusercontent.com"
+                                    className="googlebutton"
+                                    buttonText=""
+                                    onSuccess={responseSuccessGoogle}
+                                    onFailure={responseFailureGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
+                                <FacebookLogin
+                                    appId="447049766349813"
+                                    fields="name,email,picture"
+                                    icon="fa-facebook"
+                                    textButton=""
+                                    callback={responseFacebook} />
+                            </div>
                             <p className="signupbutton2">{isSignup ? loginbutton : signupbutton}</p>
+                            <p className="developer">developed by <span onClick={redirectToGithub}>Karthik Aravind R</span></p>
                         </div>
                     </div>
                 </div>

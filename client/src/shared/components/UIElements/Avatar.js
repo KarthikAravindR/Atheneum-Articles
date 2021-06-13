@@ -9,31 +9,28 @@ const Avatar = (props) => {
   return (
     <div>
       <div type="button" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-        <img src={props.image} alt="dp" />
-        {/* <p>{props.username && props.username.split(" ")[0]}</p> */}
+        {props.isAuthenticated ?
+          <img src={props.image} alt="dp" /> :
+          <img src="https://img.icons8.com/office/80/000000/test-account.png" alt="dp"/>
+        }
       </div>
       <div className="dropdown-menu">
-        <div className="usernamewelcome">
+        {props.isAuthenticated && <div className="usernamewelcome">
           <p ><strong>{props.username && 'Welcome ' + props.username.split(" ")[0]}</strong></p>
-          {/* <button >
-            {!props.isAuthenticated ?
-              <Link to="/">Log In</Link>
-              :
-              <Link to="/logout">Log Out</Link>}
-          </button> */}
-        </div>
-        <div className="dropdown-divider"></div>
-        <Link className="dropdown-item" to={`/profile/${props.userid}`}>My Profile</Link>
-        <div className="dropdown-divider"></div>
-        <Link className="dropdown-item" to="/newblog">Write your Story</Link>
-        <Link className="dropdown-item" to="/checkout/bag">My Book</Link>
-        <div className="dropdown-divider"></div>
+        </div>}
+        {props.isAuthenticated && <div className="dropdown-divider"></div>}
+        {props.isAuthenticated && <Link className="dropdown-item" to={`/profile/${props.userid}`}>My Profile</Link>}
+        {props.isAuthenticated && <div className="dropdown-divider"></div>}
+        {props.isAuthenticated && <Link className="dropdown-item" to="/newblog">Write your Story</Link>}
+        {props.isAuthenticated && <Link className="dropdown-item" to={`/user/bookmark/${props.userid}`}>My Book</Link>}
+        {props.isAuthenticated && <Link className="dropdown-item" to={`/user/like/${props.userid}`}>Liked</Link>}
+        {props.isAuthenticated && <div className="dropdown-divider"></div>}
         <Link className="dropdown-item" to="/">Gift cards</Link>
         <Link className="dropdown-item" to="/">Coupons</Link>
         <Link className="dropdown-item" to="/" >Contact Us</Link>
         <div className="dropdown-divider"></div>
         {!props.isAuthenticated ?
-          <Link className="dropdown-item" to="/" >Log In</Link>
+          <Link className="dropdown-item" to="/auth" >Log In</Link>
           :
           <Link className="dropdown-item" to="/logout" >Log Out</Link>}
         <div className="dropdown-divider"></div>

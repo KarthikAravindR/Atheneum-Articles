@@ -19,6 +19,7 @@
     padding-top: 10px;
     box-sizing: border-box;
     text-align: left;
+    word-break:break-all;
     /* display: flex; */
 }
 .banner_card_details h3 {
@@ -34,7 +35,12 @@
     align-items: center;
     width: 100%;
     margin: 10px 0;
+    padding: 1px 0;
     /* font-size: .8rem; */
+}
+.banner_card_author:hover {
+    background-color: rgba(42, 43, 44, 0.541);
+    border-radius: 12px;
 }
 .banner_card_author p{
     margin: 0;
@@ -57,4 +63,9 @@
     margin-left: 10px;
     font-size: 1rem;
     color: #FFC038;
+}
+@media (max-width: 700px) {
+    .banner_card_details h3 {
+        font-size: 1.5rem;
+    }
 }

@@ -7,7 +7,8 @@ import classes from './NewBlog.module.css'
 import Blog from '../Components/Blog/Blog'
 import ActionBar from '../Components/ActionBar/ActionBar';
 import * as actions from '../../store/actions/index'
-// import HomeHeader from '../../../shared/components/Navigation/HomeHeader'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+
 
 const NewBlog = (props) => {
 
@@ -74,7 +75,6 @@ const NewBlog = (props) => {
                     id: uuid()
                 })
             }
-            console.log(newState)
             return newState
         })
     }
@@ -90,10 +90,15 @@ const NewBlog = (props) => {
             const newState = [...blogs]
             if (newState[blogIndex].content === '') {
                 newState.splice(blogIndex, 1)
-                console.log("backspace fired")
             }
             setBlogs(newState)
         }
+    }
+    const deleteImageHandler = (id) => {
+        const imgIndex = blogs.findIndex(item => item.id === id)
+        const newState = [...blogs]
+        newState.splice(imgIndex, 1)
+        setBlogs(newState)
     }
     const publishHandler = () => {
         const newState = [...blogs]
@@ -119,8 +124,10 @@ const NewBlog = (props) => {
             }
             return element
         })
-        props.onPublishBlog(props.userid, props.username, props.image, dateposted, minread, secondfilterarray)
-        props.history.map.push('/home')
+        props.onPublishBlog(props.token, props.userid, props.username, props.image, dateposted, minread, secondfilterarray)
+        setTimeout(() => {
+            !props.loading && props.history.push('/')
+        }, 5000)
     }
     return (
         <div className={classes.Blog}>
@@ -135,10 +142,16 @@ const NewBlog = (props) => {
                         placeholder={blog.placeholder}
                         updateBlog={(newContent) => updateBlog(blog.id, newContent)}
                         handleKeyPress={handleKeyPress}
+                        deleteImageHandler={() => deleteImageHandler(blog.id)}
                         handleBackspace={handleBackspace} />
                 ))}
                 <ActionBar addBlog={addBlog} />
-                <button onClick={publishHandler} className={classes.publish}>Publish</button>
+                <button 
+                    onClick={publishHandler} 
+                    disabled={blogs[0].content.length === 0 || blogs[1].content.length === 0}
+                    className={classes.publish}>
+                        {props.loading ? <LoadingSpinner /> : "Publish"}
+                </button>
             </div>
         </div>
     );
@@ -150,12 +163,13 @@ const mapStateToProps = state => {
         email: state.auth.email,
         username: state.auth.username,
         token: state.auth.token,
-        image: state.auth.image
+        image: state.auth.image,
+        loading: state.blog.loading
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onPublishBlog: (userid, username, image, dateposted, minread, secondfilterarray) => (dispatch(actions.publishBlog(userid, username, image, dateposted, minread, secondfilterarray))),
+        onPublishBlog: (token, userid, username, image, dateposted, minread, secondfilterarray) => (dispatch(actions.publishBlog(token, userid, username, image, dateposted, minread, secondfilterarray))),
     }
 }
 

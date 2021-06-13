@@ -1,13 +1,17 @@
 .Container{
-    padding: 80px;
-    height: max-content;
-    text-align: left;
+    /* padding: 80px;
+    height: max-content; */
+    /* text-align: left; */
     color: rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
+    margin-top: 60px;
+    padding: 50px 0;
 }
 .blog{
     width: 60%;
     margin: 0 auto;
+    word-break: break-all;
+    text-align: left;
 }
 .details{
     width: 100%;
@@ -61,7 +65,7 @@
     /* width: 100px;
     height: 100px; */
     top: 30%;
-    left: -24px;
+    left: -44px;
     transform: translate(30%, 20px);
 }
 .fixedAuthorDetails p{
@@ -70,31 +74,81 @@
 .bookmarkfalseicon,.likefalseicon{
     margin: 0 5px;
     font-size: 1rem;
+    cursor: pointer;
 }
 .fixedbuttonicons .bookmarkfalseicon{
     font-size: 1.5rem;
     margin-right: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .fixedbuttonicons .likefalseicon{
     font-size: 1.5rem;
     margin-left: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .bookmarktrueicon,.liketrueicon{
     margin: 0 5px;
     font-size: 1rem;
     color: #FFC038;
+    cursor: pointer;
 }
 .fixedbuttonicons .bookmarktrueicon{
     font-size: 1.5rem;
     margin-right: 10px;
     margin-top: 10px;
     color: #FFC038;
+    cursor: pointer;
 }
 .fixedbuttonicons .liketrueicon{
     font-size: 1.5rem;
     margin-left: 10px;
     margin-top: 10px;
     color: #FFC038;
+    cursor: pointer;
+}
+.skeltonLoading{
+    width: 800px;
+    margin: 110px auto 0 auto;
+}
+.userlikes{
+    float: right;
+    margin-right: 10px;
+    padding: 5px;
+    background-color: #FFC038;
+    color: black;
+    border-radius: 5px;
+}
+.userlikes1{
+    float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #FFC038;
+    color: black;
+    border-radius: 5px;
+}
+@media (max-width: 1200px) {
+    .Container{
+        padding: 20px;
+        margin-top: 70px;
+        width: 100%;
+    }
+    .blog{
+        width: 100%;
+    }
+    .heading{
+        font-size: 2.5rem;
+        font-family: 'Playfair Display', serif;
+    }
+    .fixedAuthorDetails{
+        position: static;
+        display: block;
+        text-align: left;
+        left: 0px;
+        /* width: 100px;
+        height: 100px; */
+        transform: translate(0%, 0px);
+    }
 }

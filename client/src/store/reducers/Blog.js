@@ -9,10 +9,13 @@ const initialState = {
     loadedblog: null,
     error: null,
     loading: false,
+    homepageloading: false,
+    blogloading: false,
     searchloading: false,
     queriedBlogs: [],
     isbookmarked: false,
     isliked: false,
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,13 +26,9 @@ const reducer = (state = initialState, action) => {
                 loading: true
             }
         case actionTypes.PUBLISH_BLOG_SUCCESS:
-            // let upadtedBlogs = [action.blog]
-            // upadtedBlogs.concat(...state.blogs)
-            // console.log(upadtedBlogs)
             return {
                 ...state,
                 loading: false,
-                // blogs: upadtedBlogs
             }
         case actionTypes.PUBLISH_BLOG_FAILED:
             return {
@@ -40,31 +39,29 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_BLOGS_START:
             return {
                 ...state,
-                loading: true
+                homepageloading: true
             }
         case actionTypes.FETCH_BLOGS_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                homepageloading: false,
                 blogs: action.blog,
-                loadedblog: null
             }
         case actionTypes.FETCH_BLOGS_FAILED:
-        
             return {
                 ...state,
-                loading: false,
+                homepageloading: false,
                 error: action.error
             }
         case actionTypes.FETCH_PARTICULAR_BLOG_START:
             return {
                 ...state,
-                loading: true
+                blogloading: true
             }
         case actionTypes.FETCH_PARTICULAR_BLOG_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                blogloading: false,
                 loadedblog: action.blog,
                 isbookmarked: action.isbookmarked,
                 isliked: action.isliked,
@@ -72,7 +69,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_PARTICULAR_BLOG_FAILED:
             return {
                 ...state,
-                loading: false,
+                blogloading: false,
                 error: action.error
             }
         case actionTypes.FETCH_QUERIED_BLOG_START:
@@ -93,61 +90,72 @@ const reducer = (state = initialState, action) => {
                 error: action.error
             }
         case actionTypes.ADD_BOOKMARK_START:
-            return{
+            return {
                 ...state,
             }
         case actionTypes.ADD_BOOKMARK_SUCCESS:
-            return{
+            return {
                 ...state,
                 isbookmarked: true,
             }
         case actionTypes.ADD_BOOKMARK_FAILED:
-            return{
+            return {
                 ...state,
                 error: action.error
             }
         case actionTypes.ADD_LIKED_START:
-            return{
+            return {
                 ...state,
             }
         case actionTypes.ADD_LIKED_SUCCESS:
-            return{
+            let newloadedblog = {...state.loadedblog}
+            if(newloadedblog.id === action.blogid){
+                newloadedblog.likes += 1
+            }
+            return {
                 ...state,
-                isliked: true
+                isliked: true,
+                loadedblog: newloadedblog
             }
         case actionTypes.ADD_LIKED_FAILED:
-            return{
+            return {
                 ...state,
                 error: action.error
             }
-            case actionTypes.REMOVE_BOOKMARK_START:
-                return{
-                    ...state,
-                }
-            case actionTypes.REMOVE_BOOKMARK_SUCCESS:
-                return{
-                    ...state,
-                    isbookmarked: false,
-                }
-            case actionTypes.REMOVE_BOOKMARK_FAILED:
-                return{
-                    ...state,
-                    error: action.error
-                }
-            case actionTypes.REMOVE_LIKED_START:
-                return{
-                    ...state,
-                }
-            case actionTypes.REMOVE_LIKED_SUCCESS:
-                return{
-                    ...state,
-                    isliked: false
-                }
-            case actionTypes.REMOVE_LIKED_FAILED:
-                return{
-                    ...state,
-                    error: action.error
-                }
+        case actionTypes.REMOVE_BOOKMARK_START:
+            return {
+                ...state,
+            }
+        case actionTypes.REMOVE_BOOKMARK_SUCCESS:
+            return {
+                ...state,
+                isbookmarked: false,
+            }
+        case actionTypes.REMOVE_BOOKMARK_FAILED:
+            return {
+                ...state,
+                error: action.error
+            }
+        case actionTypes.REMOVE_LIKED_START:
+            return {
+                ...state,
+            }
+        case actionTypes.REMOVE_LIKED_SUCCESS:
+            let anotherloadedblog = {...state.loadedblog}
+            if(anotherloadedblog.id === action.blogid){
+                anotherloadedblog.likes -= 1
+            }
+            return {
+                ...state,
+                isliked: false,
+                loadedblog: anotherloadedblog
+            }
+        case actionTypes.REMOVE_LIKED_FAILED:
+            return {
+                ...state,
+                error: action.error
+            }
+
         default:
             return state
     }

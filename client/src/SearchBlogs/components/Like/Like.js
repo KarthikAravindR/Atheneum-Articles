@@ -1,23 +1,24 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
 import classes from './Like.module.css'
 import * as actions from '../../../store/actions/index'
 import Card from '../../../shared/components/UIElements/Card'
+import SkeletonTwo from '../../../shared/components/Skeleton/SkeletonTwo'
+import empty from '../../../assets/images/empty.png'
 
 const Like = props => {
-    const {onFetchUserLike, userid, token} = props
+    const { onFetchUserLike, userid, token } = props
     useEffect(() => {
         onFetchUserLike(userid, token)
     }, [onFetchUserLike, userid, token])
     const articleClickedHandler = id => {
-        console.log(id)
         props.history.push(`/blogview/${id}`)
     }
     const articleBookmarkHandler = (event, id) => {
         event.stopPropagation()
-        props.onAddBookmark(props.userid,id)
+        props.onAddBookmark(props.userid, id)
     }
     const authorClickedHandler = (event, id) => {
         event.stopPropagation()
@@ -27,52 +28,63 @@ const Like = props => {
         <div className={classes.userLikesContainer}>
             <div className={classes.userLikesAuthorContainer}>
                 <div className={classes.userLikesHeading}>Liked</div>
-                <div className={classes.userLikesimageContainer}>
-                    {props.userLikes && props.userLikes.map(blog => {
-                        let bannerimage = null
-                        for (let element of blog.blog) {
-                            if (element.type === 'img') {
-                                bannerimage = element.content.src
-                                break;
+                {props.likeloading ?
+                    <div className={classes.skeltonLoading}>
+                        <SkeletonTwo />
+                    </div> :
+                    <div className={classes.userLikesimageContainer}>
+                        {props.userLikes[0] ?
+                            <div>
+                                {props.userLikes && props.userLikes.map(blog => {
+                                    let bannerimage = null
+                                    for (let element of blog.blog) {
+                                        if (element.type === 'img') {
+                                            bannerimage = element.content.src
+                                            break;
+                                        }
+                                    }
+                                    return (
+                                        <div className={classes.userLikesCardContainer} key={blog.id}>
+                                            <Card
+                                                id={blog.id}
+                                                title={blog.blog[0].content}
+                                                authorname={blog.authorname}
+                                                authordp={blog.authordp}
+                                                authorId={blog.authorId}
+                                                bannerimage={bannerimage}
+                                                minread={blog.minread}
+                                                dateposted={blog.dateposted}
+                                                articleClicked={articleClickedHandler}
+                                                authorClicked={authorClickedHandler}
+                                                articleBookmarkHandler={articleBookmarkHandler} />
+                                        </div>
+                                    )
+                                })}</div> :
+                                <div className={classes.likecontentempty}>
+                                    <img src={empty} alt="empty" />
+                                </div>
                             }
-                        }
-                        return (
-                            <div className={classes.userLikesCardContainer}>
-                                <Card
-                                    key={blog.id}
-                                    id={blog.id}
-                                    title={blog.blog[0].content}
-                                    authorname={blog.authorname}
-                                    authordp={blog.authordp}
-                                    authorId={blog.authorId}
-                                    bannerimage={bannerimage}
-                                    minread={blog.minread}
-                                    dateposted={blog.dateposted}
-                                    articleClicked={articleClickedHandler}
-                                    authorClicked={authorClickedHandler}
-                                    articleBookmarkHandler={articleBookmarkHandler}/>
                             </div>
-                        )
-                    })}
-                </div>
-            </div>
+                }
+                    </div>
         </div>
-    )
+            )
 }
 
 const mapStatetoProps = state => {
-    return{
-        isAuthenticated: state.auth.token !== null,
-        token: state.auth.token,
-        userid: state.auth.userid,
-        userLikes: state.auth.userLikes
+    return {
+                isAuthenticated: state.auth.token !== null,
+            token: state.auth.token,
+            likeloading: state.auth.likeloading,
+            userid: state.auth.userid,
+            userLikes: state.auth.userLikes
     }
 }
 
 const mapDisptachtoState = dispatch => {
-    return{
-        onFetchUserLike: (userid, token) => dispatch(actions.fetchUserLike(userid, token))
+    return {
+                onFetchUserLike: (userid, token) => dispatch(actions.fetchUserLike(userid, token))
     }
 }
 
-export default withRouter(connect(mapStatetoProps, mapDisptachtoState)(Like))
+            export default withRouter(connect(mapStatetoProps, mapDisptachtoState)(Like))

@@ -1,6 +1,26 @@
 .searchContainer{
-    margin-top: 110px;
+    margin-top: 150px;
     padding: 0 120px;
+}
+.searchcontentempty{
+    margin: 50px auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+.searchcontentempty img{
+    width: 300px;
+    height: 300px;
+}
+.searchHeading{
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 20px auto;
+    font-size: 2rem;
+    border-bottom: 1px solid #FFc038;
 }
 .searchSearchAuthorContainer{
     display: flex;
@@ -19,8 +39,7 @@
 .searchCardContainer{
     width: 100%;
     box-sizing: border-box;
-    background-color: rgb(33, 33, 34);
-    background-color: rgb(33, 34, 34);
+    background-color: #141718;
     padding: 20px 20px 0 20px;
     border-radius: 12px;
     margin-bottom: 20px;
@@ -40,4 +59,25 @@
     padding-left: 30px;
     box-sizing: border-box;
     border-left: 1px solid rgb(73, 72, 72);
+}
+.skeltonLoading{
+    margin: 0 auto;
+    width: 700px;
+}
+@media (max-width: 800px) {
+    .searchContainer{ 
+        margin-top: 150px;
+        padding: 0 20px;
+    }
+    .searchHeading{
+        width: 100%;
+    }
+    .skeltonLoading{
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 20px;
+    }
+    .searchSearchAuthorContainer{
+        width: 100%;
+    }
 }

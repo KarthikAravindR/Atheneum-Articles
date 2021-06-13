@@ -10,27 +10,22 @@ const ImageUpload = props => {
   const filePickerRef = useRef();
   const {updateBlog} = props
   useEffect(() => {
-    console.log("img picker use effect called")
     if (!file) {
       return;
     }
     const fileReader = new FileReader();
     fileReader.onload = () => {
       // setPreviewUrl(fileReader.result);
-      console.log(fileReader.result)
       updateBlog({src:fileReader.result, alt: "preview"});
     };
     fileReader.readAsDataURL(file);
-    // console.log(previewUrl)
   }, [file,updateBlog]);
 
   const pickedHandler = event => {
-    console.log("pickedHandler called")
     let pickedFile;
     // let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
-      // console.log(previewUrl)
       setFile(pickedFile);
       setIsValid(true);
       // fileIsValid = true;

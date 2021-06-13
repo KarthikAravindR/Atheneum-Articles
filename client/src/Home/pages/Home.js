@@ -2,17 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './Home.css'
-// import HomeHeader from '../../shared/components/Navigation/HomeHeader'
 import * as actions from '../../store/actions/index'
 import Atheneum from '../components/Atheneum/Atheneum'
 import MostViewed from '../components/MostViewed/MostViewed'
 import Articles from '../components/Articles/Articles'
-// import BannerCard from '../../shared/components/UIElements/BannerCard'
-// import Card from '../../shared/components/UIElements/Card'
-// import BlogBuilder from '../../BlogBuilder/pages/NewBlog/NewBlog'
+import SkeletonOne from '../../shared/components/Skeleton/SkeletonOne'
+import SkeletonTwo from '../../shared/components/Skeleton/SkeletonTwo'
 
 const Home = (props) => {
-    const {onFetchAllBlogs} = props
+    const { onFetchAllBlogs } = props
     React.useEffect(() => {
         onFetchAllBlogs()
     }, [onFetchAllBlogs])
@@ -25,20 +23,32 @@ const Home = (props) => {
     mostViewedblogs.sort((a, b) => {
         return b.views - a.views;
     });
-    mostViewedblogs = mostViewedblogs.slice(0,6)
-    console.log(mostViewedblogs)
-    return(
+    mostViewedblogs = mostViewedblogs.slice(0, 6)
+    return (
         <div>
-            {/* <HomeHeader /> */}
-            {props.blogs[0] && <div className="HomeContainer">
-                <Atheneum 
-                    bannerblog={bannerblog}
-                    lastfourcards={lastfourcards} />
-                <MostViewed 
-                    mostViewedblogs={mostViewedblogs} />
-                <Articles 
-                    articlecards={articlecards} /> 
-            </div>}
+            {props.homepageloading ?
+                <div className="skeleton_container">
+                    <div className="skeleton_container_one">
+                        <SkeletonOne />
+                    </div>
+                    <div className="skeleton_container_two">
+                        <SkeletonTwo />
+                    </div>
+                </div> :
+                <div>
+                    {props.blogs[0] &&
+                        <div className="HomeContainer">
+                            <Atheneum
+                                bannerblog={bannerblog}
+                                lastfourcards={lastfourcards} />
+                            <MostViewed
+                                mostViewedblogs={mostViewedblogs} />
+                            <Articles
+                                articlecards={articlecards} />
+                        </div>
+                    }
+                </div>
+            }
         </div>
     )
 }
@@ -46,7 +56,8 @@ const Home = (props) => {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
-        blogs: state.blog.blogs
+        blogs: state.blog.blogs,
+        homepageloading: state.blog.homepageloading
     }
 }
 const mapDispatchToProps = dispatch => {

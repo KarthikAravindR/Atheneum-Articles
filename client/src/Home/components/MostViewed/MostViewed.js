@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faBinoculars } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 
 import classes from './MostViewed.module.css'
@@ -24,7 +24,8 @@ const MostViewed = (props) => {
     return (
         <div className={classes.MostViewedContainer}>
             <div className={classes.MostViewedContainerTitle}>
-                <FontAwesomeIcon icon={faBinoculars} style={{ fontSize: "1.85rem", marginRight: "10px" }} />
+                {/* <FontAwesomeIcon icon={faBinoculars} style={{ fontSize: "1.85rem", marginRight: "10px" }} /> */}
+                <img src="https://img.icons8.com/office/80/000000/binoculars.png" alt="bino"/>
                 <h3>Most Viewed</h3>
             </div>
             <div className={classes.MostViewedArticleAuthorContainer}>
@@ -38,10 +39,9 @@ const MostViewed = (props) => {
                             }
                         }
                         return (
-                            <div className={classes.ArticleContainer}>
+                            <div className={classes.ArticleContainer} key={blog.id}>
                                 <div className={classes.ArticleContainerNumber}>0{props.mostViewedblogs.indexOf(blog) + 1}</div>
                                 <Card
-                                    key={blog.id}
                                     id={blog.id}
                                     title={blog.blog[0].content}
                                     authorname={blog.authorname}

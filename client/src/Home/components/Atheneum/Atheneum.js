@@ -20,17 +20,16 @@ const Atheneum = (props) => {
     }
     const articleBookmarkHandler = (event, id) => {
         event.stopPropagation()
-        props.onAddBookmark(props.userid,id)
+        props.onAddBookmark(props.userid, id)
     }
     const authorClickedHandler = (event, id) => {
         event.stopPropagation()
         props.history.push(`/profile/${id}`)
     }
     return (
-        <div className={classes.OgleBanner}>
+            <div className={classes.OgleBanner}>
             <div className={classes.OgleBannerMain}>
                 <BannerCard
-                    key={props.bannerblog.id}
                     id={props.bannerblog.id}
                     title={props.bannerblog.blog[0].content}
                     authorname={props.bannerblog.authorname}
@@ -41,7 +40,7 @@ const Atheneum = (props) => {
                     dateposted={props.bannerblog.dateposted}
                     articleClicked={articleClickedHandler}
                     authorClicked={authorClickedHandler}
-                    articleBookmarkHandler={articleBookmarkHandler}/>
+                    articleBookmarkHandler={articleBookmarkHandler} />
             </div>
             <div className={classes.OgleBannercards}>
                 {props.lastfourcards.map(blog => {
@@ -52,8 +51,8 @@ const Atheneum = (props) => {
                             break;
                         }
                     }
-                    return(
-                        <Card 
+                    return (
+                        <Card
                             key={blog.id}
                             id={blog.id}
                             title={blog.blog[0].content}
@@ -62,21 +61,21 @@ const Atheneum = (props) => {
                             authorId={blog.authorId}
                             bannerimage={bannerimage}
                             minread={blog.minread}
-                            dateposted={blog.dateposted} 
+                            dateposted={blog.dateposted}
                             articleClicked={articleClickedHandler}
                             authorClicked={authorClickedHandler}
-                            articleBookmarkHandler={articleBookmarkHandler}/>
+                            articleBookmarkHandler={articleBookmarkHandler} />
                     )
                 })}
             </div>
-        </div>
+            </div>
     )
 }
-
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
+        homepageloading: state.blog.homepageloading
     }
 }
 const mapDispatchToProps = dispatch => {

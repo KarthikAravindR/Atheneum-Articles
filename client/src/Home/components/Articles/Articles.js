@@ -33,9 +33,8 @@ const Articles = (props) => {
                             }
                         }
                         return (
-                            <div className={classes.ArticleContainer}>
+                            <div className={classes.ArticleContainer} key={blog.id}>
                                 <Card
-                                    key={blog.id}
                                     id={blog.id}
                                     title={blog.blog[0].content}
                                     authorname={blog.authorname}

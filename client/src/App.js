@@ -6,24 +6,30 @@ import './App.css';
 import * as actions from './store/actions/index'
 
 import HomeFeed from './Home/pages/Home'
-import Profile from './Profile/pages/Profile'
-import SearchBlogs from './SearchBlogs/pages/SearchBlogs';
-import Bookmark from './SearchBlogs/components/Bookmark/Bookmark';
-import Like from './SearchBlogs/components/Like/Like';
-import BlogBuilder from './BlogBuilder/pages/NewBlog'
-import BlogViewHome from './BlogView/pages/BlogViewHome'
-import Auth from './Auth/Auth'
+// import Profile from './Profile/pages/Profile'
+// import SearchBlogs from './SearchBlogs/pages/SearchBlogs';
+// import Bookmark from './SearchBlogs/components/Bookmark/Bookmark';
+// import Like from './SearchBlogs/components/Like/Like';
+// import BlogBuilder from './BlogBuilder/pages/NewBlog'
+// import BlogViewHome from './BlogView/pages/BlogViewHome'
+// import Auth from './Auth/Auth'
 import Logout from './Auth/Logout/Logout'
 import HomeHeader from './shared/components/Navigation/HomeHeader'
 import Toolbar from './shared/components/Navigation/Toolbar'
 import Spinner from './shared/components/UIElements/LoadingSpinner'
 
+const Auth = React.lazy(() => import('./Auth/Auth'))
+const Profile = React.lazy(() => import('./Profile/pages/Profile'))
+const SearchBlogs = React.lazy(() => import('./SearchBlogs/pages/SearchBlogs'))
+const Bookmark = React.lazy(() => import('./SearchBlogs/components/Bookmark/Bookmark'))
+const Like = React.lazy(() => import('./SearchBlogs/components/Like/Like'))
+const BlogBuilder = React.lazy(() => import('./BlogBuilder/pages/NewBlog'))
+const BlogViewHome = React.lazy(() => import('./BlogView/pages/BlogViewHome'))
 
 const App = (props) => {
 
     const {onAutoSignUp} = props;
-    useEffect(() => {
-      console.log("Auto Sign up")
+    useEffect(() => { 
       onAutoSignUp()
     },[onAutoSignUp])
 
@@ -32,10 +38,10 @@ const App = (props) => {
         <BrowserRouter>
           <Suspense fallback={<div className="centerLoading"><Spinner /></div>}>
             {/* <Toast /> */}
-            <Route path="/" exact >
+            <Route path="/auth" exact >
               <Auth />
             </Route>
-            <Route path="/home" exact >
+            <Route path="/" exact >
               <HomeHeader />
               <HomeFeed />
             </Route>

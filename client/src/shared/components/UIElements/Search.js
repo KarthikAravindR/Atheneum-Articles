@@ -11,18 +11,16 @@ const Search = (props) => {
     const [searchText, setSearchText] = useState('')
     const searchTaskHandler1 = event => {
         event.preventDefault()
-        // props.onFetchQueriedBlog(searchText)
-        props.history.push('/search/' + searchText)
+        if(searchText || searchText.length > 0) {
+            props.history.push('/search/' + searchText)
+        }
     }
     return (
         <form className="form1" onSubmit={searchTaskHandler1}>
-            {/* <div className="searchicon">
-                    <FontAwesomeIcon  icon={faSearch} />
-                </div> */}
             <button className="buttonserach" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
             <input
                 className="searchbar1"
-                placeholder="Search Ogle"
+                placeholder="Search blogs..."
                 value={searchText}
                 onChange={event => setSearchText(event.target.value)}
             />

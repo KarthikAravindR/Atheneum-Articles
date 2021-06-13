@@ -5,7 +5,7 @@ import Image from '../Image/Image'
 import autosize from 'autosize';
 
 export const componentMapping = {
-    img: (content, updateBlog) => <Image {...content} updateBlog={updateBlog} />
+    img: (content, updateBlog, deleteImageHandler) => <Image {...content} updateBlog={updateBlog} deleteImageHandler={deleteImageHandler}/>
 }
 const Blog = (props) => {
     autosize(document.querySelectorAll('textarea'));
@@ -30,7 +30,7 @@ const Blog = (props) => {
                 onChange={e => props.updateBlog(e.target.value)} />
         )
     } else {
-        view = componentMapping[props.type](props.content, props.updateBlog)
+        view = componentMapping[props.type](props.content, props.updateBlog, props.deleteImageHandler)
     }
 
     return (

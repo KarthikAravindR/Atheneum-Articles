@@ -1,58 +1,63 @@
-.modal {
-  z-index: 100;
-  position: fixed;
-  top: 22vh;
-  left: 10%;
-  width: 80%;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 8px;
+.Modal1{
+    position: fixed;
+    z-index: 500;
+    background-color: white ;
+    color:black;
+    border: 1px solid white;
+    width: 400px;
+    box-shadow: 1px 1px 1px black;
+    padding: 16px;
+    top: 35%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    text-align: left;
+    border-radius: 12px;
+}
+.modalbuttonclose{
+    width:100%;
+    text-align: left;
+    box-sizing: border-box;
+}
+.modalbuttonclose button{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #B35639;
+    border: 1px solid #B35639;
+}
+.modal_action_buttons{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    align-items: center;
+}
+.modal_action_buttons2{
+    background-color: #ff0404;
+    border: 1px solid #ff3838;
+    color: white;
+    border-radius: 3px;
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.modal_action_buttons1 {
+    background-color: #aaa9a9;
+    border: 1px solid #aaa9a9;
+    color: #0D272D;
+    border-radius: 3px;
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
-.modal__header {
-  width: 100%;
-  padding: 1rem 0.5rem;
-  background: #2a006e;
-  color: white;
-}
 
-.modal__header h2 {
-  margin: 0.5rem;
-}
-
-.modal__content {
-  padding: 1rem 0.5rem;
-}
-
-.modal__footer {
-  padding: 1rem 0.5rem;
-}
-
-@media (min-width: 768px) {
-  .modal {
-    left: calc(50% - 20rem);
-    width: 40rem;
-  }
-}
-
-.modal-enter {
-  transform: translateY(-10rem);
-  opacity: 0;
-}
-
-.modal-enter-active {
-  transform: translateY(0);
-  opacity: 1;
-  transition: all 200ms;
-}
-
-.modal-exit {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.modal-exit-active {
-  transform: translateY(-10rem);
-  opacity: 0;
-  transition: all 200ms;
-}
+/* @media (max-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+} */

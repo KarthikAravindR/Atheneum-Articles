@@ -40,7 +40,7 @@ const Toolbar = props => {
         lastScroll = currentScroll;
     });
     const redirectToHomeHandler = () => {
-        props.history.push('/home')
+        props.history.push('/')
     }
     const articleLikeHandler = () => {
         props.history.push('/user/like/' + props.userid)
@@ -54,16 +54,16 @@ const Toolbar = props => {
                 <div className="trigger-menu-wrapper">
                     <div className='ToolbarLogo' onClick={redirectToHomeHandler}>
                         <Logo />
-                        <p>Ogle</p>
+                        <p>Atheneum</p>
                     </div>
                     <div className="DesktopSearch">
                         <Search />
                     </div>
                     <div className="Toolbar_User_Profile">
-                <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faThumbsUp}  onClick={() => articleLikeHandler(props.userid)} /></div>
-                <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faBookmark}  onClick={() => articleBookmarkHandler(props.userid)} /></div>
-                <Avatar />
-            </div>
+                        {props.isAuthenticated && <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faThumbsUp} onClick={() => articleLikeHandler(props.userid)} /></div>}
+                        {props.isAuthenticated && <div className="Toolbar_User_icon"><FontAwesomeIcon icon={faBookmark} onClick={() => articleBookmarkHandler(props.userid)} /></div>}
+                        <Avatar />
+                    </div>
                 </div>
             </nav>
         </header>
@@ -73,16 +73,11 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
-        // email: state.auth.email,
-        // token: state.auth.token,
-        // image: state.auth.image
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         // onLogout: () => (dispatch({ type: "LOGOUT" })),
-        // onSplit: () => (dispatch({ type: "USER_ON_SPLIT_MODE"})),
-        // onNotSplit: () => (dispatch({ type: "USER_NOT_ON_SPLIT_MODE"}))
     }
 }
 

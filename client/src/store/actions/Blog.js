@@ -6,23 +6,24 @@ export const publishBlogStart = () => {
         type: actionTypes.PUBLISH_BLOG_START
     }
 }
-
 export const publishBlogSuccess = (blog) => {
-    console.log('called')
     return {
         type: actionTypes.PUBLISH_BLOG_SUCCESS,
         blog: blog
     }
 }
-
 export const publishBlogFailed = (error) => {
     return {
         type: actionTypes.PUBLISH_BLOG_FAILED,
         error: error
     }
 }
-
-export const publishBlog = (userid, username, image, dateposted, minread, secondfilterarray) => {
+export const publishBlog = (token, userid, username, image, dateposted, minread, secondfilterarray) => {
+    let config = {
+        headers: {
+            Authorization: 'Bearer '+ token,
+        }
+    }
     return dispatch => {
         dispatch(publishBlogStart())
         let url = process.env.REACT_APP_BACKEND_URL + '/blog/new'
@@ -34,51 +35,43 @@ export const publishBlog = (userid, username, image, dateposted, minread, second
             minread: minread,
             blog: secondfilterarray,
         }
-        axios.post(url, authData)
+        axios.post(url, authData, config)
             .then(response => {
-                console.log(response)
                 dispatch(publishBlogSuccess(response.data.blog))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(publishBlogFailed(error))
             })
     }
 }
-
 
 export const fetchAllBlogsStart = () => {
     return {
         type: actionTypes.FETCH_BLOGS_START
     }
 }
-
 export const fetchAllBlogsSuccess = (blog) => {
     return {
         type: actionTypes.FETCH_BLOGS_SUCCESS,
         blog: blog
     }
 }
-
 export const fetchAllBlogsFailed = (error) => {
     return {
         type: actionTypes.FETCH_BLOGS_FAILED,
         error: error
     }
 }
-
 export const fetchAllBlogs = () => {
     return dispatch => {
         dispatch(fetchAllBlogsStart())
         let url = process.env.REACT_APP_BACKEND_URL + '/get/blogs'
         axios.get(url)
             .then(response => {
-                console.log(response)
                 dispatch(fetchAllBlogsSuccess(response.data.blog))
             })
             .catch(error => {
-                console.log(error)
-                // dispatch(fetchAllBlogsFailed(error))
+                dispatch(fetchAllBlogsFailed(error))
             })
     }
 }
@@ -89,7 +82,6 @@ export const fetchParticularBlogStart = () => {
         type: actionTypes.FETCH_PARTICULAR_BLOG_START
     }
 }
-
 export const fetchParticularBlogSuccess = (blog, isbookmarked, isliked) => {
     return {
         type: actionTypes.FETCH_PARTICULAR_BLOG_SUCCESS,
@@ -98,14 +90,12 @@ export const fetchParticularBlogSuccess = (blog, isbookmarked, isliked) => {
         isliked: isliked
     }
 }
-
 export const fetchParticularBlogFailed = (error) => {
     return {
         type: actionTypes.FETCH_PARTICULAR_BLOG_FAILED,
         error: error
     }
 }
-
 export const fetchParticularBlog = (id, userid) => {
     return dispatch => {
         dispatch(fetchParticularBlogStart())
@@ -115,12 +105,10 @@ export const fetchParticularBlog = (id, userid) => {
         }
         axios.post(url,data)
             .then(response => {
-                console.log(response)
                 dispatch(fetchParticularBlogSuccess(response.data.blog,response.data.isbookmarked,response.data.isliked))
             })
             .catch(error => {
-                console.log(error)
-                // dispatch(fetchParticularBlogFailed(error))
+                dispatch(fetchParticularBlogFailed(error))
             })
     }
 }
@@ -131,34 +119,28 @@ export const fetchQueriedBlogStart = () => {
         type: actionTypes.FETCH_QUERIED_BLOG_START
     }
 }
-
 export const fetchQueriedBlogSuccess = (blogs) => {
     return {
         type: actionTypes.FETCH_QUERIED_BLOG_SUCCESS,
         blogs: blogs
     }
 }
-
 export const fetchQueriedBlogFailed = (error) => {
     return {
         type: actionTypes.FETCH_QUERIED_BLOG_FAILED,
         error: error
     }
 }
-
 export const fetchQueriedBlog = (query) => {
-    console.log(query)
     return dispatch => {
         dispatch(fetchQueriedBlogStart())
         let url = process.env.REACT_APP_BACKEND_URL + '/blogsearch/' + query
         axios.get(url)
             .then(response => {
-                console.log(response)
                 dispatch(fetchQueriedBlogSuccess(response.data.filteredblog))
             })
             .catch(error => {
-                console.log(error)
-                // dispatch(fetchQueriedBlogFailed(error))
+                dispatch(fetchQueriedBlogFailed(error))
             })
     }
 }
@@ -169,21 +151,23 @@ export const addBookmarkStart = () => {
         type: actionTypes.ADD_BOOKMARK_START
     }
 }
-
 export const addBookmarkSuccess = () => {
     return{
         type: actionTypes.ADD_BOOKMARK_SUCCESS
     }
 }
-
 export const addBookmarkFailed = error => {
     return{
         type: actionTypes.ADD_BOOKMARK_FAILED,
         error: error
     }
 }
-
-export const addBookmark = (userid, blogid) => {
+export const addBookmark = (token, userid, blogid) => {
+    let config = {
+        headers: {
+            Authorization: 'Bearer '+ token,
+        }
+    }
     return dispatch => {
         dispatch(addBookmarkStart)
         let url = process.env.REACT_APP_BACKEND_URL + '/userbookmark'
@@ -191,38 +175,40 @@ export const addBookmark = (userid, blogid) => {
             userid,
             blogid
         }
-        axios.post(url, data)
+        axios.post(url, data, config)
         .then(response => {
-            console.log(response)
             dispatch(addBookmarkSuccess())
         })
         .catch(error => {
-            console.log(error)
             dispatch(addBookmarkFailed(error))
         })
     }
 }
+
 
 export const addLikeStart = () => {
     return{
         type: actionTypes.ADD_LIKED_START
     }
 }
-
-export const addLikeSuccess = () => {
+export const addLikeSuccess = (blogid) => {
     return{
-        type: actionTypes.ADD_LIKED_SUCCESS
+        type: actionTypes.ADD_LIKED_SUCCESS,
+        blogid: blogid
     }
 }
-
 export const addLikeFailed = error => {
     return{
         type: actionTypes.ADD_LIKED_FAILED,
         error: error
     }
 }
-
-export const addLike = (userid, blogid) => {
+export const addLike = (token, userid, blogid) => {
+    let config = {
+        headers: {
+            Authorization: 'Bearer '+ token,
+        }
+    }
     return dispatch => {
         dispatch(addLikeStart)
         let url = process.env.REACT_APP_BACKEND_URL + '/userlike'
@@ -230,13 +216,11 @@ export const addLike = (userid, blogid) => {
             userid,
             blogid
         }
-        axios.post(url, data)
+        axios.post(url, data, config)
         .then(response => {
-            console.log(response)
-            dispatch(addLikeSuccess())
+            dispatch(addLikeSuccess(blogid))
         })
         .catch(error => {
-            console.log(error)
             dispatch(addLikeFailed(error))
         })
     }
@@ -248,21 +232,23 @@ export const removeBookmarkStart = () => {
         type: actionTypes.REMOVE_BOOKMARK_START
     }
 }
-
 export const removeBookmarkSuccess = () => {
     return{
-        type: actionTypes.REMOVE_BOOKMARK_SUCCESS
+        type: actionTypes.REMOVE_BOOKMARK_SUCCESS,
     }
 }
-
 export const removeBookmarkFailed = error => {
     return{
         type: actionTypes.REMOVE_BOOKMARK_FAILED,
         error: error
     }
 }
-
-export const removeBookmark = (userid, blogid) => {
+export const removeBookmark = (token, userid, blogid) => {
+    let config = {
+        headers: {
+            Authorization: 'Bearer '+ token,
+        }
+    }
     return dispatch => {
         dispatch(removeBookmarkStart)
         let url = process.env.REACT_APP_BACKEND_URL + '/userbookmarkremove'
@@ -270,38 +256,40 @@ export const removeBookmark = (userid, blogid) => {
             userid,
             blogid
         }
-        axios.post(url, data)
+        axios.post(url, data, config)
         .then(response => {
-            console.log(response)
             dispatch(removeBookmarkSuccess())
         })
         .catch(error => {
-            console.log(error)
             dispatch(removeBookmarkFailed(error))
         })
     }
 }
+
 
 export const removeLikeStart = () => {
     return{
         type: actionTypes.REMOVE_LIKED_START
     }
 }
-
-export const removeLikeSuccess = () => {
+export const removeLikeSuccess = (blogid) => {
     return{
-        type: actionTypes.REMOVE_LIKED_SUCCESS
+        type: actionTypes.REMOVE_LIKED_SUCCESS,
+        blogid: blogid
     }
 }
-
 export const removeLikeFailed = error => {
     return{
         type: actionTypes.REMOVE_LIKED_FAILED,
         error: error
     }
 }
-
-export const removeLike = (userid, blogid) => {
+export const removeLike = (token, userid, blogid) => {
+    let config = {
+        headers: {
+            Authorization: 'Bearer '+ token,
+        }
+    }
     return dispatch => {
         dispatch(removeLikeStart)
         let url = process.env.REACT_APP_BACKEND_URL + '/userlikeremove'
@@ -309,13 +297,11 @@ export const removeLike = (userid, blogid) => {
             userid,
             blogid
         }
-        axios.post(url, data)
+        axios.post(url, data, config)
         .then(response => {
-            console.log(response)
-            dispatch(removeLikeSuccess())
+            dispatch(removeLikeSuccess(blogid))
         })
         .catch(error => {
-            console.log(error)
             dispatch(removeLikeFailed(error))
         })
     }

@@ -13,15 +13,18 @@ const Card = props => {
             <img src={props.authordp} alt="author" />
           </div>
           <p>{props.authorname}</p>
-        </div>
+        </div>  
         <h6>{props.title}</h6>
         <p>
-          {props.dateposted} &bull; {props.minread} min read
+          {props.dateposted} &bull; {Math.round(props.minread / 3)} min read
           {/* <FontAwesomeIcon icon={faBookmark} className='normal_card_bookmark' onClick={(event) => props.articleBookmarkHandler(event, props.id)} /> */}
         </p>
       </div>
       <div className="normal_card_image">
-        <img src={props.bannerimage} alt="bannerimage" />
+        {props.bannerimage ? 
+          <img src={props.bannerimage} alt="bannerimage" /> :
+          <p></p>
+        }
       </div>
     </div>
   );

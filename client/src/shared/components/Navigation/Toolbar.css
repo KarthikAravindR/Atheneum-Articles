@@ -7,11 +7,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 70px;
+    width: 100%;
     height: 80px;
     z-index: 2;
     transition: transform 0.4s;
     color: rgb(226, 225, 225);
-    background-color: rgb(22, 23, 24);
+    background-color: #0B0F10 ;
     /* font-family: 'PT Serif', serif; */
 }
 .page-header .trigger-menu {
@@ -38,7 +39,7 @@
     padding: 15vh 0 5vh;
     overflow: auto;
     z-index: 1;
-    background-color: rgb(22, 23, 24);
+    background-color: #0B0F10 ;
 }
 .page-header .menu a {
     font-size: 3rem;
@@ -109,7 +110,6 @@
 }
 .DesktopSearch{
     width: 33%;
-    background-color: blue;
 }
 .Toolbar_User_Profile{
     width: 33%;
@@ -127,4 +127,27 @@
 }
 .Toolbar_User_icon:hover{
     background-color: rgba(42, 43, 44, 0.541);
+}
+@media (max-width: 1100px) {
+    .trigger-menu-wrapper  {
+        padding: 0 20px;
+    }
+}
+@media (max-width: 700px) {
+    .ToolbarLogo p{
+        font-size: 1.5rem;
+    }
+    .DesktopSearch{
+        display: none;
+    }
+    .Toolbar_User_Profile{
+        width: 50%;
+    }
+    .Toolbar_User_icon{
+        display: none;
+    }
+    .ToolbarLogo{
+        width: 50%;
+        height: 50%;
+    }
 }

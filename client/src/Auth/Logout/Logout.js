@@ -11,7 +11,7 @@ const Logout = (props) => {
     }, [onLogout])
 
     return (
-        <Redirect to="/"/>
+        <Redirect to="/auth"/>
     )
     
 }

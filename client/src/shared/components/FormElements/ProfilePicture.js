@@ -16,7 +16,6 @@ const ImageUpload = props => {
         }
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            // console.log(fileReader.result)
             uploadimage({ src: fileReader.result, alt: "preview" });
         };
         fileReader.readAsDataURL(file);
@@ -46,7 +45,7 @@ const ImageUpload = props => {
                 onChange={pickedHandler}
             />
             <div className={`image-upload ${props.center && 'center'}`}>
-            <button className="profileEditPicture" onClick={pickImageHandler}><FontAwesomeIcon icon={faEdit} /></button>
+            <button className="profileEditPicture" onClick={pickImageHandler}><FontAwesomeIcon icon={faEdit} /> <span>&#60; 1MB</span></button>
             </div>
             {!isValid && <p>{props.errorText}</p>}
         </div>

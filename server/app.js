@@ -13,14 +13,15 @@ app.use((req, res, next) => {
         "Access-Control-Allow-Headers",
         '*'
     );
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
     next();
 });
-app.use(bodyParser.json({limit: '50mb'}))
 
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb'}));
 
-app.use(userRoutes)
 app.use(blogRoutes)
+app.use(userRoutes)
 
 app.use((error, req, res, next) => {
     if (res.headerSent) {
@@ -30,7 +31,7 @@ app.use((error, req, res, next) => {
     res.json({ message: error.message || 'An Unknown error occured' })
 })
 
-mongoose.connect(`mongodb+srv://karthik:karthik@ogle.renou.mongodb.net/ogle?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://karthik:karthik@ogle.renou.mongodb.net/ogle?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         app.listen(process.env.PORT || 5000)
     }).catch((error) => {

@@ -1,0 +1,71 @@
+:root {
+    --two-card-padding: 24px;
+    --two-card-height: 500px;
+    --two-card-skeleton: linear-gradient(#0B0F10 var(--two-card-height), transparent 0);
+
+    --two-avatar-size: 40px;
+    --two-avatar-position: var(--two-card-padding) 0px;
+    --two-avatar-skeleton: radial-gradient(circle 20px at center, #141718 99%, transparent 0);
+
+    --two-title-height: 0px;
+    --two-title-width: 100%;
+    --two-title-position: var(--two-card-padding) 0px;
+    --two-title-skeleton: linear-gradient(#141718 var(--two-title-height), transparent 0);
+
+    --two-desc-line-height1: 16px;
+    --two-desc-line-skeleton1: linear-gradient(#141718 var(--two-desc-line-height1), transparent 0);
+    --two-desc-line-1-width: 400px;
+    --two-desc-line-1-position: var(--two-card-padding) 52px;
+    --two-desc-line-height2: 8px;
+    --two-desc-line-skeleton2: linear-gradient(#141718 var(--two-desc-line-height2), transparent 0);
+    --two-desc-line-2-width: 300px;
+    --two-desc-line-2-position: var(--two-card-padding) 75px;
+
+    --two-footer-height: 40px;
+    --two-footer-position: 0 calc(var(--two-card-height) - var(--two-footer-height));
+    --two-footer-skeleton: linear-gradient(#0B0F10 var(--two-footer-height), transparent 0);
+
+    --two-blur-width: 200px;
+    --two-blur-size: var(--blur-width) calc(var(--two-card-height) - var(--two-footer-height));
+}
+
+.skeleton2 {
+    width: 100%;
+    height: 120px;
+    // background-color: red;
+    &:empty::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+        // box-shadow: 0 10px 45px rgba(0,0,0, .1);
+
+        background-image: linear-gradient(
+                90deg,
+                rgba(#0B0F10, 0) 0,
+                rgba(#0B0F10, 0.8) 50%,
+                rgba(#0B0F10, 0) 100%
+            ),
+            var(--two-title-skeleton), var(--two-desc-line-skeleton1), var(--two-desc-line-skeleton2),
+            var(--two-avatar-skeleton), var(--two-footer-skeleton), var(--two-card-skeleton);
+
+        background-size: var(--two-blur-size), var(--two-title-width) var(--two-title-height),
+            var(--two-desc-line-1-width) var(--two-desc-line-height1),
+            var(--two-desc-line-2-width) var(--two-desc-line-height2), var(--two-avatar-size) var(--two-avatar-size),
+            100% var(--two-footer-height), 100% 100%;
+
+        background-position: -150% 0, var(--two-title-position), var(--two-desc-line-1-position),
+            var(--two-desc-line-2-position), var(--two-avatar-position), var(--two-footer-position), 0 0;
+
+        background-repeat: no-repeat;
+        animation: loading2 0.5s infinite;
+    }
+}
+
+@keyframes loading2 {
+    to {
+        background-position: 150% 0, var(--two-title-position), var(--two-desc-line-1-position),
+            var(--two-desc-line-2-position), var(--two-avatar-position), var(--two-footer-position), 0 0;
+    }
+}

@@ -9,7 +9,8 @@ export {
     fetchAllUserInfo,
     fetchUserBookmark,
     fetchUserLike,
-    updateuserimage
+    updateuserimage,
+    deleteUserBlog,
 } from './Auth'
 
 export {
