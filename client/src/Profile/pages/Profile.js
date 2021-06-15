@@ -17,7 +17,10 @@ const Profile = props => {
             onFetchAllUserInfo(match.params.id)
         }
     }, [match, onFetchAllUserInfo])
-
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+    
     const [profession, setProfession] = useState('')
     const [bio, setBio] = useState('')
 
@@ -62,7 +65,7 @@ const Profile = props => {
                             {(match.params.id === props.userid) &&
                                 <button onClick={changeProfessionHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptextone}>Edit Profession</span></button>}
                         </div>
-                        : <div className={classes.profileEditProfession}>
+                        : match.params.id === props.userid && <div className={classes.profileEditProfession}>
                             <input placeholder="Add your Profession" onChange={updateprofessionstate} value={profession} />
                             <button onClick={updateprofessionclickHandler}>save</button>
                         </div>}
@@ -71,7 +74,7 @@ const Profile = props => {
                             <p className={classes.profileBio}>{props.userBio}
                                 {(match.params.id === props.userid) && <button onClick={changeBioHandler}><FontAwesomeIcon icon={faEdit} /><span className={classes.tooltiptexttwo}>Edit Bio</span></button>}</p>
                         </div>
-                        : <div className={classes.profileEditBio}>
+                        : match.params.id === props.userid && <div className={classes.profileEditBio}>
                             <p>Bio</p>
                             <input placeholder="Add your Bio" onChange={updatebiostate} value={bio} />
                             <button onClick={updatebioclickHandler}>save</button>

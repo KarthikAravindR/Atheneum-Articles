@@ -5,6 +5,10 @@ import React from 'react';
 import './Card.css';
 
 const Card = props => {
+  let minread = Math.round(props.minread / 3)
+  if(minread === 0) {
+    minread = 1
+  }
   return (
     <div className="normal_card_container" onClick={() => props.articleClicked(props.id)}>
       <div className="normal_card_details">
@@ -16,7 +20,7 @@ const Card = props => {
         </div>  
         <h6>{props.title}</h6>
         <p>
-          {props.dateposted} &bull; {Math.round(props.minread / 3)} min read
+          {props.dateposted} &bull; {minread} min read
           {/* <FontAwesomeIcon icon={faBookmark} className='normal_card_bookmark' onClick={(event) => props.articleBookmarkHandler(event, props.id)} /> */}
         </p>
       </div>

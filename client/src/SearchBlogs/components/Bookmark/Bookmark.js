@@ -13,6 +13,9 @@ const Bookmark = props => {
     useEffect(() => {
         onFetchUserBookmark(userid, token)
     }, [onFetchUserBookmark, userid, token])
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const articleClickedHandler = id => {
         props.history.push(`/blogview/${id}`)
     }
@@ -36,22 +39,15 @@ const Bookmark = props => {
                         {props.userBookmarks[0] ?
                             <div>
                                 {props.userBookmarks && props.userBookmarks.map(blog => {
-                                    let bannerimage = null
-                                    for (let element of blog.blog) {
-                                        if (element.type === 'img') {
-                                            bannerimage = element.content.src
-                                            break;
-                                        }
-                                    }
                                     return (
                                         <div className={classes.userBookmarksCardContainer} key={blog.id}>
                                             <Card
                                                 id={blog.id}
-                                                title={blog.blog[0].content}
+                                                title={blog.title}
                                                 authorname={blog.authorname}
                                                 authorId={blog.authorId}
                                                 authordp={blog.authordp}
-                                                bannerimage={bannerimage}
+                                                bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
                                                 articleClicked={articleClickedHandler}

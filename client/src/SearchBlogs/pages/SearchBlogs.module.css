@@ -54,7 +54,7 @@
 }
 .searchAuthorContainer{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
     width: 20%;
     padding-left: 30px;
     box-sizing: border-box;
@@ -62,7 +62,7 @@
 }
 .skeltonLoading{
     margin: 0 auto;
-    width: 700px;
+    width: 70%;
 }
 @media (max-width: 800px) {
     .searchContainer{ 

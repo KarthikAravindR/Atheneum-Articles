@@ -4,17 +4,18 @@ const User = require('../models/user');
 
 
 const fetchAllBlogs = async (req, res, next) => {
-    let blog
+    let blogs
     try {
-        blog = await Blog.find()
+        blogs = await Blog.find()
     } catch (err) {
         const error = new HttpError('Something Went wrong,please try again', 500)
         return next(error)
     }
-    if (!blog || blog.length === 0) {
+    if (!blogs || blogs.length === 0) {
         return next(new HttpError('Cound not find any blogs'))
     }
-    res.json({ blog: blog.map(b => b.toObject({ getters: true })) })
+    blogs.forEach(a => a.blog = undefined)
+    res.json({ blogs: blogs.map(b => b.toObject({ getters: true })) })
 }
 
 const fetchParticularBlog = async (req, res, next) => {
@@ -85,13 +86,11 @@ const fetchQueriedBlog = async (req, res, next) => {
     if (!blogs || blogs.length === 0) {
         return next(new HttpError('Cound not find any blogs'))
     }
+    blogs.forEach(a => a.blog = undefined)
     let filteredblog = blogs.filter(blog => {
-        if (blog.blog[0].content.toLowerCase().includes(query.toLowerCase())) {
+        if (blog.title.toLowerCase().includes(query.toLowerCase())) {
             return true;
         }
-        // if (blog.description.includes(searchText)) {
-        //     return true;
-        // }
         return false;
     });
     res.status(200).json({ filteredblog: filteredblog.map(b => b.toObject({ getters: true })) })

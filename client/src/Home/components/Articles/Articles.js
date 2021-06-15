@@ -25,22 +25,15 @@ const Articles = (props) => {
             <div className={classes.articleArticleAuthorContainer}>
                 <div className={classes.articleArticleContainer}>
                     {props.articlecards && props.articlecards.map(blog => {
-                        let bannerimage = null
-                        for (let element of blog.blog) {
-                            if (element.type === 'img') {
-                                bannerimage = element.content.src
-                                break;
-                            }
-                        }
                         return (
                             <div className={classes.ArticleContainer} key={blog.id}>
                                 <Card
                                     id={blog.id}
-                                    title={blog.blog[0].content}
+                                    title={blog.title}
                                     authorname={blog.authorname}
                                     authordp={blog.authordp}
                                     authorId={blog.authorId}
-                                    bannerimage={bannerimage}
+                                    bannerimage={blog.bannerimage}
                                     minread={blog.minread}
                                     dateposted={blog.dateposted}
                                     articleBookmarkHandler={articleBookmarkHandler}

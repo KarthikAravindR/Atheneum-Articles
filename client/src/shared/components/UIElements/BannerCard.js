@@ -4,6 +4,10 @@ import './BannerCard.css';
 import defaultbanner from '../../../assets/images/one.jpg'
 
 const BannerCard = props => {
+    let minread = Math.round(props.minread / 3)
+    if (minread === 0) {
+        minread = 1
+    }
     return (
         <div className="banner_card_container" onClick={() => props.articleClicked(props.id)}>
             <div className="banner_card_image">
@@ -21,7 +25,7 @@ const BannerCard = props => {
                 </div>
                 <h3>{props.title}</h3>
                 <p>
-                    {props.dateposted} &bull; {Math.round(props.minread / 3)} min read
+                    {props.dateposted} &bull; {minread} min read
                     {/* <FontAwesomeIcon icon={faBookmark} className="banner_card_bookmark" onClick={(event) => props.articleBookmarkHandler(event, props.id)} /> */}
                 </p>
             </div>

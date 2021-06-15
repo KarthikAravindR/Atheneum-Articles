@@ -199,17 +199,27 @@
 }
 
 .skeltonLoading{
-    margin: 150px auto 0 auto;
-    width: 700px;
+    margin: 80px auto 0 auto;
+    width: 100%;
     color: white;
+    padding: 0px 120px;
 }
 @media (max-width: 800px) {
     .profileContainer {
         padding: 20px;
     }
+    .skeltonLoading{
+        margin: 100px auto 0 auto;
+        width: 100%;
+        color: white;
+        padding: 20px;
+    }
 }
 @media (max-width: 600px) {
     .profileContainer {
+        padding: 10px;
+    }
+    .skeltonLoading{
         padding: 10px;
     }
 }

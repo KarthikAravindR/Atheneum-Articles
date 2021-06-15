@@ -37,13 +37,6 @@ const UserBlogs = props => {
                         {props.userBlogs[0] ?
                             <div>
                                 {props.userBlogs && props.userBlogs.map(blog => {
-                                    let bannerimage = null
-                                    for (let element of blog.blog) {
-                                        if (element.type === 'img') {
-                                            bannerimage = element.content.src
-                                            break;
-                                        }
-                                    }
                                     return (
                                         <div className={classes.userBlogCardContainer} key={blog._id}>
                                             {(props.match.params.id === props.userid) &&
@@ -51,11 +44,11 @@ const UserBlogs = props => {
                                             }
                                             <Card
                                                 id={blog._id}
-                                                title={blog.blog[0].content}
+                                                title={blog.title}
                                                 authorname={blog.authorname}
                                                 authordp={blog.authordp}
                                                 authorId={blog.authorId}
-                                                bannerimage={bannerimage}
+                                                bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
                                                 articleClicked={articleClickedHandler}

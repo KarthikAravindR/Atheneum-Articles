@@ -31,23 +31,16 @@ const MostViewed = (props) => {
             <div className={classes.MostViewedArticleAuthorContainer}>
                 <div className={classes.MostViewedArticleContainer}>
                     {props.mostViewedblogs && props.mostViewedblogs.map(blog => {
-                        let bannerimage = null
-                        for (let element of blog.blog) {
-                            if (element.type === 'img') {
-                                bannerimage = element.content.src
-                                break;
-                            }
-                        }
                         return (
                             <div className={classes.ArticleContainer} key={blog.id}>
                                 <div className={classes.ArticleContainerNumber}>0{props.mostViewedblogs.indexOf(blog) + 1}</div>
                                 <Card
                                     id={blog.id}
-                                    title={blog.blog[0].content}
+                                    title={blog.title}
                                     authorname={blog.authorname}
                                     authordp={blog.authordp}
                                     authorId={blog.authorId}
-                                    bannerimage={bannerimage}
+                                    bannerimage={blog.bannerimage}
                                     minread={blog.minread}
                                     dateposted={blog.dateposted}
                                     articleBookmarkHandler={articleBookmarkHandler}

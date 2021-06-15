@@ -15,6 +15,9 @@ const SearchBlogs = props => {
             onFetchQueriedBlog(match.params.query)
         }
     }, [match, onFetchQueriedBlog])
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const articleClickedHandler = id => {
         props.history.push(`/blogview/${id}`)
     }
@@ -38,21 +41,14 @@ const SearchBlogs = props => {
                             {props.queriedBlogs[0] ?
                                 <div>
                                     {queriedBlogs && queriedBlogs.map(blog => {
-                                    let bannerimage = null
-                                    for (let element of blog.blog) {
-                                        if (element.type === 'img') {
-                                            bannerimage = element.content.src
-                                            break;
-                                        }
-                                    }
                                     return (
                                         <div className={classes.searchCardContainer} key={blog.id}>
                                             <Card
                                                 id={blog.id}
-                                                title={blog.blog[0].content}
+                                                title={blog.title}
                                                 authorname={blog.authorname}
                                                 authordp={blog.authordp}
-                                                bannerimage={bannerimage}
+                                                bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
                                                 articleBookmarkHandler={articleBookmarkHandler}

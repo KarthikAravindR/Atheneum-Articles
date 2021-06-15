@@ -40,7 +40,7 @@ const userSignup = async (req, res, next) => {
     const createdUser = new User({
         username,
         email,
-        image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
+        image: 'https://img.icons8.com/office/80/000000/test-account.png',
         password: hashedPassword,
         blogs: [],
         views: 0
@@ -237,7 +237,7 @@ const publishBlog = async (req, res, next) => {
         );
     }
 
-    const { authorId, username, image, dateposted, minread, blog } = req.body
+    const { authorId, username, image, dateposted, minread, blog, title, bannerimage } = req.body
 
     const createdBlog = new Blog({
         dateposted,
@@ -246,6 +246,8 @@ const publishBlog = async (req, res, next) => {
         authorname: username,
         authordp: image,
         authorId,
+        title,
+        bannerimage,
         views: 0,
         likes: 0,
     });
@@ -273,13 +275,14 @@ const publishBlog = async (req, res, next) => {
         await user.save({ session: sess });
         await sess.commitTransaction();
     } catch (err) {
+        console.log(err)
         const error = new HttpError(
             'Publishing the Blog failed, please try again.',
             500
         );
         return next(error);
     }
-    res.status(201).json({ blog: createdBlog });
+    res.status(201).json({ blog: "success" });
 }
 
 const deleteUserBlog = async (req, res, next) => {
@@ -421,6 +424,7 @@ const fetchUserAllInfo = async (req, res, next) => {
         if (!blog || blog.length === 0) {
             continue
         }
+        blog.blog = undefined
         userBlogs.push(blog)
     }
     res.status(201).json(
@@ -590,6 +594,7 @@ const fetchUserBookmark = async (req, res, next) => {
         if (!blog || blog.length === 0) {
             continue
         }
+        blog.blog = undefined
         userBookmarks.push(blog)
     }
     res.status(201).json({ userBookmarks: userBookmarks.map(b => b.toObject({ getters: true })) });
@@ -620,6 +625,7 @@ const fetchUserLike = async (req, res, next) => {
         if (!blog || blog.length === 0) {
             continue
         }
+        blog.blog = undefined
         userLikes.push(blog)
     }
     res.status(201).json({ userLikes: userLikes.map(b => b.toObject({ getters: true })) });

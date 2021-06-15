@@ -18,7 +18,7 @@ export const publishBlogFailed = (error) => {
         error: error
     }
 }
-export const publishBlog = (token, userid, username, image, dateposted, minread, secondfilterarray) => {
+export const publishBlog = (token, userid, username, image, dateposted, minread, secondfilterarray, title, bannerimage) => {
     let config = {
         headers: {
             Authorization: 'Bearer '+ token,
@@ -34,9 +34,12 @@ export const publishBlog = (token, userid, username, image, dateposted, minread,
             dateposted: dateposted,
             minread: minread,
             blog: secondfilterarray,
+            title: title, 
+            bannerimage: bannerimage
         }
         axios.post(url, authData, config)
             .then(response => {
+                console.log(response)
                 dispatch(publishBlogSuccess(response.data.blog))
             })
             .catch(error => {
@@ -68,7 +71,8 @@ export const fetchAllBlogs = () => {
         let url = process.env.REACT_APP_BACKEND_URL + '/get/blogs'
         axios.get(url)
             .then(response => {
-                dispatch(fetchAllBlogsSuccess(response.data.blog))
+                console.log(response)
+                dispatch(fetchAllBlogsSuccess(response.data.blogs))
             })
             .catch(error => {
                 dispatch(fetchAllBlogsFailed(error))

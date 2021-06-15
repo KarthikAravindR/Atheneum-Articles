@@ -13,6 +13,9 @@ const Like = props => {
     useEffect(() => {
         onFetchUserLike(userid, token)
     }, [onFetchUserLike, userid, token])
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const articleClickedHandler = id => {
         props.history.push(`/blogview/${id}`)
     }
@@ -36,22 +39,15 @@ const Like = props => {
                         {props.userLikes[0] ?
                             <div>
                                 {props.userLikes && props.userLikes.map(blog => {
-                                    let bannerimage = null
-                                    for (let element of blog.blog) {
-                                        if (element.type === 'img') {
-                                            bannerimage = element.content.src
-                                            break;
-                                        }
-                                    }
                                     return (
                                         <div className={classes.userLikesCardContainer} key={blog.id}>
                                             <Card
                                                 id={blog.id}
-                                                title={blog.blog[0].content}
+                                                title={blog.title}
                                                 authorname={blog.authorname}
                                                 authordp={blog.authordp}
                                                 authorId={blog.authorId}
-                                                bannerimage={bannerimage}
+                                                bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
                                                 articleClicked={articleClickedHandler}

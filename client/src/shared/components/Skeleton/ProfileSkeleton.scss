@@ -8,17 +8,17 @@
     --three-avatar-skeleton: radial-gradient(circle 80px at center, #141718 99%, transparent 0);
 
     --three-title-height: 50px;
-    --three-title-width: 100%;
+    --three-title-width: 27%;
     --three-title-position: center 200px;
     --three-title-skeleton: linear-gradient(#141718 var(--three-title-height), transparent 0);
 
-    --three-desc-line-height1: 30px;
+    --three-desc-line-height1: 20px;
     --three-desc-line-skeleton1: linear-gradient(#141718 var(--three-desc-line-height1), transparent 0);
-    --three-desc-line-1-width: 400px;
+    --three-desc-line-1-width: 20%;
     --three-desc-line-1-position: center 280px;
     --three-desc-line-height2: 100px;
     --three-desc-line-skeleton2: linear-gradient(#141718 var(--three-desc-line-height2), transparent 0);
-    --three-desc-line-2-width: 300px;
+    --three-desc-line-2-width: 100%;
     --three-desc-line-2-position: center 350px;
 
     --three-footer-height: 0px;
@@ -55,7 +55,7 @@
             var(--three-title-skeleton), var(--three-desc-line-skeleton1), var(--three-desc-line-skeleton2), var(--three-avatar-skeleton),
             var(--three-footer-skeleton), var(--three-card-skeleton);
 
-        background-size: var(--blur-size), var(--title-width) var(--title-height),
+        background-size: var(--blur-size), var(--three-title-width) var(--three-title-height),
             var(--three-desc-line-1-width) var(--three-desc-line-height1), var(--three-desc-line-2-width) var(--three-desc-line-height2),
             var(--three-avatar-size) var(--three-avatar-size), 100% var(--three-footer-height), 100% 100%;
 

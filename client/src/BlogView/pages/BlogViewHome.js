@@ -16,6 +16,9 @@ const BlogViewHome = props => {
             onFetchParticularBlog(match.params.id, userid)
         }
     }, [match, userid, onFetchParticularBlog])
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const [shrunk, setShrunk] = useState(false)
     useEffect(() => {
         const handler = () => {

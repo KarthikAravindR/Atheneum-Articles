@@ -11,6 +11,8 @@ const blogSchema = new schema({
     authordp: {type: String, required: true},
     views: {type: Number, required: true},
     likes: {type: Number, required: true},
+    title: {type: String, required: true},
+    bannerimage: {type: String},
     blog: [{}]
 })
 

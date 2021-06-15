@@ -11,7 +11,9 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 
 
 const NewBlog = (props) => {
-
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const [blogs, setBlogs] = useState([
         {
             type: "title",
@@ -124,10 +126,30 @@ const NewBlog = (props) => {
             }
             return element
         })
-        props.onPublishBlog(props.token, props.userid, props.username, props.image, dateposted, minread, secondfilterarray)
-        setTimeout(() => {
-            !props.loading && props.history.push('/')
-        }, 5000)
+        let bannerimage = ''
+        for (let element of secondfilterarray) {
+            if (element.type === 'img') {
+                bannerimage = element.content.src
+                break;
+            }
+        }
+        console.log("array => ",secondfilterarray)
+        console.log("title => ",secondfilterarray[0].content)
+        console.log("bannerimage => ",bannerimage)
+        props.onPublishBlog(
+            props.token, 
+            props.userid,
+            props.username, 
+            props.image, 
+            dateposted, 
+            minread, 
+            secondfilterarray, 
+            secondfilterarray[0].content, 
+            bannerimage
+            )
+        // setTimeout(() => {
+        //      props.loading && props.history.push('/')
+        // }, 5000)
     }
     return (
         <div className={classes.Blog}>
@@ -169,7 +191,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onPublishBlog: (token, userid, username, image, dateposted, minread, secondfilterarray) => (dispatch(actions.publishBlog(token, userid, username, image, dateposted, minread, secondfilterarray))),
+        onPublishBlog: (token, userid, username, image, dateposted, minread, secondfilterarray, title, bannerimage) => (dispatch(actions.publishBlog(token, userid, username, image, dateposted, minread, secondfilterarray, title, bannerimage))),
     }
 }
 

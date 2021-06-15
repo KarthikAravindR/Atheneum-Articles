@@ -71,7 +71,7 @@ p{
     text-align: center;
     margin: auto;
     background-color: #0B0F10;
-    font-family: cursive;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .Auth {
@@ -99,15 +99,15 @@ p{
     margin: auto;
     color: black;
     font-size: 12px;
-    background-color: #ffc038;
-    border: 1px solid #ffc038;
+    background-color: #008c8c;
+    border: 1px solid #008c8c;
     min-height: 30px;
     border-radius: 100px;
 }
 .signupbutton button:hover {
     color: black;
-    background-color: #ffc038;
-    border: 1px solid #ffc038;
+    background-color: #008c8c;
+    border: 1px solid #008c8c;
 }
 .or {
     display: flex;

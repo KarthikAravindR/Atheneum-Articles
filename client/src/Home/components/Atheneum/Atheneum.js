@@ -8,13 +8,6 @@ import BannerCard from '../../../shared/components/UIElements/BannerCard'
 import Card from '../../../shared/components/UIElements/Card'
 
 const Atheneum = (props) => {
-    let bannerimage = null
-    for (let element of props.bannerblog.blog) {
-        if (element.type === 'img') {
-            bannerimage = element.content.src
-            break;
-        }
-    }
     const articleClickedHandler = id => {
         props.history.push(`/blogview/${id}`)
     }
@@ -31,11 +24,11 @@ const Atheneum = (props) => {
             <div className={classes.OgleBannerMain}>
                 <BannerCard
                     id={props.bannerblog.id}
-                    title={props.bannerblog.blog[0].content}
+                    title={props.bannerblog.title}
                     authorname={props.bannerblog.authorname}
                     authordp={props.bannerblog.authordp}
                     authorId={props.bannerblog.authorId}
-                    bannerimage={bannerimage}
+                    bannerimage={props.bannerblog.bannerimage}
                     minread={props.bannerblog.minread}
                     dateposted={props.bannerblog.dateposted}
                     articleClicked={articleClickedHandler}
@@ -44,22 +37,15 @@ const Atheneum = (props) => {
             </div>
             <div className={classes.OgleBannercards}>
                 {props.lastfourcards.map(blog => {
-                    let bannerimage = null
-                    for (let element of blog.blog) {
-                        if (element.type === 'img') {
-                            bannerimage = element.content.src
-                            break;
-                        }
-                    }
                     return (
                         <Card
                             key={blog.id}
                             id={blog.id}
-                            title={blog.blog[0].content}
+                            title={blog.title}
                             authorname={blog.authorname}
                             authordp={blog.authordp}
                             authorId={blog.authorId}
-                            bannerimage={bannerimage}
+                            bannerimage={blog.bannerimage}
                             minread={blog.minread}
                             dateposted={blog.dateposted}
                             articleClicked={articleClickedHandler}

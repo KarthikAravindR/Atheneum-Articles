@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// // import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-// import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-// import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
 import * as actions from '../store/actions/index'
 import Input from '../shared/components/FormElements/Input'
 import './Auth.css'
-// import Spinner from '../shared/components/UIElements/LoadingSpinner'
 import Logo from '../shared/components/UIElements/Logo'
 import Spinner from '../shared/components/UIElements/LoadingSpinner'
 import authectication from '../assets/images/authentication2.jpg'
@@ -234,7 +229,7 @@ const Auth = (props) => {
             <div id="egg">
                 <div className="Authenticationarea">
                     <div className="people">
-                        <div className="authtitle"><Logo /><p>Atheneum</p>{props.loading && <Spinner />}</div>
+                        <div className="authtitle"><Logo /><p>Atheneum</p></div>
                         <div className="peopleimg">
                             <img src={authectication} alt="" />
                         </div>
@@ -247,7 +242,7 @@ const Auth = (props) => {
                             </div>}
                             {isSignup ? form1 : form2}
                             <div className="signupbutton">
-                                <button onClick={authenticationHandler} type="button" className="btn btn-light">{isSignup ? 'Sign Up' : 'Log-IN'}</button>
+                                <button onClick={authenticationHandler} type="button" className="btn btn-light"><p>{ props.loading ? <Spinner /> :<span>{isSignup ? 'Sign Up' : 'Log-IN'}</span>}</p></button>
                             </div>
                             <div className="or">
                                 <div className="ordash"></div>

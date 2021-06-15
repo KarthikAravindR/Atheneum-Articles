@@ -14,7 +14,9 @@ const Home = (props) => {
     React.useEffect(() => {
         onFetchAllBlogs()
     }, [onFetchAllBlogs])
-
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const allblogs = [...props.blogs]
     let mostViewedblogs = [...props.blogs]
     let bannerblog = allblogs.pop()
