@@ -58,7 +58,7 @@ const userSignup = async (req, res, next) => {
         const error = new HttpError('Signing Up failed, please try again', 500)
         return next(error)
     }
-    res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, profession: createdUser.profession, bio: createdUser.bio })
+    res.status(201).json({ userId: createdUser.id, username: createdUser.username, image: createdUser.image, token: token })
 }
 
 const userLogin = async (req, res, next) => {
@@ -92,16 +92,9 @@ const userLogin = async (req, res, next) => {
     }
     res.json({
         userId: existingUser.id,
-        email: existingUser.email,
         username: existingUser.username,
         image: existingUser.image,
         token: token,
-        blogs: existingUser.blogs,
-        views: existingUser.views,
-        profession: existingUser.profession,
-        bio: existingUser.bio,
-        // liked: existingUser.liked,
-        // bookmarks: existingUser.liked 
     })
 }
 
@@ -124,7 +117,7 @@ const googleLogin = (req, res, next) => {
                                 const error = new HttpError('Log In failed, please try again', 500)
                                 return next(error)
                             }
-                            res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs, views: user.views, profession: user.profession, bio: user.bio })
+                            res.json({ userId: user.id, username: user.username, image: user.image, token: token})
                         } else {
                             let password = 'socialmediapwd'
                             // let hashedPassword
@@ -158,7 +151,7 @@ const googleLogin = (req, res, next) => {
                                 const error = new HttpError('Signing Up failed, please try again', 500)
                                 return next(error)
                             }
-                            res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, views: createdUser.views, profession: createdUser.profession, bio: createdUser.bio })
+                            res.status(201).json({ userId: createdUser.id, username: createdUser.username, image: createdUser.image, token: token })
                         }
                     }
                 })
@@ -188,7 +181,7 @@ const facebookLogin = (req, res, next) => {
                             const error = new HttpError('Log In failed, please try again', 500)
                             return next(error)
                         }
-                        res.json({ userId: user.id, email: user.email, username: user.username, image: user.image, token: token, blogs: user.blogs, views: user.views, profession: user.profession, bio: user.bio })
+                        res.json({ userId: user.id, username: user.username, image: user.image, token: token})
                     } else {
                         let password = 'socialmediapwd'
                         // let hashedPassword
@@ -222,7 +215,7 @@ const facebookLogin = (req, res, next) => {
                             const error = new HttpError('Signing Up failed, please try again', 500)
                             return next(error)
                         }
-                        res.status(201).json({ userId: createdUser.id, email: createdUser.email, username: createdUser.username, image: createdUser.image, token: token, blogs: createdUser.blogs, views: createdUser.views, profession: createdUser.profession, bio: createdUser.bio })
+                        res.status(201).json({ userId: createdUser.id, username: createdUser.username, image: createdUser.image, token: token})
                     }
                 }
             })
