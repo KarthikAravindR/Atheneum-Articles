@@ -6,16 +6,13 @@ export const authStart = () => {
         type: actionTypes.AUTH_START
     }
 }
-export const authSuccess = (userId, token, email, image, username, profession, bio) => {
+export const authSuccess = (userId, token, image, username) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         userId: userId,
         token: token,
-        email: email,
         image: image,
         username: username,
-        profession: profession,
-        bio: bio,
     }
 }
 export const authFailed = (error) => {
@@ -64,7 +61,9 @@ export const auth = (email, password, isSignup, username) => {
             .then(response => {
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('userId', response.data.userId)
-                dispatch(authSuccess(response.data.userId, response.data.token, response.data.email, response.data.image, response.data.username, response.data.profession, response.data.bio))
+                localStorage.setItem('image', response.data.image)
+                localStorage.setItem('username', response.data.username)
+                dispatch(authSuccess(response.data.userId, response.data.token, response.data.image, response.data.username))
             })
             .catch(error => {
                 dispatch(authFailed(error.response.data.message))
@@ -74,18 +73,14 @@ export const auth = (email, password, isSignup, username) => {
 export const authCheckState = () => {
     const token = localStorage.getItem('token')
     const localId = localStorage.getItem('userId')
+    const image = localStorage.getItem('image')
+    const username = localStorage.getItem('username')
     return dispatch => {
         if (token === null) {
             dispatch(logout())
             dispatch(clearall())
         } else {
-            let url = process.env.REACT_APP_BACKEND_URL + '/profile/' + localId
-            axios.get(url)
-                .then(response => {
-                    dispatch(authSuccess(localId, token , response.data.email, response.data.image, response.data.username, response.data.profession, response.data.bio))
-                })
-                .catch(error => {
-                })
+            dispatch(authSuccess(localId, token, image, username))
         }
     }
 }
@@ -100,7 +95,9 @@ export const googleauth = (response) => {
             .then(response => {
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('userId', response.data.userId)
-                dispatch(authSuccess(response.data.userId, response.data.token, response.data.email, response.data.image, response.data.username, response.data.profession, response.data.bio))
+                localStorage.setItem('image', response.data.image)
+                localStorage.setItem('username', response.data.username)
+                dispatch(authSuccess(response.data.userId, response.data.token, response.data.image, response.data.username))
             })
             .catch(error => {
                 dispatch(authFailed(error.response.data.message))
@@ -119,7 +116,9 @@ export const facebookauth = (response) => {
             .then(response => {
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('userId', response.data.userId)
-                dispatch(authSuccess(response.data.userId, response.data.token, response.data.email, response.data.image, response.data.username, response.data.profession, response.data.bio))
+                localStorage.setItem('image', response.data.image)
+                localStorage.setItem('username', response.data.username)
+                dispatch(authSuccess(response.data.userId, response.data.token, response.data.image, response.data.username))
             })
             .catch(error => {
                 dispatch(authFailed(error.response.data.message))
@@ -155,6 +154,7 @@ export const updateuserprofession = (token, profession, userid) => {
         profession,
         userid
     }
+    console.log(token, profession, userid)
     return dispatch => {
         dispatch(updateuserprofessionstart)
         axios.patch(`${process.env.REACT_APP_BACKEND_URL}/profile/profession`, data, config)

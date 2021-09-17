@@ -40,15 +40,11 @@ const reducer = (state = inditialState, action) => {
         case actionTypes.AUTH_SUCCESS:
             return {
                 ...state,
-                // token: action.idToken,
                 userid: action.userId,
                 token: action.token,
-                email: action.email,
                 image: action.image,
                 username: action.username,
                 loading: false,
-                profession: action.profession,
-                bio: action.bio,
             }
         case actionTypes.AUTH_FAILED:
             return {

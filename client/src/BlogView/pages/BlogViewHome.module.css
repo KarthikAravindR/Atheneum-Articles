@@ -10,7 +10,7 @@
 .blog{
     width: 60%;
     margin: 0 auto;
-    word-break: break-all;
+    /* word-break: break-all; */
     text-align: left;
 }
 .details{

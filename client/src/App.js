@@ -6,13 +6,6 @@ import './App.css';
 import * as actions from './store/actions/index'
 
 import HomeFeed from './Home/pages/Home'
-// import Profile from './Profile/pages/Profile'
-// import SearchBlogs from './SearchBlogs/pages/SearchBlogs';
-// import Bookmark from './SearchBlogs/components/Bookmark/Bookmark';
-// import Like from './SearchBlogs/components/Like/Like';
-// import BlogBuilder from './BlogBuilder/pages/NewBlog'
-// import BlogViewHome from './BlogView/pages/BlogViewHome'
-// import Auth from './Auth/Auth'
 import Logout from './Auth/Logout/Logout'
 import HomeHeader from './shared/components/Navigation/HomeHeader'
 import Toolbar from './shared/components/Navigation/Toolbar'
