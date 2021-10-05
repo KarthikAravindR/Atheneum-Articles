@@ -51,7 +51,7 @@ const Profile = props => {
         <div className={classes.searchContainer}>
             {props.Profileloading ?
                 <div className={classes.skeltonLoading}>
-                    <ProfileSkeleton /> Performance
+                    <ProfileSkeleton /> Performance_Improvement
                 </div> :
                 <div className={props.darkmode ? [classes.profileContainer, classes.Dark].join(' ') : classes.profileContainer }>
                     <div className={classes.profilePerson}>
