@@ -29,6 +29,8 @@ const Avatar = (props) => {
         <Link className="dropdown-item" to="/">Coupons</Link>
         <Link className="dropdown-item" to="/" >Contact Us</Link>
         <div className="dropdown-divider"></div>
+        <div className="dropdown-item" onClick={props.onApplyDarkMode}>Dark mode</div>
+        <div className="dropdown-divider"></div>
         {!props.isAuthenticated ?
           <Link className="dropdown-item" to="/auth" >Log In</Link>
           :
@@ -50,7 +52,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-
+    onApplyDarkMode: () => {dispatch({type: "DARK_MODE"})}
   }
 }
 

@@ -47,16 +47,19 @@ const BlogViewHome = props => {
     const articleRemoveLikeHandler = (event, id) => {
         props.onRemoveLike(props.token, props.userid, id)
     }
+    const authorProfileHandler = authorId => {
+        props.history.push(`/profile/${authorId}`)
+    }
     return (
         <div>
             {props.blogloading ?
                 <div className={classes.skeltonLoading}>
                     <SkeletonOne />
                 </div> :
-                <div className={classes.Container}>
+                <div className={!props.darkmode ? classes.Container : [classes.Container, classes.Dark].join(' ')}>
                     {props.loadedblog && <div className={classes.blog}>
                         <div className={classes.details}>
-                            <div className={classes.authordetails}>
+                            <div className={classes.authordetails} onClick={() => authorProfileHandler(loadedblog.authorId)}>
                                 <div className={classes.authordp}>
                                     <img src={loadedblog.authordp} alt="author" />
                                 </div>
@@ -92,14 +95,14 @@ const BlogViewHome = props => {
                         </div>
                     </div>}
                     {(props.loadedblog && shrunk) && <div className={classes.fixedAuthorDetails}>
-                        <div className={classes.authordetails}>
+                        <div className={classes.authordetails} onClick={() => authorProfileHandler(loadedblog.authorId)}>
                             <div className={classes.authordp}>
                                 <img src={loadedblog.authordp} alt="author" />
                             </div>
                             <p>{loadedblog.authorname}</p>
                         </div>
                         <p>
-                            {loadedblog.dateposted} &bull; {Math.round(loadedblog.minread / 3)} min read &bull;
+                            {loadedblog.dateposted} &bull; {Math.round(loadedblog.minread / 3)} min read
                         </p>
                         {props.isAuthenticated && <div className={classes.fixedbuttonicons}>
                             {props.isbookmarked
@@ -126,7 +129,8 @@ const mapStateToProps = state => {
         userid: state.auth.userid,
         isbookmarked: state.blog.isbookmarked,
         isliked: state.blog.isliked,
-        blogloading: state.blog.blogloading
+        blogloading: state.blog.blogloading,
+        darkmode: state.blog.darkmode
     }
 }
 

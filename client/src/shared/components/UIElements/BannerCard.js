@@ -9,7 +9,7 @@ const BannerCard = props => {
         minread = 1
     }
     return (
-        <div className="banner_card_container" onClick={() => props.articleClicked(props.id)}>
+        <div className={props.darkmode ? "banner_card_container Dark" : "banner_card_container"} onClick={() => props.articleClicked(props.id)}>
             <div className="banner_card_image">
                 {props.bannerimage ?
                     <img src={props.bannerimage} alt="bannerimage" /> :

@@ -22,7 +22,7 @@ const MostViewed = (props) => {
         props.history.push(`/profile/${id}`)
     }
     return (
-        <div className={classes.MostViewedContainer}>
+        <div className={!props.darkmode ? classes.MostViewedContainer : [classes.MostViewedContainer, classes.Dark].join(' ')}>
             <div className={classes.MostViewedContainerTitle}>
                 {/* <FontAwesomeIcon icon={faBinoculars} style={{ fontSize: "1.85rem", marginRight: "10px" }} /> */}
                 <img src="https://img.icons8.com/office/80/000000/binoculars.png" alt="bino"/>
@@ -43,6 +43,7 @@ const MostViewed = (props) => {
                                     bannerimage={blog.bannerimage}
                                     minread={blog.minread}
                                     dateposted={blog.dateposted}
+                                    darkmode={props.darkmode}
                                     articleBookmarkHandler={articleBookmarkHandler}
                                     authorClicked={authorClickedHandler}
                                     articleClicked={articleClickedHandler} />
@@ -59,6 +60,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
+        darkmode: state.blog.darkmode,
     }
 }
 const mapDispatchToProps = dispatch => {

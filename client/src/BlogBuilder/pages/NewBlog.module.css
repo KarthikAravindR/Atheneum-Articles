@@ -1,6 +1,13 @@
 .Blog{
-    margin-top: 130px;
+    min-height: 100vh;
+    height: auto;
+    padding-top: 130px;
     padding-bottom: 200px;
+    background-color: rgb(255, 255, 255);
+}
+.Blog.Dark{
+    /* background-color: #0F111A; */
+    background-color: #090B10;
 }
 .publish{
     background-color: #008c8c;
@@ -23,5 +30,5 @@
     height: max-content;
     width: 90%;
     margin: auto;
-    background-color: #0B0F10;
+    /* background-color: #0B0F10; */
 }

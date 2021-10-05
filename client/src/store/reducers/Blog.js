@@ -15,7 +15,7 @@ const initialState = {
     queriedBlogs: [],
     isbookmarked: false,
     isliked: false,
-
+    darkmode: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -154,6 +154,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error
+            }
+        case 'DARK_MODE':
+            return {
+                ...state,
+                darkmode: !state.darkmode
             }
 
         default:

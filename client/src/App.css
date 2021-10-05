@@ -1,6 +1,10 @@
 .App {
   text-align: center;
   font-family: 'Mulish', sans-serif;
+  background: #ffffff ; 
+}
+.App.Dark{
+  background: #0B0F10 ; 
 }
 .centerLoading{
   width: 100%;

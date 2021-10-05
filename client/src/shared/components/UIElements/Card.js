@@ -10,7 +10,7 @@ const Card = props => {
     minread = 1
   }
   return (
-    <div className="normal_card_container" onClick={() => props.articleClicked(props.id)}>
+    <div className={props.darkmode ? "normal_card_container Dark" : "normal_card_container"} onClick={() => props.articleClicked(props.id)}>
       <div className="normal_card_details">
         <div className="normal_card_author" onClick={(event) => props.authorClicked(event,props.authorId)}>
           <div className="normal_card_author_dp">

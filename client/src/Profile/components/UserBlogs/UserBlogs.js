@@ -23,13 +23,15 @@ const UserBlogs = props => {
     }
     const deleteBlogHandler = (event, id, title) => {
         event.stopPropagation()
+        console.log(id, title)
         props.onModalShow(id, title)
     }
     const modalclosehandler = () => {
         props.onModalClose()
     }
+    
     return (
-        <div className={classes.userBlogContainer}>
+        <div className={props.darkmode ? [classes.userBlogContainer, classes.Dark].join(' ') : classes.userBlogContainer}>
             <div className={classes.userBlogAuthorContainer}>
                 <div className={classes.userBlogHeading}>STORIES</div>
                 <div className={classes.userBlogimageContainer}>
@@ -40,7 +42,7 @@ const UserBlogs = props => {
                                     return (
                                         <div className={classes.userBlogCardContainer} key={blog._id}>
                                             {(props.match.params.id === props.userid) &&
-                                                <button onClick={(event) => deleteBlogHandler(event, blog._id, blog.blog[0].content)}><FontAwesomeIcon icon={faTrash} /></button>
+                                                <button onClick={(event) => deleteBlogHandler(event, blog._id, blog.title)}><FontAwesomeIcon icon={faTrash} /></button>
                                             }
                                             <Card
                                                 id={blog._id}
@@ -51,6 +53,7 @@ const UserBlogs = props => {
                                                 bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
+                                                darkmode={props.darkmode}
                                                 articleClicked={articleClickedHandler}
                                                 authorClicked={authorClickedHandler}
                                                 articleBookmarkHandler={articleBookmarkHandler} />
@@ -58,6 +61,7 @@ const UserBlogs = props => {
                                                 show={props.modalShow}
                                                 modalblogid={props.modalblogid}
                                                 modalblogtitle={props.modalblogtitle}
+                                                content="DELETE"
                                                 modalclosed={modalclosehandler} />
                                         </div>
                                     )
@@ -78,7 +82,7 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
         userBlogs: state.auth.ProfileuserBlogs,
-        // blogs: state.blog.blogs,
+        darkmode: state.blog.darkmode,
         modalShow: state.auth.modalShow,
         modalblogid: state.auth.modalblogid,
         modalblogtitle: state.auth.modalblogtitle,

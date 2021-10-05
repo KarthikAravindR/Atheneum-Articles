@@ -1,10 +1,13 @@
 .banner_card_container {
     width: 100%;
-    color: rgb(226, 225, 225);
+    color: rgb(43, 42, 42);
     min-height: 500px;
     height: auto;
     cursor: pointer;
     margin-bottom: 28px;
+}
+.banner_card_container.Dark {
+    color: rgb(226, 225, 225);
 }
 .banner_card_image {
     width: 100%;
@@ -39,18 +42,26 @@
     padding: 1px 0;
     /* font-size: .8rem; */
 }
-.banner_card_author:hover {
-    background-color: rgba(42, 43, 44, 0.541);
-    border-radius: 12px;
+.banner_card_container .banner_card_author:hover {
+    background-color: #f7f1e6;
+    border-radius: 20px;
 }
-.banner_card_author p{
+.banner_card_container.Dark .banner_card_author:hover {
+    background-color: #1c1f23c9;
+}
+.banner_card_container .banner_card_author p{
+    margin: 0;
+    color: rgb(43, 42, 42);
+    font-weight: 600;
+}
+.banner_card_container.Dark .banner_card_author p{
     margin: 0;
     color: rgb(155, 153, 153);
     font-weight: 600;
 }
 .banner_card_author_dp {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     /* margin: 0 5px; */
     border-radius: 100px;
     margin-right: 10px;

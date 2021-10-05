@@ -36,6 +36,7 @@ const Articles = (props) => {
                                     bannerimage={blog.bannerimage}
                                     minread={blog.minread}
                                     dateposted={blog.dateposted}
+                                    darkmode={props.darkmode}
                                     articleBookmarkHandler={articleBookmarkHandler}
                                     authorClicked={authorClickedHandler}
                                     articleClicked={articleClickedHandler} />
@@ -52,6 +53,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
+        darkmode: state.blog.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {

@@ -20,7 +20,7 @@ const Atheneum = (props) => {
         props.history.push(`/profile/${id}`)
     }
     return (
-            <div className={classes.OgleBanner}>
+            <div className={!props.darkmode ? classes.OgleBanner : [classes.OgleBanner, classes.Dark].join(' ')}>
             <div className={classes.OgleBannerMain}>
                 <BannerCard
                     id={props.bannerblog.id}
@@ -31,6 +31,7 @@ const Atheneum = (props) => {
                     bannerimage={props.bannerblog.bannerimage}
                     minread={props.bannerblog.minread}
                     dateposted={props.bannerblog.dateposted}
+                    darkmode={props.darkmode}
                     articleClicked={articleClickedHandler}
                     authorClicked={authorClickedHandler}
                     articleBookmarkHandler={articleBookmarkHandler} />
@@ -48,6 +49,7 @@ const Atheneum = (props) => {
                             bannerimage={blog.bannerimage}
                             minread={blog.minread}
                             dateposted={blog.dateposted}
+                            darkmode={props.darkmode}
                             articleClicked={articleClickedHandler}
                             authorClicked={authorClickedHandler}
                             articleBookmarkHandler={articleBookmarkHandler} />
@@ -61,7 +63,8 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
-        homepageloading: state.blog.homepageloading
+        homepageloading: state.blog.homepageloading,
+        darkmode: state.blog.darkmode,
     }
 }
 const mapDispatchToProps = dispatch => {

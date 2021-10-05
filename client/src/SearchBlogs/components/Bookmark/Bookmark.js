@@ -28,7 +28,7 @@ const Bookmark = props => {
         props.history.push(`/profile/${id}`)
     }
     return (
-        <div className={classes.userBookmarksContainer}>
+        <div className={props.darkmode ? [classes.userBookmarksContainer, classes.Dark].join(' ') : classes.userBookmarksContainer}>
             <div className={classes.userBookmarksAuthorContainer}>
                 <div className={classes.userBookmarksHeading}>Bookmarks</div>
                 {props.loading ?
@@ -50,6 +50,7 @@ const Bookmark = props => {
                                                 bannerimage={blog.bannerimage}
                                                 minread={blog.minread}
                                                 dateposted={blog.dateposted}
+                                                darkmode={props.darkmode}
                                                 articleClicked={articleClickedHandler}
                                                 authorClicked={authorClickedHandler}
                                                 articleBookmarkHandler={articleBookmarkHandler} />
@@ -74,7 +75,8 @@ const mapStatetoProps = state => {
         token: state.auth.token,
         loading: state.auth.bookmarkloading,
         userid: state.auth.userid,
-        userBookmarks: state.auth.userBookmarks
+        userBookmarks: state.auth.userBookmarks,
+        darkmode: state.blog.darkmode
     }
 }
 

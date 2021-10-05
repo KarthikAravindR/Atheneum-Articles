@@ -16,7 +16,7 @@ const Search = (props) => {
         }
     }
     return (
-        <form className="form1" onSubmit={searchTaskHandler1}>
+        <form className={props.darkmode ? "form1 Dark" : "form1"} onSubmit={searchTaskHandler1}>
             <button className="buttonserach" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
             <input
                 className="searchbar1"
@@ -26,6 +26,11 @@ const Search = (props) => {
             />
         </form>
     )
+}
+const mapStateToProps = state => {
+    return {
+        darkmode: state.blog.darkmode
+    }
 }
 const mapDispatchToState = dispatch => {
     return {
@@ -37,4 +42,4 @@ const mapDispatchToState = dispatch => {
         onblackshoes: () => { dispatch({ type: "BLACK_SHOES_ONLY" }) },
     }
 }
-export default withRouter(connect(null, mapDispatchToState)(Search))
+export default withRouter(connect(mapStateToProps, mapDispatchToState)(Search))

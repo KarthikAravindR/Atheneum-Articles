@@ -42,7 +42,7 @@ const HomeHeader = props => {
     }
     return (
         <div>
-            <div className="homeheaderwrapper" style={shrunk ? { boxShadow: "0 0 10px rgba(0, 0, 0, 0.35)", height: "min-content" } : { boxShadow: "none", height: "100px" }}>
+            <div className={props.darkmode ? "homeheaderwrapper Dark" :"homeheaderwrapper"} style={shrunk ? { boxShadow: "0 0 10px rgba(0, 0, 0, 0.35)", height: "min-content" } : { boxShadow: "none", height: "100px" }}>
                 <div className='homeheaderLogo' onClick={redirectToHomeHandler}>
                     <Logo />
                     <p>Atheneum</p>
@@ -66,6 +66,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
+        darkmode: state.blog.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {

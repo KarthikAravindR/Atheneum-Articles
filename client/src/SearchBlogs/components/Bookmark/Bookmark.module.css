@@ -1,18 +1,25 @@
-
 .userBookmarksContainer{ 
-    margin-top: 110px;
-    padding: 0 120px;
+    min-height: 100vh;
+    height: auto;
+    padding: 110px 120px;
+    background-color: #ffffff;
+}
+.userBookmarksContainer.Dark{ 
+    background-color: #090B10;
 }
 .userBookmarksAuthorContainer{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
-.userBookmarksHeading{
-    color: white;
+.userBookmarksContainer .userBookmarksHeading{
+    color: black;
     margin: 20px 0;
     font-size: 2rem;
     border-bottom: 1px solid #FFc038;
+}
+.userBookmarksContainer.Dark .userBookmarksHeading{
+    color: white;
 }
 .bookmarkcontentempty{
     margin: 50px auto;
@@ -30,17 +37,18 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    /* padding-right: 30px; */
     box-sizing: border-box;
 }
-.userBookmarksCardContainer{
+.userBookmarksContainer .userBookmarksCardContainer{
     width: 100%;
     box-sizing: border-box;
-    background-color: #141718;
+    background-color: #f7f1e6;
     padding: 20px 20px 5px 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    /* flex-direction: column; */
+}
+.userBookmarksContainer.Dark .userBookmarksCardContainer{
+    background-color: #1c1f23c9;
 }
 .skeltonLoading{
     width: 100%;

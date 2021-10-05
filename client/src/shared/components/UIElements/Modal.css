@@ -15,18 +15,7 @@
     text-align: left;
     border-radius: 12px;
 }
-.modalbuttonclose{
-    width:100%;
-    text-align: left;
-    box-sizing: border-box;
-}
-.modalbuttonclose button{
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: #B35639;
-    border: 1px solid #B35639;
-}
+
 .modal_action_buttons{
     display: flex;
     width: 100%;

@@ -51,9 +51,9 @@ const Profile = props => {
         <div className={classes.searchContainer}>
             {props.Profileloading ?
                 <div className={classes.skeltonLoading}>
-                    <ProfileSkeleton />
+                    <ProfileSkeleton /> Performance
                 </div> :
-                <div className={classes.profileContainer}>
+                <div className={props.darkmode ? [classes.profileContainer, classes.Dark].join(' ') : classes.profileContainer }>
                     <div className={classes.profilePerson}>
                         <div className={classes.profilePicture}><img src={props.image} alt="dp" /></div>
                         {(match.params.id === props.userid) && <ProfilePictureUpload uploadimage={newimageHandler} />}
@@ -96,7 +96,8 @@ const mapStateToProps = state => {
         image: state.auth.Profileimage,
         userProfession: state.auth.profession,
         userBlogs: state.auth.ProfileuserBlogs,
-        userBio: state.auth.bio
+        userBio: state.auth.bio,
+        darkmode: state.blog.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {

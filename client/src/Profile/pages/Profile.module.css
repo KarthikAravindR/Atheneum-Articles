@@ -1,8 +1,11 @@
 .profileContainer {
     width: 100%;
-    padding: 20px 120px;
+    padding: 100px 120px;
     height: max-content;
-    margin-top: 110px;
+    background-color: white;
+}
+.profileContainer.Dark {
+    background-color: #090B10;
 }
 
 .profilePerson {
@@ -38,23 +41,23 @@
     border-radius: 50%;
 }
 
-.profileEditPicture {
-    background-color: rgba(24, 24, 24, 0);
-    border: 1px solid rgba(24, 24, 24, 0);
-    color: rgb(211, 211, 211);
-    margin: 5px 0 0 110px;
-}
-
-.profileUsername {
+.profileContainer .profileUsername {
     margin: 10px 0 0 0;
     font-size: 3rem;
     text-align: center;
+    color: black;
+}
+.profileContainer.Dark .profileUsername {
     color: white;
 }
 
-.profileuserProfession {
+.profileContainer .profileuserProfession {
     display: flex;
     justify-content: center;
+    color: black;
+}
+.profileContainer.Dark .profileuserProfession {
+    color: white;
 }
 
 .profileuserProfession button {
@@ -64,8 +67,13 @@
     margin-left: 10px;
 }
 
-.profileuserBio {
+.profileContainer .profileuserBio {
     width: 100%;
+    color: black;
+}
+.profileContainer.Dark .profileuserBio {
+    width: 100%;
+    color: white;
 }
 
 .profileuserBio button {
@@ -109,27 +117,27 @@
     margin: 0;
     font-size: 1rem;
     text-align: center;
-    color: rgb(160, 160, 160);
     border-bottom: 1px solid #FFC038;
     text-transform: capitalize;
 }
 
-.profileBio {
+.profileContainer .profileBio {
     width: 100%;
     padding: 20px;
-    background-color: rgba(64, 65, 65, 0.329);
+    background-color: #f7f1e6;
     text-align: center;
     font-size: 2rem;
     margin-top: 40px;
     border-radius: 12px;
-    color: white;
     text-transform: capitalize;
+}
+.profileContainer.Dark .profileBio {
+    background-color: #1c1f23c9;
 }
 
 .profileEditBio {
     text-align: left;
     margin-top: 40px;
-    color: rgb(160, 160, 160);
 }
 
 .profileEditBio p {

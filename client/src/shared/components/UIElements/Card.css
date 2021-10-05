@@ -5,9 +5,15 @@
     display: flex;
     text-align: left;
     margin-bottom: 30px;
-    color: rgb(226, 225, 225);
+    color: rgb(43, 42, 42);
     cursor: pointer;
+    border-top: 1px solid rgb(219, 215, 215);
+    padding-top: 10px;
     /* background-color: red; */
+}
+.normal_card_container.Dark{
+    color: rgb(226, 225, 225);
+    border-top: 1px solid rgb(26, 26, 26);
 }
 .normal_card_image {
     width: 30%;
@@ -26,7 +32,12 @@
     /* padding-bottom: 30px;    */
     box-sizing: border-box;
 }
-.normal_card_details p {
+.normal_card_container .normal_card_details p {
+    color: rgb(43, 42, 42);
+    font-size: .8rem;
+    margin: 0;
+}
+.normal_card_container.Dark .normal_card_details p {
     color: rgb(116, 114, 114);
     font-size: .8rem;
     margin: 0;
@@ -37,9 +48,12 @@
     margin-bottom: 20px;
     align-items: center;
 }
-.normal_card_author:hover {
-    background-color: rgba(42, 43, 44, 0.541);
-    border-radius: 12px;
+.normal_card_container .normal_card_author:hover {
+    background-color: #f7f1e6;
+    border-radius: 20px;
+}
+.normal_card_container.Dark .normal_card_author:hover {
+    background-color: #1c1f23c9;
 }
 .normal_card_author p {
     color: rgb(155, 153, 153);

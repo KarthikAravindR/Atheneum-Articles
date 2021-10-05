@@ -27,7 +27,7 @@ const App = (props) => {
     },[onAutoSignUp])
 
     return (
-      <div className="App">
+      <div className={props.darkmode ? "App Dark" : "App"}>
         <BrowserRouter>
           <Suspense fallback={<div className="centerLoading"><Spinner /></div>}>
             {/* <Toast /> */}
@@ -72,7 +72,8 @@ const App = (props) => {
 }
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    darkmode: state.blog.darkmode
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -11,9 +11,12 @@
     height: 80px;
     z-index: 2;
     transition: transform 0.4s;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff ;
+}
+.trigger-menu-wrapper.Dark {
     color: rgb(226, 225, 225);
-    background-color: #0B0F10 ;
-    /* font-family: 'PT Serif', serif; */
+    background-color: #090B10 ;
 }
 .page-header .trigger-menu {
     display: flex;

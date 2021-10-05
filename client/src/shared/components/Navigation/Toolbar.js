@@ -51,7 +51,7 @@ const Toolbar = props => {
     return (
         <header className={`page-header`}>
             <nav>
-                <div className="trigger-menu-wrapper">
+                <div className={props.darkmode ? "trigger-menu-wrapper Dark" : "trigger-menu-wrapper"}>
                     <div className='ToolbarLogo' onClick={redirectToHomeHandler}>
                         <Logo />
                         <p>Atheneum</p>
@@ -73,6 +73,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
+        darkmode: state.blog.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {
