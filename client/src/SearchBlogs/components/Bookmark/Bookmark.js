@@ -76,7 +76,7 @@ const mapStatetoProps = state => {
         loading: state.auth.bookmarkloading,
         userid: state.auth.userid,
         userBookmarks: state.auth.userBookmarks,
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode
     }
 }
 

@@ -10,22 +10,17 @@ import SkeletonOne from "../../shared/components/Skeleton/SkeletonOne";
 import SkeletonTwo from "../../shared/components/Skeleton/SkeletonTwo";
 
 const Home = (props) => {
-  const { onFetchAllBlogs } = props;
+  const { onFetchLatestBlogs } = props;
   React.useEffect(() => {
-    onFetchAllBlogs();
-  }, [onFetchAllBlogs]);
+    onFetchLatestBlogs();
+  }, [onFetchLatestBlogs]);
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    return () => {props.onClearState()}
   }, []);
   const allblogs = [...props.blogs];
-  let mostViewedblogs = [...props.blogs];
   let bannerblog = allblogs.pop();
-  let lastfourcards = allblogs.splice(-4);
-  let articlecards = allblogs.splice(-5);
-  mostViewedblogs.sort((a, b) => {
-    return b.views - a.views;
-  });
-  mostViewedblogs = mostViewedblogs.slice(0, 6);
+  let lastfourcards = allblogs.splice(-4).reverse();
   return (
     <div>
       {props.homepageloading ? (
@@ -38,27 +33,19 @@ const Home = (props) => {
           </div>
         </div>
       ) : (
-        <div className="skeleton_container">
-        <div className="skeleton_container_one">
-          <SkeletonOne />
+        <div>
+          {props.blogs[0] && (
+            <div
+              className={
+                props.darkmode ? "HomeContainer Dark" : "HomeContainer"
+              }
+            >
+              <Atheneum bannerblog={bannerblog} lastfourcards={lastfourcards} />
+              {props.firstloaddone && <MostViewed />}
+              {props.firstloaddone && <Articles />}
+            </div>
+          )}
         </div>
-        <div className="skeleton_container_two">
-          <SkeletonTwo />
-        </div>
-      </div>
-        // <div>
-        //   {props.blogs[0] && (
-        //     <div
-        //       className={
-        //         props.darkmode ? "HomeContainer Dark" : "HomeContainer"
-        //       }
-        //     >
-        //       <Atheneum bannerblog={bannerblog} lastfourcards={lastfourcards} />
-        //       <MostViewed mostViewedblogs={mostViewedblogs} />
-        //       <Articles articlecards={articlecards} />
-        //     </div>
-        //   )}
-        // </div>
       )}
     </div>
   );
@@ -68,13 +55,16 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     blogs: state.blog.blogs,
+    remblogs: state.blog.remblogs,
+    firstloaddone: state.blog.firstloaddone,
     homepageloading: state.blog.homepageloading,
-    darkmode: state.blog.darkmode,
+    darkmode: state.auth.darkmode,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchAllBlogs: () => dispatch(actions.fetchAllBlogs()),
+    onFetchLatestBlogs: () => dispatch(actions.fetchLatestBlogs()),
+    onClearState: () => dispatch({type: "CLEAR_STATE"}),
   };
 };
 

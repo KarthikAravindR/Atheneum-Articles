@@ -15,6 +15,7 @@ export {
 
 export {
     publishBlog,
+    fetchLatestBlogs,
     fetchAllBlogs,
     fetchParticularBlog,
     fetchQueriedBlog,

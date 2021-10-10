@@ -48,6 +48,38 @@ export const publishBlog = (token, userid, username, image, dateposted, minread,
     }
 }
 
+export const fetchLatestBlogsStart = () => {
+    return {
+        type: actionTypes.FETCH_LATEST_BLOGS_START
+    }
+}
+export const fetchLatestBlogsSuccess = (blog) => {
+    return {
+        type: actionTypes.FETCH_LATEST_BLOGS_SUCCESS,
+        blog: blog
+    }
+}
+export const fetchLatestBlogsFailed = (error) => {
+    return {
+        type: actionTypes.FETCH_LATEST_BLOGS_FAILED,
+        error: error
+    }
+}
+export const fetchLatestBlogs = () => {
+    return dispatch => {
+        dispatch(fetchLatestBlogsStart())
+        let url = process.env.REACT_APP_BACKEND_URL + '/get/latestblogs'
+        axios.get(url)
+            .then(response => {
+                console.log("latest => ",response)
+                dispatch(fetchLatestBlogsSuccess(response.data.blogs))
+            })
+            .catch(error => {
+                dispatch(fetchLatestBlogsFailed(error))
+            })
+    }
+}
+
 export const fetchAllBlogsStart = () => {
     return {
         type: actionTypes.FETCH_BLOGS_START
@@ -71,7 +103,7 @@ export const fetchAllBlogs = () => {
         let url = process.env.REACT_APP_BACKEND_URL + '/get/blogs'
         axios.get(url)
             .then(response => {
-                console.log(response)
+                console.log("rem => ",response)
                 dispatch(fetchAllBlogsSuccess(response.data.blogs))
             })
             .catch(error => {

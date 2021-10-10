@@ -51,7 +51,7 @@ const Profile = props => {
         <div className={classes.searchContainer}>
             {props.Profileloading ?
                 <div className={classes.skeltonLoading}>
-                    <ProfileSkeleton /> Performance_Improvement
+                    <ProfileSkeleton />
                 </div> :
                 <div className={props.darkmode ? [classes.profileContainer, classes.Dark].join(' ') : classes.profileContainer }>
                     <div className={classes.profilePerson}>
@@ -97,7 +97,7 @@ const mapStateToProps = state => {
         userProfession: state.auth.profession,
         userBlogs: state.auth.ProfileuserBlogs,
         userBio: state.auth.bio,
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {

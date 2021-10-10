@@ -1,8 +1,7 @@
 .Container{
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
-    margin-top: 60px;
-    padding: 50px 0;
+    padding: 110px 0;
 }
 .Container.Dark{
     color: rgb(255, 255, 255);
@@ -127,7 +126,8 @@
 }
 .skeltonLoading{
     width: 800px;
-    margin: 110px auto 0 auto;
+    margin: 0 auto;
+    padding-top: 110px;
 }
 .userlikes{
     float: right;
@@ -148,7 +148,7 @@
 }
 @media (max-width: 1200px) {
     .Container{
-        padding: 20px;
+        padding: 110px 20px;
         margin-top: 70px;
         width: 100%;
     }

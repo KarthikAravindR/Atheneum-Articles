@@ -27,6 +27,7 @@ const inditialState = {
     modalShow: false,
     modalblogid: '',
     modalblogtitle: '',
+    darkmode: false
 }
 
 const reducer = (state = inditialState, action) => {
@@ -220,6 +221,11 @@ const reducer = (state = inditialState, action) => {
                 modalShow: false,
                 modalblogid: '',
                 modalblogtitle: '',
+            }
+        case 'DARK_MODE':
+            return {
+                ...state,
+                darkmode: !state.darkmode
             }
         default:
             return state

@@ -29,7 +29,7 @@ const Search = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode
     }
 }
 const mapDispatchToState = dispatch => {

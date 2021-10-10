@@ -29,7 +29,7 @@ const Avatar = (props) => {
         <Link className="dropdown-item" to="/">Coupons</Link>
         <Link className="dropdown-item" to="/" >Contact Us</Link>
         <div className="dropdown-divider"></div>
-        <div className="dropdown-item" onClick={props.onApplyDarkMode}>Dark mode</div>
+        <div className="dropdown-item" onClick={props.onApplyDarkMode}>Toggle {props.darkmode ? "Light mode" : "Dark mode"}</div>
         <div className="dropdown-divider"></div>
         {!props.isAuthenticated ?
           <Link className="dropdown-item" to="/auth" >Log In</Link>
@@ -47,7 +47,8 @@ const mapStateToProps = state => {
     userid: state.auth.userid,
     username: state.auth.username,
     token: state.auth.token,
-    image: state.auth.image
+    image: state.auth.image,
+    darkmode: state.auth.darkmode,
   }
 }
 const mapDispatchToProps = dispatch => {

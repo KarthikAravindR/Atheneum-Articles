@@ -82,7 +82,7 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
         userBlogs: state.auth.ProfileuserBlogs,
-        darkmode: state.blog.darkmode,
+        darkmode: state.auth.darkmode,
         modalShow: state.auth.modalShow,
         modalblogid: state.auth.modalblogid,
         modalblogtitle: state.auth.modalblogtitle,

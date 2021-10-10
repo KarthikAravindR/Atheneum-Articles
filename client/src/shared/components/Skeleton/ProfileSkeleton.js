@@ -1,14 +1,20 @@
 import React from 'react'
-import SkeletonTwo from '../Skeleton/SkeletonTwo'
+import { connect } from "react-redux";
+
 import './ProfileSkeleton.scss'
 
 const ProfileSkeleton = props => {
     return (
         <div className="profile_Skeleton_Container">        
-            <div className="profileSkeleton"></div>
-            <SkeletonTwo />
+            <div className={props.darkmode ? "profileSkeleton" : "profileSkeleton light"}></div>
         </div>
     )
 }
 
-export default ProfileSkeleton
+const mapStateToProps = (state) => {
+    return {
+        darkmode: state.blog.darkmode,
+    };
+};
+
+export default connect(mapStateToProps)(ProfileSkeleton)

@@ -89,7 +89,7 @@ const mapStatetoProps = (state) => {
     likeloading: state.auth.likeloading,
     userid: state.auth.userid,
     userLikes: state.auth.userLikes,
-    darkmode: state.blog.darkmode,
+    darkmode: state.auth.darkmode,
   };
 };
 

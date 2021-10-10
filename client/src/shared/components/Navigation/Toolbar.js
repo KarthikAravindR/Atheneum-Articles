@@ -73,7 +73,7 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode
     }
 }
 const mapDispatchToProps = dispatch => {

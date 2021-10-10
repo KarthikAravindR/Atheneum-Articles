@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router'
+import { useHistory, withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faThumbsUp } from '@fortawesome/free-regular-svg-icons'
@@ -50,6 +50,10 @@ const BlogViewHome = props => {
     const authorProfileHandler = authorId => {
         props.history.push(`/profile/${authorId}`)
     }
+    const history = useHistory()
+    let useSplit = history.location.pathname.split('/')
+    console.log('History => ', history)
+    console.log('useSplit => ', useSplit)
     return (
         <div>
             {props.blogloading ?
@@ -130,7 +134,7 @@ const mapStateToProps = state => {
         isbookmarked: state.blog.isbookmarked,
         isliked: state.blog.isliked,
         blogloading: state.blog.blogloading,
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode
     }
 }
 

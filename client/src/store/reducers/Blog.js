@@ -6,6 +6,8 @@ const initialState = {
     dateposted: null,
     minread: null,
     blogs: [],
+    firstloaddone: false,
+    remblogs: [],
     loadedblog: null,
     error: null,
     loading: false,
@@ -15,7 +17,6 @@ const initialState = {
     queriedBlogs: [],
     isbookmarked: false,
     isliked: false,
-    darkmode: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,21 +37,39 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.error
             }
-        case actionTypes.FETCH_BLOGS_START:
+        case actionTypes.FETCH_LATEST_BLOGS_START:
             return {
                 ...state,
                 homepageloading: true
             }
-        case actionTypes.FETCH_BLOGS_SUCCESS:
+        case actionTypes.FETCH_LATEST_BLOGS_SUCCESS:
             return {
                 ...state,
                 homepageloading: false,
+                firstloaddone: true,
                 blogs: action.blog,
+            }
+        case actionTypes.FETCH_LATEST_BLOGS_FAILED:
+            return {
+                ...state,
+                homepageloading: false,
+                error: action.error
+            }
+        case actionTypes.FETCH_BLOGS_START:
+            return {
+                ...state,
+                // homepageloading: true
+            }
+        case actionTypes.FETCH_BLOGS_SUCCESS:
+            return {
+                ...state,
+                // homepageloading: false,
+                remblogs: action.blog,
             }
         case actionTypes.FETCH_BLOGS_FAILED:
             return {
                 ...state,
-                homepageloading: false,
+                // homepageloading: false,
                 error: action.error
             }
         case actionTypes.FETCH_PARTICULAR_BLOG_START:
@@ -155,12 +174,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error
             }
-        case 'DARK_MODE':
+        case 'CLEAR_STATE':
+            console.log("clear state")
             return {
                 ...state,
-                darkmode: !state.darkmode
+                firstloaddone: false
             }
-
         default:
             return state
     }

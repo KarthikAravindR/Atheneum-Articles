@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import classes from './Articles.module.css'
 import * as actions from '../../../store/actions/index'
-// import BannerCard from '../../../shared/components/UIElements/BannerCard'
 import Card from '../../../shared/components/UIElements/Card'
 
 
@@ -24,7 +23,7 @@ const Articles = (props) => {
         <div className={classes.articleContainer}>
             <div className={classes.articleArticleAuthorContainer}>
                 <div className={classes.articleArticleContainer}>
-                    {props.articlecards && props.articlecards.map(blog => {
+                    {props.blogs[0] && props.blogs.map(blog => {
                         return (
                             <div className={classes.ArticleContainer} key={blog.id}>
                                 <Card
@@ -53,7 +52,8 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         userid: state.auth.userid,
-        darkmode: state.blog.darkmode
+        darkmode: state.auth.darkmode,
+        blogs: state.blog.remblogs,
     }
 }
 const mapDispatchToProps = dispatch => {

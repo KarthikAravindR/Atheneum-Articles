@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
     searchloading: state.blog.searchloading,
     isAuthenticated: state.auth.token !== null,
     userid: state.auth.userid,
-    darkmode: state.blog.darkmode,
+    darkmode: state.auth.darkmode,
   };
 };
 

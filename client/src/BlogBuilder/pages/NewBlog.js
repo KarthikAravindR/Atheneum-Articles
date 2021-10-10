@@ -219,7 +219,7 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     image: state.auth.image,
     loading: state.blog.loading,
-    darkmode: state.blog.darkmode,
+    darkmode: state.auth.darkmode,
     modalShow: state.auth.modalShow,
   };
 };

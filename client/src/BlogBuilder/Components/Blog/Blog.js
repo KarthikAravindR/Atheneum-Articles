@@ -1,5 +1,5 @@
 import React from "react";
-import QuillEditor from "./Quill";
+// import QuillEditor from "./Quill";
 import classes from "./Blog.module.css";
 import Image from "../Image/Image";
 import autosize from "autosize";

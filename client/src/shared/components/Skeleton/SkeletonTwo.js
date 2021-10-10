@@ -1,16 +1,23 @@
-import React from 'react'
+import React from "react";
+import { connect } from "react-redux";
 // import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import './SkeletonTwo.scss'
+import "./SkeletonTwo.scss";
 
-const SkeletonTwo = props => {
-    return (
-        <div>
-            <div className="skeleton2"></div>
-            <div className="skeleton2"></div>
-            <div className="skeleton2"></div>
-            <div className="skeleton2"></div>
-        </div>
-    )
-}
+const SkeletonTwo = (props) => {
+  return (
+    <div>
+      <div className={props.darkmode ? "skeleton2" : "skeleton2 light"} ></div>
+      <div className={props.darkmode ? "skeleton2" : "skeleton2 light"} ></div>
+      <div className={props.darkmode ? "skeleton2" : "skeleton2 light"} ></div>
+      <div className={props.darkmode ? "skeleton2" : "skeleton2 light"} ></div>
+    </div>
+  );
+};
 
-export default SkeletonTwo
+const mapStateToProps = (state) => {
+  return {
+    darkmode: state.blog.darkmode,
+  };
+};
+
+export default connect(mapStateToProps)(SkeletonTwo);
