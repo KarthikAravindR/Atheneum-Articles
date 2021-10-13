@@ -10,13 +10,14 @@ import SkeletonOne from "../../shared/components/Skeleton/SkeletonOne";
 import SkeletonTwo from "../../shared/components/Skeleton/SkeletonTwo";
 
 const Home = (props) => {
-  const { onFetchLatestBlogs } = props;
+  const { onFetchLatestBlogs, onClearState } = props;
   React.useEffect(() => {
     onFetchLatestBlogs();
   }, [onFetchLatestBlogs]);
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    return () => {props.onClearState()}
+    return () => {onClearState()}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const allblogs = [...props.blogs];
   let bannerblog = allblogs.pop();

@@ -44,3 +44,14 @@
     background-color: #1c1f23cb ;
     color: rgb(255, 255, 255);
 }
+@media (max-width: 800px) {
+    .writearea{
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+    .title{
+        font-size: 1.3rem;
+        height: 70px;
+        margin-bottom: 10px;
+    }
+}

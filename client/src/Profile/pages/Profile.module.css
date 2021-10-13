@@ -214,10 +214,10 @@
 }
 @media (max-width: 800px) {
     .profileContainer {
-        padding: 20px;
+        padding: 110px 20px 0 20px;
     }
     .skeltonLoading{
-        margin: 100px auto 0 auto;
+        margin: 0 auto;
         width: 100%;
         color: white;
         padding: 110px 20px 0 20px;
@@ -225,7 +225,7 @@
 }
 @media (max-width: 600px) {
     .profileContainer {
-        padding: 10px;
+        padding: 110px 10px 0 10px;
     }
     .skeltonLoading{
         padding: 110px 10px 0 10px;

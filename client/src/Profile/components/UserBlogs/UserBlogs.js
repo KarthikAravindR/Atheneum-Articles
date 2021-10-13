@@ -38,7 +38,7 @@ const UserBlogs = props => {
                     <div className={classes.userBookmarksimageContainer}>
                         {props.userBlogs[0] ?
                             <div>
-                                {props.userBlogs && props.userBlogs.map(blog => {
+                                {props.userBlogs && props.userBlogs.reverse().map(blog => {
                                     return (
                                         <div className={classes.userBlogCardContainer} key={blog._id}>
                                             {(props.match.params.id === props.userid) &&

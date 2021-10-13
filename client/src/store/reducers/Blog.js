@@ -17,6 +17,7 @@ const initialState = {
     queriedBlogs: [],
     isbookmarked: false,
     isliked: false,
+    blogPublished: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +31,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                blogPublished: true,
             }
         case actionTypes.PUBLISH_BLOG_FAILED:
             return {
@@ -179,6 +181,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 firstloaddone: false
+            }
+        case 'PUBLISH_BLOG_RESET':
+            console.log("PUBLISH_BLOG_RESET")
+            return {
+                ...state,
+                blogPublished: false
             }
         default:
             return state

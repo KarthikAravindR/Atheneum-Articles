@@ -10,8 +10,13 @@ import * as actions from "../../store/actions/index";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 const NewBlog = (props) => {
+  const { onPublishBlogReset } = props;
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    return () => {
+      onPublishBlogReset();
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [blogs, setBlogs] = useState([
     {
@@ -171,9 +176,8 @@ const NewBlog = (props) => {
       secondfilterarray[0].content,
       bannerimage
     );
-    // setTimeout(() => {
-    //      props.loading && props.history.push('/')
-    // }, 5000)
+    props.blogPublished && console.log('true')
+    props.blogPublished && props.history.push("/");
   };
   return (
     <div
@@ -221,6 +225,7 @@ const mapStateToProps = (state) => {
     loading: state.blog.loading,
     darkmode: state.auth.darkmode,
     modalShow: state.auth.modalShow,
+    blogPublished: state.blog.blogPublished,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -254,6 +259,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onModalClose: () => {
       dispatch({ type: "MODAL_CLOSE" });
+    },
+    onPublishBlogReset: () => {
+      dispatch({ type: "PUBLISH_BLOG_RESET" });
     },
   };
 };
